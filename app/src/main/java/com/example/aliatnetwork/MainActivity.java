@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         txtsignal= findViewById(R.id.txtsignal);
 
         //test git hub
-        System.out.println("test github");
+        System.out.println("test github sample");
 
            // check if we have permission to get our location in manifest xml file
         try {
