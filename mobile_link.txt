@@ -1,0 +1,20 @@
+speed test
+https://github.com/egcodes/speed-test/tree/master/app
+
+
+Correct SignalStrength 
+https://www.tutorialspoint.com/how-to-get-signal-strength-in-android
+
+
+
+how to define connectivity to mobile WIFI or MOBILE DATA
+https://www.javatpoint.com/android-network-connectivity-services
+
+review whne needed
+https://www.tutorialspoint.com/how-to-start-new-activity-on-click-button-in-android
+
+
+Network
+https://riptutorial.com/android/example/18294/how-to-check-network-strengt
+
+

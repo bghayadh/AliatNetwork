@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0A5EA8"
+    >
+
+    <Button
+        android:id="@+id/btnprevious"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="PREVIOUS"
+        android:layout_marginStart="1dp"
+        android:backgroundTint="@color/red"
+        android:drawableLeft="@drawable/ic_previous_foreground"
+        />
+
+    <Button
+        android:id="@+id/btnnext"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="NEXT"
+        android:layout_marginRight="1dp"
+        android:backgroundTint="@color/red"
+        android:layout_toRightOf="@+id/btnprevious"
+        android:drawableRight="@drawable/ic_next_foreground"
+        android:layout_marginStart="10dp"
+        />
+    <!--  Show date selected -->
+    <TextView
+        android:id="@+id/editTextDate"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/btnprevious"
+        android:ems="10"
+        android:layout_marginTop="10dp"
+        android:text=""
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:inputType="date" />
+    <!--  Button to get selected date -->
+    <Button
+        android:id="@+id/btnrundate"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_toRightOf="@+id/editTextDate"
+        android:layout_below="@+id/btnnext"
+        android:backgroundTint="@color/silver"
+        android:layout_marginRight="1dp"
+        android:text="Select Date"
+        android:textColor="#0A5EA8"
+        android:layout_marginStart="10dp"
+        />
+
+
+
+    <TextView
+        android:layout_width="65dp"
+        android:layout_height="20dp"
+        android:id="@+id/headerupload"
+        android:text="Signal "
+        android:layout_below="@+id/editTextDate"
+        android:textStyle="bold|italic"
+        android:textSize="15dp"
+        android:textColor="@color/yellowheader"
+        android:textAlignment="center"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="20dp"
+        android:id="@+id/headerlat"
+        android:text="Latitude "
+        android:layout_below="@+id/editTextDate"
+        android:layout_toRightOf="@+id/headerupload"
+        android:textStyle="bold|italic"
+        android:textColor="@color/yellowheader"
+        android:textSize="15dp"
+        android:textAlignment="center"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:layout_width="78dp"
+        android:layout_height="20dp"
+        android:id="@+id/headerlng"
+        android:text="Longitude "
+        android:layout_below="@+id/editTextDate"
+        android:layout_toRightOf="@+id/headerlat"
+        android:textStyle="bold|italic"
+        android:textColor="@color/yellowheader"
+        android:textSize="15dp"
+        android:layout_marginStart="10dp"
+        android:textAlignment="center"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:id="@+id/headerdate"
+        android:text="Date "
+        android:layout_below="@+id/editTextDate"
+        android:layout_toRightOf="@+id/headerlng"
+        android:textStyle="bold|italic"
+        android:textColor="@color/yellowheader"
+        android:textSize="15dp"
+        android:textAlignment="center"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/coveragesRecView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/headerupload"
+        android:scrollbarSize="12dp"
+        android:scrollbars="vertical"
+        android:layout_marginTop="10dp"
+        tools:layout_editor_absoluteX="191dp"
+      />
+
+
+</RelativeLayout>

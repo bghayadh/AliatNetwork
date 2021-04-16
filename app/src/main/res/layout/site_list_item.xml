@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="3dp"
+    android:id="@+id/parent">
+
+
+    <!-- this is how to add underline LIne in recylcer -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#F50CFA03" />
+
+    <TextView
+        android:layout_width="133dp"
+        android:layout_height="20dp"
+        android:id="@+id/txtwareid"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:layout_marginTop="5dp"
+        />
+
+    <TextView
+        android:layout_width="133dp"
+        android:layout_height="20dp"
+        android:id="@+id/txtsiteid"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/txtwareid"
+        />
+
+    <TextView
+        android:layout_width="133dp"
+        android:layout_height="20dp"
+        android:id="@+id/txtwarename"
+        android:textStyle="bold"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/txtsiteid"
+        />
+
+    <TextView
+        android:layout_width="133dp"
+        android:layout_height="20dp"
+        android:id="@+id/txtwareaddr"
+        android:layout_below="@+id/txtwareid"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:layout_marginTop="5dp"
+        />
+
+    <TextView
+        android:layout_width="133dp"
+        android:layout_height="20dp"
+        android:id="@+id/txtwarelat"
+        android:layout_below="@+id/txtwareid"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/txtwareaddr"
+         />
+    <TextView
+        android:layout_width="133dp"
+        android:layout_height="20dp"
+        android:id="@+id/txtwarelng"
+        android:textStyle="bold"
+        android:layout_below="@+id/txtwareid"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/txtwarelat"
+        />
+
+
+
+
+</RelativeLayout>

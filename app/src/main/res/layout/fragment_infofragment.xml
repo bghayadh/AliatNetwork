@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0A5EA8"
+    tools:context=".Infofragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:text="Info_fragment"
+        android:id="@+id/txttest"/>
+   <!-- Add textwarename -->
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="Ware Name"
+        android:layout_marginTop="12dp"
+        android:textColor="#29f803"
+        android:textSize="18dp"
+        android:layout_below="@+id/txttest"
+        android:backgroundTint="@null"
+        android:id="@+id/txtwarename"/>
+
+    <EditText
+        android:id="@+id/editTextwareName"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:textColor="@color/yellow"
+        android:layout_marginStart="5dp"
+        android:layout_below="@+id/txttest"
+        android:layout_toRightOf="@+id/txtwarename"
+        android:text="Ware name" />
+
+    <!-- Add texcity -->
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="City"
+        android:layout_marginTop="12dp"
+        android:textColor="#29f803"
+        android:textSize="18dp"
+        android:layout_below="@+id/txtwarename"
+        android:backgroundTint="@null"
+        android:id="@+id/txtcity"/>
+
+    <EditText
+        android:id="@+id/editTextcity"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:textColor="@color/yellow"
+        android:layout_marginStart="5dp"
+        android:layout_below="@+id/txtwarename"
+        android:layout_toRightOf="@+id/txtcity"
+        android:text="City" />
+
+    <!-- Add texaddress -->
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="Address"
+        android:layout_marginTop="12dp"
+        android:textColor="#29f803"
+        android:textSize="18dp"
+        android:layout_below="@+id/txtcity"
+        android:backgroundTint="@null"
+        android:id="@+id/txtaddress"/>
+
+    <EditText
+        android:id="@+id/editTextaddress"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:textColor="@color/yellow"
+        android:layout_marginStart="5dp"
+        android:layout_below="@+id/txtcity"
+        android:layout_toRightOf="@+id/txtaddress"
+        android:text="Address" />
+
+    <!-- Add texlongitude -->
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="Longitude"
+        android:layout_marginTop="12dp"
+        android:textColor="#29f803"
+        android:textSize="18dp"
+        android:layout_below="@+id/txtaddress"
+        android:backgroundTint="@null"
+        android:id="@+id/txtlongitude"/>
+
+    <EditText
+        android:id="@+id/editTextlongitude"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:textColor="@color/yellow"
+        android:layout_marginStart="5dp"
+        android:layout_below="@+id/txtlongitude"
+        android:layout_toRightOf="@+id/txtlongitude"
+        android:enabled="false"
+        android:text="0" />
+
+    <!-- Add texlatitude -->
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="Latitude"
+        android:layout_marginTop="12dp"
+        android:textColor="#29f803"
+        android:textSize="18dp"
+        android:layout_below="@+id/txtlongitude"
+        android:backgroundTint="@null"
+        android:id="@+id/txtlatitude"/>
+
+    <EditText
+        android:id="@+id/editTextlatitude"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:textColor="@color/yellow"
+        android:layout_marginStart="5dp"
+        android:layout_below="@+id/txtaddress"
+        android:layout_toRightOf="@+id/txtlongitude"
+        android:enabled="false"
+        android:text="0" />
+
+    <!-- Add check tech 2G-->
+    <CheckBox
+        android:id="@+id/checktech2G"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:textColor="#29f803"
+        android:textSize="18dp"
+        android:layout_below="@+id/txtlatitude"
+        android:text="2G" />
+
+    <!-- Add check tech 3G-->
+    <CheckBox
+        android:id="@+id/checktech3G"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:textColor="#29f803"
+        android:textSize="18dp"
+        android:layout_marginStart="15dp"
+        android:layout_below="@+id/txtlatitude"
+        android:layout_toRightOf="@+id/checktech2G"
+        android:text="3G" />
+
+    <!-- Add check tech 4G-->
+    <CheckBox
+        android:id="@+id/checktech4G"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:textColor="#29f803"
+        android:textSize="18dp"
+        android:layout_marginStart="15dp"
+        android:layout_below="@+id/txtlatitude"
+        android:layout_toRightOf="@+id/checktech3G"
+        android:text="4G" />
+
+    <!-- Add check tech 5G-->
+    <CheckBox
+        android:id="@+id/checktech5G"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:textColor="#29f803"
+        android:textSize="18dp"
+        android:layout_marginStart="15dp"
+        android:layout_below="@+id/txtlatitude"
+        android:layout_toRightOf="@+id/checktech4G"
+        android:text="5G" />
+
+    <!-- Add check if site or not-->
+    <CheckBox
+        android:id="@+id/checksite"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textColor="#29f803"
+        android:textSize="18dp"
+        android:layout_marginStart="20dp"
+        android:layout_below="@+id/txtlatitude"
+        android:layout_toRightOf="@+id/checktech5G"
+        android:text="Site" />
+
+    <Button
+        android:id="@+id/btnsave"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="3dp"
+        android:text="Save"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/red"
+        />
+
+    <Button
+        android:id="@+id/btndelete"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:text="Delete"
+        android:textStyle="bold"
+        android:layout_marginStart="5dp"
+        android:layout_toRightOf="@+id/btnsave"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/red"
+        />
+
+
+
+
+</RelativeLayout>

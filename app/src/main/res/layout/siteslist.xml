@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    >
+
+    <!-- Display images -->
+    <TextView
+        android:id="@+id/txtdisplay"
+        android:layout_width="130dp"
+        android:layout_height="25dp"
+        android:text="Display Photo"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:background="@color/red"
+        />
+
+    <!-- Add LINE -->
+    <TextView
+        android:id="@+id/txtline1"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="10dp"
+        android:text=""
+        android:background="@color/yellow"
+        android:layout_toRightOf="@+id/txtdisplay"
+        />
+
+    <!-- Add vertical LINE -->
+    <TextView
+        android:id="@+id/txtlinevertical1"
+        android:layout_width="5dp"
+        android:layout_height="270dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="70dp"
+        android:text=""
+        android:background="@color/yellow"
+        android:layout_toRightOf="@+id/txtdisplay"
+        />
+
+    <Button
+        android:id="@+id/btnpickimages"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="Select Photos"
+        android:textStyle="bold"
+        android:layout_marginStart="210dp"
+        android:layout_below="@+id/txtdisplay"
+        android:backgroundTint="@color/red"
+        />
+
+    <Button
+        android:id="@+id/btnftpimages"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/btnpickimages"
+        android:textStyle="bold"
+        android:layout_marginStart="210dp"
+        android:text="Upload Photos"
+        android:backgroundTint="@color/red"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Previous"
+        android:textStyle="bold"
+        android:layout_marginTop="100dp"
+        android:layout_below="@+id/btnftpimages"
+        android:layout_marginStart="210dp"
+        android:backgroundTint="@color/red"
+        android:id="@+id/previousBtn"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:textStyle="bold"
+        android:layout_marginTop="100dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/btnftpimages"
+        android:backgroundTint="@color/red"
+        android:id="@+id/nextBtn"/>
+    <ImageSwitcher
+        android:layout_width="200dp"
+        android:layout_height="250dp"
+        android:layout_below="@+id/txtdisplay"
+        android:padding="1dp"
+        android:id="@+id/imagesIs"/>
+
+    <!-- Add LINE -->
+    <TextView
+        android:id="@+id/txtline2"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:text=""
+        android:background="@color/yellow"
+        android:layout_below="@+id/imagesIs"
+        />
+
+
+
+</RelativeLayout>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0A5EA8"
+    tools:context=".Imagefragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imagefragment"
+        android:textColor="@color/yellow"
+        android:text="Image_fragment" />
+
+
+    <ImageSwitcher
+        android:layout_width="400dp"
+        android:layout_height="250dp"
+        android:layout_below="@+id/imagefragment"
+        android:layout_marginTop="10dp"
+        android:id="@+id/imagesIs"/>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:text="Previous"
+        android:layout_marginStart="1dp"
+        android:textStyle="bold"
+        android:layout_below="@+id/imagesIs"
+        android:backgroundTint="@color/red"
+        android:id="@+id/previousBtn"/>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:text="Next"
+        android:textStyle="bold"
+        android:layout_marginStart="5dp"
+        android:layout_toRightOf="@+id/previousBtn"
+        android:layout_marginRight="1dp"
+        android:layout_below="@+id/imagesIs"
+        android:backgroundTint="@color/red"
+        android:id="@+id/nextBtn"/>
+
+    <Button
+        android:id="@+id/btnpickimages"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:text="Select Photos"
+        android:layout_marginStart="1dp"
+        android:textStyle="bold"
+        android:layout_below="@+id/previousBtn"
+        android:backgroundTint="@color/red"
+        />
+
+    <Button
+        android:id="@+id/btnftpimages"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/previousBtn"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/btnpickimages"
+        android:layout_marginStart="5dp"
+        android:layout_marginRight="1dp"
+        android:text="Upload Photos"
+        android:backgroundTint="@color/red"
+        />
+
+
+
+
+
+
+
+
+
+
+
+</RelativeLayout>

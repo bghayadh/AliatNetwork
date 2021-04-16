@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:id="@+id/parent"
+   >
+
+
+    <!-- this is how to add underline LIne in recylcer -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#F50CFA03"
+        />
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="20dp"
+        android:text="Coverage test Info"
+        android:id="@+id/txtsignal"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:layout_marginTop="13dp"
+        />
+
+    <TextView
+        android:layout_width="122dp"
+        android:layout_height="20dp"
+        android:text="Speed test Info"
+        android:id="@+id/txtspdlat"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:layout_toRightOf="@+id/txtsignal"
+        android:layout_marginTop="13dp"
+        />
+    <TextView
+        android:layout_width="73dp"
+        android:layout_height="20dp"
+        android:text="Speed test Info"
+        android:id="@+id/txtspdlng"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:layout_marginStart="22dp"
+        android:layout_toRightOf="@+id/txtspdlat"
+        android:layout_marginTop="13dp"
+        />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:text="Speed test Info"
+        android:id="@+id/txtspddate"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:layout_marginStart="20dp"
+        android:layout_toRightOf="@+id/txtspdlng"
+        android:layout_marginTop="13dp"
+        />
+
+
+</RelativeLayout>

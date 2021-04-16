@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0A5EA8"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textwareid"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:text="Ware_ID"
+        android:textColor="@color/white"
+        tools:layout_editor_absoluteX="139dp"
+        tools:layout_editor_absoluteY="139dp" />
+
+    <TextView
+        android:id="@+id/txtwareid"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:text="TextView"
+        android:layout_marginStart="2dp"
+        android:layout_toRightOf="@+id/textwareid"
+        android:textColor="@color/yellow"
+        tools:layout_editor_absoluteX="139dp"
+        tools:layout_editor_absoluteY="139dp" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:id="@+id/tabBar"
+        android:background="@color/silver"
+        android:layout_below="@+id/txtwareid"
+        tools:layout_editor_absoluteX="227dp"
+        tools:layout_editor_absoluteY="363dp">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tabInfo"
+            android:text="Info" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tabImage"
+            android:text="Image" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tabScan"
+            android:text="Scan" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/viewPager"
+        android:layout_below="@+id/tabBar"
+        />
+
+</RelativeLayout>
