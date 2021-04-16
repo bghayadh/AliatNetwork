@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
     private GpsTracker gpsTracker;
 
 
+
     // read uploadTextView and downloadTextView
     static int position = 0;
     static int lastPosition = 0;
@@ -109,6 +110,8 @@ public class MainActivity extends AppCompatActivity {
         uploadTextView = findViewById(R.id.uploadTextView);
         txtsignal= findViewById(R.id.txtsignal);
 
+        //test git hub
+        System.out.println("test github");
 
            // check if we have permission to get our location in manifest xml file
         try {
