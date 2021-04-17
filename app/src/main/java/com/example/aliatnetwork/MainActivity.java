@@ -1,11 +1,15 @@
 package com.example.aliatnetwork;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.StrictMode;
+import android.provider.Settings;
+import android.telephony.SubscriptionInfo;
+import android.telephony.SubscriptionManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,6 +25,7 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
+
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Build;
@@ -29,6 +34,7 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
 import androidx.annotation.RequiresApi;
 
 import java.sql.Connection;
@@ -47,10 +53,13 @@ import java.util.TimerTask;
 
 import android.Manifest;
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
+import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
+
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.READ_PHONE_NUMBERS;
 import static android.Manifest.permission.READ_PHONE_STATE;
@@ -62,10 +71,9 @@ public class MainActivity extends AppCompatActivity {
     TelephonyManager telephonyManager;
     public Connection conn;
     //define buttons
-    private Button Btncoverage,Btnspeed,Btnsites,Btnshops,Btnstartspeed,Btnstartcoverage,Btngis,Btntickets,Btncapturespeed,Btncapturecoverage,BtnExit;
-    private TextView Notifyspeedtesttime,Notifycoveragetesttime,txtlat,txtlng,downloadTextView,uploadTextView,txtsignal;
+    private Button Btncoverage, Btnspeed, Btnsites, Btnshops, Btnstartspeed, Btnstartcoverage, Btngis, Btntickets, Btncapturespeed, Btncapturecoverage, BtnExit, Btndeviceid, Btniccid;
+    private TextView Notifyspeedtesttime, Notifycoveragetesttime, txtlat, txtlng, downloadTextView, uploadTextView, txtsignal, textdeviceid, texticcid;
     private GpsTracker gpsTracker;
-
 
 
     // read uploadTextView and downloadTextView
@@ -76,128 +84,203 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onResume() {
-        super.onResume();
-        getSpeedTestHostsHandler = new GetSpeedTestHostsHandler();
-        getSpeedTestHostsHandler.start();
+        super.onResume ( );
+        getSpeedTestHostsHandler = new GetSpeedTestHostsHandler ( );
+        getSpeedTestHostsHandler.start ( );
     }
 
 
     @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        super.onCreate (savedInstanceState);
+        setContentView (R.layout.activity_main);
 
         //initialize objects on Load
-        Btncoverage=findViewById(R.id.Btncoverage);
-        Btnspeed=findViewById(R.id.Btnspeed);
-        Btnsites=findViewById(R.id.Btnsites);
-        Btnshops=findViewById(R.id.Btnshops);
-        Btnstartspeed=findViewById(R.id.Btnstartspeed);
-        Btnstartcoverage=findViewById(R.id.Btnstartcoverage);
-        Notifyspeedtesttime=findViewById(R.id.Notifyspeedtesttime);
-        Notifycoveragetesttime=findViewById(R.id.Notifycoveragetesttime);
-        BtnExit=findViewById(R.id.BtnExit);
-        Btngis=findViewById(R.id.Btngis);
-        Btntickets=findViewById(R.id.Btntickets);
-        Btncapturecoverage=findViewById(R.id.Btncapturecoverage);
-        Btncapturespeed=findViewById(R.id.Btncapturespeed);
+        Btncoverage = findViewById (R.id.Btncoverage);
+        Btnspeed = findViewById (R.id.Btnspeed);
+        Btnsites = findViewById (R.id.Btnsites);
+        Btnshops = findViewById (R.id.Btnshops);
+        Btnstartspeed = findViewById (R.id.Btnstartspeed);
+        Btnstartcoverage = findViewById (R.id.Btnstartcoverage);
+        Notifyspeedtesttime = findViewById (R.id.Notifyspeedtesttime);
+        Notifycoveragetesttime = findViewById (R.id.Notifycoveragetesttime);
+        BtnExit = findViewById (R.id.BtnExit);
+        Btngis = findViewById (R.id.Btngis);
+        Btntickets = findViewById (R.id.Btntickets);
+        Btncapturecoverage = findViewById (R.id.Btncapturecoverage);
+        Btncapturespeed = findViewById (R.id.Btncapturespeed);
+        Btndeviceid = findViewById (R.id.Btndeviceid);
+        Btniccid = findViewById (R.id.Btniccid);
 
         // text to display latitude and longitude and Dwonload and upload
-        txtlat = findViewById(R.id.txtlat);
-        txtlng = findViewById(R.id.txtlng);
-        downloadTextView = findViewById(R.id.downloadTextView);
-        uploadTextView = findViewById(R.id.uploadTextView);
-        txtsignal= findViewById(R.id.txtsignal);
+        txtlat = findViewById (R.id.txtlat);
+        txtlng = findViewById (R.id.txtlng);
+        downloadTextView = findViewById (R.id.downloadTextView);
+        uploadTextView = findViewById (R.id.uploadTextView);
+        txtsignal = findViewById (R.id.txtsignal);
+        textdeviceid = findViewById (R.id.textdeviceid);
+        texticcid = findViewById (R.id.texticcid);
 
-        //test git hub
-        System.out.println("test github sample");
-
-           // check if we have permission to get our location in manifest xml file
+        // check if we have permission to get our location in manifest xml file
         try {
-            if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
-                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
+            if (ContextCompat.checkSelfPermission (getApplicationContext ( ), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions (this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
             }
-        } catch (Exception e){
-            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace ( );
         }
 
-       // connect to Oracle DB
-        connecttoDB();
+        // connect to Oracle DB
+        connecttoDB ( );
 
         //Get how many tome we run speed test today
         Statement stmt1 = null;
-        int i=0;
+        int i = 0;
         try {
-            stmt1 = conn.createStatement();
+            stmt1 = conn.createStatement ( );
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            throwables.printStackTrace ( );
         }
         String sqlStmt = "select count(1) as compteur from SPEEDTEST where TO_CHAR(SPEED_DATE, 'YYYY-MM-DD')=TO_CHAR(SYSDATE, 'YYYY-MM-DD')";
         ResultSet rs1 = null;
         try {
-            rs1 = stmt1.executeQuery(sqlStmt);
+            rs1 = stmt1.executeQuery (sqlStmt);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            throwables.printStackTrace ( );
         }
         while (true) {
             try {
-                if (!rs1.next()) break;
-                Notifyspeedtesttime.setText (rs1.getString("compteur") );
-                 //System.out.println(rs1.getString("compteur"));
+                if (!rs1.next ( )) break;
+                Notifyspeedtesttime.setText (rs1.getString ("compteur"));
+                //System.out.println(rs1.getString("compteur"));
 
             } catch (SQLException throwables) {
-                throwables.printStackTrace();
+                throwables.printStackTrace ( );
             }
         }
         try {
-            rs1.close();
+            rs1.close ( );
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            throwables.printStackTrace ( );
         }
         try {
-            stmt1.close();
+            stmt1.close ( );
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            throwables.printStackTrace ( );
         }
 
 
         //Get how many tome we run coverage test today
         Statement stmt2 = null;
-        int i2=0;
+        int i2 = 0;
         try {
-            stmt2 = conn.createStatement();
+            stmt2 = conn.createStatement ( );
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            throwables.printStackTrace ( );
         }
         String sqlStmt2 = "select count(1) as compteur from COVERAGETEST where TO_CHAR(COVERAGE_DATE, 'YYYY-MM-DD')=TO_CHAR(SYSDATE, 'YYYY-MM-DD')";
         ResultSet rs2 = null;
         try {
-            rs2 = stmt2.executeQuery(sqlStmt2);
+            rs2 = stmt2.executeQuery (sqlStmt2);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            throwables.printStackTrace ( );
         }
         while (true) {
             try {
-                if (!rs2.next()) break;
-                Notifycoveragetesttime.setText (rs2.getString("compteur") );
+                if (!rs2.next ( )) break;
+                Notifycoveragetesttime.setText (rs2.getString ("compteur"));
                 //System.out.println(rs2.getString("compteur"));
 
             } catch (SQLException throwables) {
-                throwables.printStackTrace();
+                throwables.printStackTrace ( );
             }
         }
         try {
-            rs2.close();
+            rs2.close ( );
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            throwables.printStackTrace ( );
         }
         try {
-            stmt2.close();
-            conn.close ();
+            stmt2.close ( );
+            conn.close ( );
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            throwables.printStackTrace ( );
         }
+
+
+        //GET ICCID
+        Btniccid.setOnClickListener (new View.OnClickListener ( ) {
+            @Override
+            public void onClick(View v) {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
+                    SubscriptionManager sm = SubscriptionManager.from (getApplicationContext ( ));
+                    if (ActivityCompat.checkSelfPermission (MainActivity.this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                    }
+                    List<SubscriptionInfo> sis = sm.getActiveSubscriptionInfoList ( );
+                    System.out.println ("sis is :  "+sis.size()  );
+                    if (sis.size() == 1)
+                    {
+                        SubscriptionInfo si1 = sis.get(0);
+                        //String iccId1 = si1.getIccId();
+                        //String phoneNum1 = si1.getNumber();
+                        String res1=sis.get(0).toString ();
+                        //retrieve iccid value from result
+                        int n1 = res1.indexOf("simSlotIndex=");
+                        int n2 = res1.indexOf("iccId=");
+                        res1 = res1.substring((n2+6),n1).trim();
+                        texticcid.setText (res1);
+
+                        //get number
+                       //String res=sis.get(0).toString ();
+                        // n1 = res.indexOf("dataRoaming=");
+                       // System.out.println (n1);
+                       //  n2 = res.indexOf("number=");
+                      //  System.out.println (n2);
+                      //  res = res.substring((n2+6),n1).trim();
+                      //  System.out.println ("value is :" +res);
+                      //  texticcid.setText (texticcid.getText () +"  "+ "Number = "+res);
+
+
+                    }
+                    if (sis.size() == 2)
+                    {
+                        SubscriptionInfo si2 = sis.get(1);
+                        String res1=sis.get(1).toString ();
+                        //retrieve iccid value from result
+                        int n1 = res1.indexOf("simSlotIndex=");
+                        int n2 = res1.indexOf("iccId=");
+                        res1 = res1.substring((n2+6),n1).trim();
+                        texticcid.setText (res1);
+                    }
+                    // Get information about the number of SIM cards:
+                    int count = sm.getActiveSubscriptionInfoCount();//Current actual number of cards
+                    int max   = sm.getActiveSubscriptionInfoCountMax();//Current card slot number
+                }
+            }
+        });
+
+
+        //Get Device ID
+        Btndeviceid.setOnClickListener (new View.OnClickListener ( ) {
+            @Override
+            public void onClick(View v) {
+
+                String ID = Settings.Secure.getString(getContentResolver(),
+                        Settings.Secure.ANDROID_ID);
+                textdeviceid.setText(ID);//displaying the information in the textView
+
+            }
+        });
+
+
 
         // exit button
         BtnExit.setOnClickListener (new View.OnClickListener ( ) {
@@ -378,6 +461,7 @@ public class MainActivity extends AppCompatActivity {
                     Timer.cancel ( );
                     //System.out.println ( "TIMER CLOSED NOW" );
                     Timer = null;
+                    //Btnstartspeed.setTextSize (12);
                     Btnstartspeed.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
                     Btnstartspeed.setText("Speed Start Test");
                 } else {
@@ -471,7 +555,6 @@ public class MainActivity extends AppCompatActivity {
                             public void run() {
                                 Toast.makeText(getApplicationContext(), "No Connection...", Toast.LENGTH_LONG).show();
                                 Btnstartspeed.setEnabled(true);
-                                Btnstartspeed.setTextSize(15);
                                 Btnstartspeed.setText("Restart Test");
                             }
                         });
@@ -517,7 +600,6 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Btnstartspeed.setTextSize(15);
                             Btnstartspeed.setText("There was a problem in getting Host Location. Try again later.");
                         }
                     });
@@ -527,7 +609,7 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Btnstartspeed.setTextSize(15);
+                        //Btnstartspeed.setTextSize(14);
                         //Btnstartspeed.setText(String.format("Host Location: %s [Distance: %s km]", info.get(2), new DecimalFormat("#.##").format(distance / 1000)));
                        // Btnstartspeed.setText("Speed Stop Test");
                     }
@@ -830,7 +912,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Btnstartspeed.setEnabled(true);
-                        Btnstartspeed.setTextSize(15);
+                        //Btnstartspeed.setTextSize(14);
                         ////Btnstartspeed.setText("Stop Speed test");
 
                         // connect to Oracle DB

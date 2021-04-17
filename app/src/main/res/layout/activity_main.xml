@@ -122,17 +122,15 @@
 
     <EditText
         android:id="@+id/coveragetesttime"
-        android:layout_width="53dp"
+        android:layout_width="60dp"
         android:layout_height="45dp"
         android:layout_below="@+id/Btnstartcoverage"
         android:background="#0A5EA8"
         android:textColor="@color/white"
-        android:textFontWeight="30"
         android:enabled="false"
-        android:textStyle="bold|italic"
         android:text="Times"
         android:layout_marginStart="2dp"
-        android:maxLength="30"/>
+        />
 
     <EditText
         android:id="@+id/Notifycoveragetesttime"
@@ -142,11 +140,10 @@
         android:layout_toRightOf="@+id/coveragetesttime"
         android:background="#0A5EA8"
         android:textColor="@color/yellow"
-        android:textFontWeight="30"
         android:enabled="false"
         android:textStyle="bold|italic"
         android:text="0"
-        android:maxLength="30"/>
+        />
 
     <!-- Button capture coverage -->
     <Button
@@ -171,7 +168,7 @@
         android:layout_below="@+id/coveragetesttime"
         android:textColor="@android:color/background_light"
         android:layout_marginStart="1dp"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
 
     <!-- display Signal Coverage -->
@@ -207,18 +204,16 @@
 
     <EditText
         android:id="@+id/speedtesttime"
-        android:layout_width="53dp"
+        android:layout_width="60dp"
         android:layout_height="45dp"
         android:layout_below="@+id/Btnstartcoverage"
         android:layout_toRightOf="@+id/txtsignal"
         android:background="#0A5EA8"
         android:layout_marginStart="5dp"
         android:textColor="@color/white"
-        android:textFontWeight="30"
         android:enabled="false"
-        android:textStyle="bold|italic"
         android:text="Times"
-        android:maxLength="30"/>
+        />
 
     <!-- display test times -->
     <EditText
@@ -230,11 +225,10 @@
         android:layout_toRightOf="@+id/speedtesttime"
         android:background="#0A5EA8"
         android:textColor="@color/yellow"
-        android:textFontWeight="30"
-        android:enabled="false"
         android:textStyle="bold|italic"
+        android:enabled="false"
         android:text="0"
-        android:maxLength="30"/>
+       />
 
     <!-- Button capture Speed -->
     <Button
@@ -247,6 +241,7 @@
         android:textStyle="bold"
         android:textSize="9dp"
         android:layout_marginRight="1dp"
+        android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/Notifyspeedtesttime"
         android:layout_below="@+id/Btnstartcoverage"
         />
@@ -280,7 +275,7 @@
     <!-- display Upload -->
     <TextView
         android:id="@+id/uploadText"
-        android:layout_width="40dp"
+        android:layout_width="35dp"
         android:layout_height="30dp"
         android:text="UP"
         android:layout_marginStart="5dp"
@@ -291,26 +286,81 @@
         android:textSize="15sp" />
     <TextView
         android:id="@+id/uploadTextView"
-        android:layout_width="50dp"
+        android:layout_width="55dp"
         android:layout_height="30dp"
         android:text="0"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="1dp"
         android:layout_toRightOf="@+id/uploadText"
         android:layout_below="@+id/speedtesttime"
         android:textAlignment="center"
+        android:layout_alignParentRight="true"
         android:textColor="@color/yellow"
         android:textSize="15sp" />
 
+    <!-- button device id -->
+    <Button
+        android:id="@+id/Btndeviceid"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/red"
+        android:textColor="@color/white"
+        android:text="Get Device ID"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/txtsignal"
+        android:layout_marginRight="1dp"
+        android:layout_marginStart="1dp"
+        />
+    <!-- display device id -->
+    <TextView
+        android:id="@+id/textdeviceid"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/txtsignal"
+        android:layout_toRightOf="@+id/Btndeviceid"
+        android:layout_marginStart="5dp"
+        android:text=""/>
 
+    <!-- button iccid -->
+    <Button
+        android:id="@+id/Btniccid"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/red"
+        android:textColor="@color/white"
+        android:text="Get ICCID"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:layout_below="@+id/Btndeviceid"
+        android:layout_marginRight="1dp"
+        android:layout_marginStart="1dp"
+        />
 
-
+    <!-- displayiccid -->
+    <TextView
+        android:id="@+id/texticcid"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/Btndeviceid"
+        android:layout_toRightOf="@+id/Btniccid"
+        android:layout_marginStart="5dp"
+        android:text=""/>
 
     <!-- display Latitude -->
     <TextView
         android:id="@+id/textlat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="630dp"
+        android:layout_above="@+id/textlng"
         android:textColor="@color/white"
         android:textSize="18dp"
         android:textStyle="bold"
@@ -321,7 +371,7 @@
         android:id="@+id/txtlat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="630dp"
+        android:layout_above="@+id/txtlng"
         android:layout_marginStart="34dp"
         android:layout_toRightOf="@+id/textlat"
         android:textColor="@color/yellow"
