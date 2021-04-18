@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     public Connection conn;
     //define buttons
     private Button Btncoverage, Btnspeed, Btnsites, Btnshops, Btnstartspeed, Btnstartcoverage, Btngis, Btntickets, Btncapturespeed, Btncapturecoverage, BtnExit, Btndeviceid, Btniccid;
-    private TextView Notifyspeedtesttime, Notifycoveragetesttime, txtlat, txtlng, downloadTextView, uploadTextView, txtsignal, textdeviceid, texticcid;
+    private TextView Notifyspeedtesttime, Notifycoveragetesttime, txtlat, txtlng, downloadTextView, uploadTextView, txtsignal, textinfo;
     private GpsTracker gpsTracker;
 
 
@@ -119,8 +119,7 @@ public class MainActivity extends AppCompatActivity {
         downloadTextView = findViewById (R.id.downloadTextView);
         uploadTextView = findViewById (R.id.uploadTextView);
         txtsignal = findViewById (R.id.txtsignal);
-        textdeviceid = findViewById (R.id.textdeviceid);
-        texticcid = findViewById (R.id.texticcid);
+        textinfo = findViewById (R.id.textinfo);
 
         // check if we have permission to get our location in manifest xml file
         try {
@@ -236,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
                         int n1 = res1.indexOf("simSlotIndex=");
                         int n2 = res1.indexOf("iccId=");
                         res1 = res1.substring((n2+6),n1).trim();
-                        texticcid.setText (res1);
+                        textinfo.setText ("ICCID         "+res1);
 
                         //get number
                        //String res=sis.get(0).toString ();
@@ -258,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
                         int n1 = res1.indexOf("simSlotIndex=");
                         int n2 = res1.indexOf("iccId=");
                         res1 = res1.substring((n2+6),n1).trim();
-                        texticcid.setText (res1);
+                        textinfo.setText ("ICCID         "+res1);
                     }
                     // Get information about the number of SIM cards:
                     int count = sm.getActiveSubscriptionInfoCount();//Current actual number of cards
@@ -275,7 +274,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String ID = Settings.Secure.getString(getContentResolver(),
                         Settings.Secure.ANDROID_ID);
-                textdeviceid.setText(ID);//displaying the information in the textView
+                textinfo.setText("Device ID      "+ID);//displaying the information in the textView
 
             }
         });
