@@ -131,82 +131,85 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // connect to Oracle DB
-        connecttoDB ( );
+        try {
+            connecttoDB ( );
 
-        //Get how many tome we run speed test today
-        Statement stmt1 = null;
-        int i = 0;
-        try {
-            stmt1 = conn.createStatement ( );
-        } catch (SQLException throwables) {
-            throwables.printStackTrace ( );
-        }
-        String sqlStmt = "select count(1) as compteur from SPEEDTEST where TO_CHAR(SPEED_DATE, 'YYYY-MM-DD')=TO_CHAR(SYSDATE, 'YYYY-MM-DD')";
-        ResultSet rs1 = null;
-        try {
-            rs1 = stmt1.executeQuery (sqlStmt);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace ( );
-        }
-        while (true) {
+            //Get how many tome we run speed test today
+            Statement stmt1 = null;
+            int i = 0;
             try {
-                if (!rs1.next ( )) break;
-                Notifyspeedtesttime.setText (rs1.getString ("compteur"));
-                //System.out.println(rs1.getString("compteur"));
-
+                stmt1 = conn.createStatement ( );
             } catch (SQLException throwables) {
                 throwables.printStackTrace ( );
             }
-        }
-        try {
-            rs1.close ( );
-        } catch (SQLException throwables) {
-            throwables.printStackTrace ( );
-        }
-        try {
-            stmt1.close ( );
-        } catch (SQLException throwables) {
-            throwables.printStackTrace ( );
-        }
-
-
-        //Get how many tome we run coverage test today
-        Statement stmt2 = null;
-        int i2 = 0;
-        try {
-            stmt2 = conn.createStatement ( );
-        } catch (SQLException throwables) {
-            throwables.printStackTrace ( );
-        }
-        String sqlStmt2 = "select count(1) as compteur from COVERAGETEST where TO_CHAR(COVERAGE_DATE, 'YYYY-MM-DD')=TO_CHAR(SYSDATE, 'YYYY-MM-DD')";
-        ResultSet rs2 = null;
-        try {
-            rs2 = stmt2.executeQuery (sqlStmt2);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace ( );
-        }
-        while (true) {
+            String sqlStmt = "select count(1) as compteur from SPEEDTEST where TO_CHAR(SPEED_DATE, 'YYYY-MM-DD')=TO_CHAR(SYSDATE, 'YYYY-MM-DD')";
+            ResultSet rs1 = null;
             try {
-                if (!rs2.next ( )) break;
-                Notifycoveragetesttime.setText (rs2.getString ("compteur"));
-                //System.out.println(rs2.getString("compteur"));
-
+                rs1 = stmt1.executeQuery (sqlStmt);
             } catch (SQLException throwables) {
                 throwables.printStackTrace ( );
             }
-        }
-        try {
-            rs2.close ( );
-        } catch (SQLException throwables) {
-            throwables.printStackTrace ( );
-        }
-        try {
-            stmt2.close ( );
-            conn.close ( );
-        } catch (SQLException throwables) {
-            throwables.printStackTrace ( );
-        }
+            while (true) {
+                try {
+                    if (!rs1.next ( )) break;
+                    Notifyspeedtesttime.setText (rs1.getString ("compteur"));
+                    //System.out.println(rs1.getString("compteur"));
 
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace ( );
+                }
+            }
+            try {
+                rs1.close ( );
+            } catch (SQLException throwables) {
+                throwables.printStackTrace ( );
+            }
+            try {
+                stmt1.close ( );
+            } catch (SQLException throwables) {
+                throwables.printStackTrace ( );
+            }
+
+
+            //Get how many tome we run coverage test today
+            Statement stmt2 = null;
+            int i2 = 0;
+            try {
+                stmt2 = conn.createStatement ( );
+            } catch (SQLException throwables) {
+                throwables.printStackTrace ( );
+            }
+            String sqlStmt2 = "select count(1) as compteur from COVERAGETEST where TO_CHAR(COVERAGE_DATE, 'YYYY-MM-DD')=TO_CHAR(SYSDATE, 'YYYY-MM-DD')";
+            ResultSet rs2 = null;
+            try {
+                rs2 = stmt2.executeQuery (sqlStmt2);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace ( );
+            }
+            while (true) {
+                try {
+                    if (!rs2.next ( )) break;
+                    Notifycoveragetesttime.setText (rs2.getString ("compteur"));
+                    //System.out.println(rs2.getString("compteur"));
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace ( );
+                }
+            }
+            try {
+                rs2.close ( );
+            } catch (SQLException throwables) {
+                throwables.printStackTrace ( );
+            }
+            try {
+                stmt2.close ( );
+                conn.close ( );
+            } catch (SQLException throwables) {
+                throwables.printStackTrace ( );
+            }
+        } catch (Exception e) {
+            Toast.makeText (this,"Cannot access oracle "+e.toString (),Toast.LENGTH_SHORT).show ();
+        }
 
         //GET ICCID
         Btniccid.setOnClickListener (new View.OnClickListener ( ) {

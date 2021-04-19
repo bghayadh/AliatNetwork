@@ -103,6 +103,8 @@
         style="@style/Widget.MaterialComponents.Button"
         />
 
+
+
     <!-- Button Start test coverage -->
     <Button
         android:id="@+id/Btnstartcoverage"
@@ -116,6 +118,17 @@
         android:textSize="15dp"
         android:layout_below="@+id/Btntickets"
         style="@style/Widget.MaterialComponents.Button"
+        />
+
+    <!-- Add LINE 1 -->
+    <TextView
+        android:id="@+id/txtline1"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="2dp"
+        android:text=""
+        android:background="@color/yellow"
+        android:layout_below="@+id/Btnstartcoverage"
         />
 
     <!-- Button capture coverage -->
@@ -172,7 +185,7 @@
         android:textColor="@color/yellow"
         android:enabled="false"
         android:textSize="20dp"
-        android:textStyle="bold|italic"
+        android:textStyle="bold"
         android:text="0"
         />
 
@@ -183,7 +196,7 @@
         android:id="@+id/txtcoverage"
         android:layout_width="100dp"
         android:layout_height="25dp"
-        android:textStyle="bold|italic"
+        android:textStyle="bold"
         android:textSize="20sp"
         android:text="Signal"
         android:layout_below="@+id/coveragetesttime"
@@ -200,6 +213,7 @@
         android:layout_marginStart="8dp"
         android:textSize="20sp"
         android:text=""
+        android:textAlignment="textStart"
         android:layout_below="@+id/coveragetesttime"
         android:layout_toRightOf="@+id/txtcoverage"
         android:textStyle="bold"
@@ -247,7 +261,7 @@
         android:layout_toRightOf="@+id/txtsignal"
         android:background="#0A5EA8"
         android:textSize="20sp"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="2dp"
         android:textStyle="bold"
         android:textColor="@color/white"
         android:enabled="false"
@@ -265,7 +279,7 @@
         android:background="#0A5EA8"
         android:textSize="20sp"
         android:textColor="@color/yellow"
-        android:textStyle="bold|italic"
+        android:textStyle="bold"
         android:enabled="false"
         android:text="0"
        />
@@ -321,6 +335,17 @@
         android:textStyle="bold"
         android:textColor="@color/yellow"
         android:textSize="20sp" />
+
+    <!-- Add LINE 2 -->
+    <TextView
+        android:id="@+id/txtline2"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="0dp"
+        android:text=""
+        android:background="@color/yellow"
+        android:layout_below="@+id/uploadTextView"
+        />
 
     <!-- button device id -->
     <Button
