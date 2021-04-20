@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabItem;
@@ -16,13 +17,14 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener;
 
 public class SiteInfoActivity extends AppCompatActivity {
     TextView txtwareid;
-    Button previousBtn;
+    Button previousBtn, btnViewSite;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.siteinfo);
         txtwareid=findViewById (R.id.txtwareid);
          previousBtn = findViewById (R.id.previousBtn);
+         btnViewSite = findViewById(R.id.btnsitemap);
 
         TabLayout tabLayout=findViewById(R.id.tabBar);
         TabItem tabChats=findViewById(R.id.tabInfo);
@@ -72,6 +74,15 @@ public class SiteInfoActivity extends AppCompatActivity {
 
         });
 
+        btnViewSite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnViewSite.setVisibility(View.GONE);
+                FragmentManager fr = getSupportFragmentManager();
+                SiteMapFragment siteMapFragment = new SiteMapFragment();
+                fr.beginTransaction().replace(R.id.siteInfo,siteMapFragment).commit();
+            }
+        });
 
         //read passes value of ware_id from recylserview
         Intent intent = getIntent();
@@ -81,4 +92,5 @@ public class SiteInfoActivity extends AppCompatActivity {
 
 
     }
+
 }

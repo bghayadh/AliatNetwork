@@ -9,6 +9,7 @@
     <!-- Required for INETRNET-->
     <uses-permission android:name="android.permission.INTERNET"/>
 
+
     <!-- Required for PICK IMAGE-->
     <uses-feature android:name="android.hardware.camera" android:required="true" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -26,13 +27,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:requestLegacyExternalStorage="true"
-        android:theme="@style/Theme.AliatNetwork">
+        android:theme="@style/Theme.AliatNetwork"
+        android:name="androidx.multidex.MultiDexApplication">
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+
+        <!-- Meta Data to get the key of the map key -->
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAUmElBY8tJ_w5rinGQfJOU5iXMs5X4Sf8"/>
+
         <!-- Required to call or navigate to other layout/form-->
         <activity android:name=".coveragelist" />
         <activity android:name=".speedlist" />
         <activity android:name=".siteslist" />
         <activity android:name=".shopslist" />
-
 
         <!-- Additional layout/form-->
         <activity android:name=".SpeedActivity"></activity>

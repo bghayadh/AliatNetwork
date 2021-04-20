@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.StrictMode;
 import android.view.LayoutInflater;
@@ -316,6 +317,9 @@ public class Infofragment extends Fragment {
                 }
             }
         });
+
+
+
 
         // after you've done all your manipulation, return your layout to be shown
         return V;

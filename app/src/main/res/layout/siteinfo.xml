@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0A5EA8"
+    android:id="@+id/siteInfo"
     tools:context=".MainActivity">
 
     <TextView
@@ -61,6 +62,17 @@
         android:layout_height="wrap_content"
         android:id="@+id/viewPager"
         android:layout_below="@+id/tabBar"
+        />
+
+    <Button
+        android:id="@+id/btnsitemap"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:text="View Site"
+        android:textStyle="bold"
+        android:layout_marginStart="5dp"
+        android:layout_below="@+id/tabBar"
+        android:backgroundTint="@color/red"
         />
 
 </RelativeLayout>

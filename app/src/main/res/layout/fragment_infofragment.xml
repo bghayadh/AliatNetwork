@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0A5EA8"
+    android:id="@+id/infofragment"
     tools:context=".Infofragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -11,7 +12,8 @@
         android:layout_width="200dp"
         android:layout_height="20dp"
         android:text="Info_fragment"
-        android:id="@+id/txttest"/>
+        android:id="@+id/txttest"
+        android:layout_marginTop="55dp"/>
    <!-- Add textwarename -->
     <TextView
         android:layout_width="100dp"
@@ -23,6 +25,8 @@
         android:layout_below="@+id/txttest"
         android:backgroundTint="@null"
         android:id="@+id/txtwarename"/>
+
+
 
     <EditText
         android:id="@+id/editTextwareName"
