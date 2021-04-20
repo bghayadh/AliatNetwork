@@ -442,7 +442,7 @@
     <!-- display Exit button -->
     <Button
         android:id="@+id/BtnExit"
-        android:layout_width="130dp"
+        android:layout_width="80dp"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_marginVertical="20dp"
@@ -451,9 +451,7 @@
         android:text="EXIT"
         android:textStyle="bold"
         android:textSize="15dp"
-        android:layout_marginRight="1dp"
-        android:layout_toRightOf="@+id/txtlng"
-        android:layout_marginStart="35dp"
+        android:layout_marginStart="320dp"
         />
 
 
