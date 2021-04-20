@@ -277,6 +277,9 @@ public class SiteListViewActivity extends AppCompatActivity {
         sitesRecView.setLayoutManager(new LinearLayoutManager (SiteListViewActivity.this));
     }
 
-
-
+    @Override
+    protected void onRestart() {
+        this.recreate();
+        super.onRestart();
+    }
 }
