@@ -216,17 +216,12 @@ public class Infofragment extends Fragment {
             @Override
             public void onClick(View v) {
                 int tech2G ,tech3G,tech4G,tech5G,chksite;
-
-
-
                 Date date = new Date();
                 Calendar calendar = new GregorianCalendar ();
                 calendar.setTime(date);
                 int year = calendar.get(Calendar.YEAR);
                 String wareID;
                 wareID= "WARE_"+year+"_" ;
-
-
 
                 if (checktech2G.isChecked ( ) == true) {
                     tech2G=1;
@@ -295,6 +290,8 @@ public class Infofragment extends Fragment {
                         rs1.close();
                         stmt1.close();
 
+                        // send data from fragment to super activity
+                        ((SiteInfoActivity)getActivity()).getfromfragment(globalwareid);
 
                         stmtinsert1 = conn.prepareStatement("insert into WAREHOUSE (WARE_ID,CREATION_DATE,LAST_MODIFY_DATE,WARE_NAME,CITY,LONGITUDE,LATITUDE,SITE,SITE_ID,TECH_2G,TECH_3G,TECH_4G,TECH_5G,AREA_ID,AREA_NAME,ADDRESS,CLUSTER_ID,CLUSTER_NAME) values " +
                             "('"+globalwareid +"' ,sysdate, sysdate,'"+ editTextwareName.getText()  +"', '"+ editTextcity.getText ()  +"', '"+ editTextlongitude.getText ()  +"', '"+ editTextlatitude.getText ()  +"','"+chksite +"','0','"+tech2G +"','"+tech3G +"','"+tech4G +"','"+tech5G +"','0','0','"+ editTextaddress.getText ()  +"','0','0')");
