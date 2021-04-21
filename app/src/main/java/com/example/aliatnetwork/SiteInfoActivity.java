@@ -89,7 +89,6 @@ public class SiteInfoActivity extends AppCompatActivity {
     public void getfromfragment(String test)
     {
         try {
-            System.out.println("Result is  :  "+ test);
             txtwareid.setText (test);
         } catch(Exception e) {
             e.printStackTrace();

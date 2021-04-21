@@ -135,14 +135,6 @@ public class Infofragment extends Fragment {
            }
 
 
-
-
-
-
-
-
-
-
         //Display warehouse selected
         // connect to Oracle DB
         connecttoDB();
