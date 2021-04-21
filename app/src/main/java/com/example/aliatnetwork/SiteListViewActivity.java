@@ -106,7 +106,7 @@ public class SiteListViewActivity extends AppCompatActivity {
             }
             public void openSiteInfoActivity(){
                 Intent intent = new Intent(SiteListViewActivity.this, SiteInfoActivity.class);
-                intent.putExtra("message_key", "");
+                intent.putExtra("message_key", "0");
                 startActivity(intent);
             }
         });

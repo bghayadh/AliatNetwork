@@ -112,14 +112,14 @@ public class Infofragment extends Fragment {
 
         Intent intent = getActivity ().getIntent();
         String str = intent.getStringExtra("message_key");
-        globalwareid=str.toString ();
+        globalwareid = str.toString();
 
 
 
 
 
        // @RequiresApi(api = Build.VERSION_CODES.P)
-           if (globalwareid.isEmpty ()) {
+           if (globalwareid.equalsIgnoreCase ("0")) {
                // call class Gps to get our location
                gpsTracker = new GpsTracker (getActivity ( ));
                if (gpsTracker.canGetLocation ( )) {
@@ -217,6 +217,8 @@ public class Infofragment extends Fragment {
             public void onClick(View v) {
                 int tech2G ,tech3G,tech4G,tech5G,chksite;
 
+
+
                 Date date = new Date();
                 Calendar calendar = new GregorianCalendar ();
                 calendar.setTime(date);
@@ -268,7 +270,7 @@ public class Infofragment extends Fragment {
 
                 try {
                     // if it is a new Warehouse we will use insert
-                    if (globalwareid.isEmpty ()) {
+                    if (globalwareid.equalsIgnoreCase("0")) {
 
                         Statement stmt1 = null;
                         stmt1 = conn.createStatement ( );
@@ -354,7 +356,12 @@ public class Infofragment extends Fragment {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace ( );
                 }
+
+
+
             }
+
+
         });
 
 
