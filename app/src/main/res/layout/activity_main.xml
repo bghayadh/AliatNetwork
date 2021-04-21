@@ -451,7 +451,7 @@
         android:text="EXIT"
         android:textStyle="bold"
         android:textSize="15dp"
-        android:layout_marginStart="320dp"
+        android:layout_alignParentRight="true"
         />
 
 

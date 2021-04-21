@@ -194,9 +194,9 @@
         android:layout_height="wrap_content"
         android:textColor="#29f803"
         android:textSize="18dp"
-        android:layout_marginStart="20dp"
         android:layout_below="@+id/txtlatitude"
         android:layout_toRightOf="@+id/checktech5G"
+        android:layout_alignParentRight="true"
         android:text="Site" />
 
     <Button
