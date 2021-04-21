@@ -18,6 +18,13 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -40,6 +47,8 @@ public class Infofragment extends Fragment {
     public Connection conn;
     private GpsTracker gpsTracker;
     private String globalwareid;
+    private double vLatitude,vLongitude;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -98,11 +107,11 @@ public class Infofragment extends Fragment {
         CheckBox checktech4G= (CheckBox) V.findViewById(R.id.checktech4G);
         CheckBox checktech5G= (CheckBox) V.findViewById(R.id.checktech5G);
         CheckBox checksite= (CheckBox) V.findViewById(R.id.checksite);
+
         //read passes value of ware_id from recylserview
-        TextView txttest= (TextView) V.findViewById(R.id.txttest);
+
         Intent intent = getActivity ().getIntent();
         String str = intent.getStringExtra("message_key");
-        txttest.setText (str);
         globalwareid=str.toString ();
 
 
@@ -124,6 +133,7 @@ public class Infofragment extends Fragment {
                    editTextlatitude.setText("Error to get longitude");
                }
            }
+
 
 
 
@@ -196,6 +206,8 @@ public class Infofragment extends Fragment {
             throwables.printStackTrace();
         }
 
+        //call the get site map
+        getSiteMap(editTextlatitude.getText().toString(),editTextlongitude.getText().toString());
 
 
 
@@ -257,8 +269,33 @@ public class Infofragment extends Fragment {
                 try {
                     // if it is a new Warehouse we will use insert
                     if (globalwareid.isEmpty ()) {
+
+                        Statement stmt1 = null;
+                        stmt1 = conn.createStatement ( );
+                        String sqlStmt = "select WAREHOUSE_SEQ.nextval as nbr from dual";
+                        ResultSet rs1 = null;
+                        try {
+                            rs1 = stmt1.executeQuery (sqlStmt);
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace ( );
+                        }
+
+                        while (true) {
+                            try {
+                                if (!rs1.next ( )) break;
+                                globalwareid=wareID+rs1.getString ("nbr");
+                                //System.out.println(rs1.getString("compteur"));
+
+                            } catch (SQLException throwables) {
+                                throwables.printStackTrace ( );
+                            }
+                        }
+                        rs1.close();
+                        stmt1.close();
+
+
                         stmtinsert1 = conn.prepareStatement("insert into WAREHOUSE (WARE_ID,CREATION_DATE,LAST_MODIFY_DATE,WARE_NAME,CITY,LONGITUDE,LATITUDE,SITE,SITE_ID,TECH_2G,TECH_3G,TECH_4G,TECH_5G,AREA_ID,AREA_NAME,ADDRESS,CLUSTER_ID,CLUSTER_NAME) values " +
-                            "('"+wareID +"' ||WAREHOUSE_SEQ.nextval,sysdate, sysdate,'"+ editTextwareName.getText()  +"', '"+ editTextcity.getText ()  +"', '"+ editTextlongitude.getText ()  +"', '"+ editTextlatitude.getText ()  +"','"+chksite +"','0','"+tech2G +"','"+tech3G +"','"+tech4G +"','"+tech5G +"','0','0','"+ editTextaddress.getText ()  +"','0','0')");
+                            "('"+globalwareid +"' ,sysdate, sysdate,'"+ editTextwareName.getText()  +"', '"+ editTextcity.getText ()  +"', '"+ editTextlongitude.getText ()  +"', '"+ editTextlatitude.getText ()  +"','"+chksite +"','0','"+tech2G +"','"+tech3G +"','"+tech4G +"','"+tech5G +"','0','0','"+ editTextaddress.getText ()  +"','0','0')");
                     } else { // we wil use update where wareid= the one we selected
                         stmtinsert1 = conn.prepareStatement("update  WAREHOUSE  set LAST_MODIFY_DATE=sysdate,WARE_NAME='"+ editTextwareName.getText()  +"',CITY='"+ editTextcity.getText ()  +"',LONGITUDE='"+ editTextlongitude.getText ()  +"',LATITUDE='"+ editTextlatitude.getText ()  +"',SITE='"+chksite +"',TECH_2G='"+tech2G +"',TECH_3G='"+tech3G +"',TECH_4G='"+tech4G +"',TECH_5G='"+tech5G +"',ADDRESS='"+ editTextaddress.getText ()  +"' where WARE_ID ='" + globalwareid +"' ");
                     }
@@ -321,20 +358,46 @@ public class Infofragment extends Fragment {
         });
 
 
-        Button btnViewSite = (Button) V.findViewById(R.id.btnsitemap);
-        btnViewSite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                btnViewSite.setVisibility(View.GONE);
-                FragmentManager fr = getFragmentManager();
-                SiteMapFragment siteMapFragment = new SiteMapFragment();
-                fr.beginTransaction().replace(R.id.siteInfo,siteMapFragment).commit();
-            }
-        });
+
         // after you've done all your manipulation, return your layout to be shown
         return V;
     }
 
+    public void getSiteMap(String lat,String lng)
+    {
+        SupportMapFragment supportMapFragment = (SupportMapFragment)
+                getChildFragmentManager().findFragmentById(R.id.google_map);
+        //Async map
+        supportMapFragment.getMapAsync(new OnMapReadyCallback() {
+
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                // get the latitude and longitude
+
+
+
+                // convert into Double
+                vLatitude = Double.parseDouble(lat);
+                vLongitude = Double.parseDouble(lng);
+                LatLng location = new LatLng(vLatitude, vLongitude);
+
+
+                //set position and title for marker
+                googleMap.addMarker(new MarkerOptions()
+                        .position(location)
+                        .title(vLatitude+" : "+vLongitude));
+
+                //animating to zoom the marker
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location,10));
+
+
+            }
+
+
+
+
+        });
+    }
     public void connecttoDB() {
         // connect to DB
         OraDB oradb= new OraDB();
@@ -358,6 +421,9 @@ public class Infofragment extends Fragment {
             Toast.makeText (getActivity (),"" +e.toString(),Toast.LENGTH_SHORT).show ();
         }
     }
+
+
+
 
 
 }

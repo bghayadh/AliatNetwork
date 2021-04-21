@@ -17,14 +17,14 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener;
 
 public class SiteInfoActivity extends AppCompatActivity {
     TextView txtwareid;
-    Button previousBtn, btnViewSite;
+    Button previousBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.siteinfo);
         txtwareid=findViewById (R.id.txtwareid);
          previousBtn = findViewById (R.id.previousBtn);
-         btnViewSite = findViewById(R.id.btnsitemap);
+
 
         TabLayout tabLayout=findViewById(R.id.tabBar);
         TabItem tabChats=findViewById(R.id.tabInfo);

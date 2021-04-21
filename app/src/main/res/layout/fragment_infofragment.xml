@@ -8,12 +8,14 @@
     tools:context=".Infofragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="200dp"
-        android:layout_height="20dp"
-        android:text="Info_fragment"
-        android:layout_marginBottom="5dp"
-        android:id="@+id/txttest" />
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:id="@+id/google_map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        />
+
+
    <!-- Add textwarename -->
     <TextView
         android:layout_width="100dp"
@@ -21,20 +23,11 @@
         android:text="Ware Name"
         android:textColor="#29f803"
         android:textSize="18dp"
-        android:layout_below="@+id/btnsitemap"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/google_map"
         android:backgroundTint="@null"
         android:id="@+id/txtwarename"/>
 
-    <Button
-        android:id="@+id/btnsitemap"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:text="View Site"
-        android:textStyle="bold"
-        android:layout_marginStart="5dp"
-        android:layout_below="@+id/txttest"
-        android:backgroundTint="@color/red"
-        />
 
     <EditText
         android:id="@+id/editTextwareName"
@@ -43,7 +36,7 @@
         android:ems="10"
         android:textColor="@color/yellow"
         android:layout_marginStart="5dp"
-        android:layout_below="@+id/btnsitemap"
+        android:layout_below="@+id/google_map"
         android:layout_toRightOf="@+id/txtwarename"
         android:text="Ware name" />
 
@@ -221,6 +214,8 @@
         android:layout_alignParentBottom="true"
         android:backgroundTint="@color/red"
         />
+
+
 
 
 
