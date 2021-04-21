@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.StrictMode;
@@ -103,6 +104,7 @@ public class Infofragment extends Fragment {
         String str = intent.getStringExtra("message_key");
         txttest.setText (str);
         globalwareid=str.toString ();
+
 
 
 
@@ -319,8 +321,16 @@ public class Infofragment extends Fragment {
         });
 
 
-
-
+        Button btnViewSite = (Button) V.findViewById(R.id.btnsitemap);
+        btnViewSite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnViewSite.setVisibility(View.GONE);
+                FragmentManager fr = getFragmentManager();
+                SiteMapFragment siteMapFragment = new SiteMapFragment();
+                fr.beginTransaction().replace(R.id.siteInfo,siteMapFragment).commit();
+            }
+        });
         // after you've done all your manipulation, return your layout to be shown
         return V;
     }

@@ -64,15 +64,6 @@
         android:layout_below="@+id/tabBar"
         />
 
-    <Button
-        android:id="@+id/btnsitemap"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:text="View Site"
-        android:textStyle="bold"
-        android:layout_marginStart="5dp"
-        android:layout_below="@+id/tabBar"
-        android:backgroundTint="@color/red"
-        />
+
 
 </RelativeLayout>

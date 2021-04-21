@@ -74,15 +74,7 @@ public class SiteInfoActivity extends AppCompatActivity {
 
         });
 
-        btnViewSite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                btnViewSite.setVisibility(View.GONE);
-                FragmentManager fr = getSupportFragmentManager();
-                SiteMapFragment siteMapFragment = new SiteMapFragment();
-                fr.beginTransaction().replace(R.id.siteInfo,siteMapFragment).commit();
-            }
-        });
+
 
         //read passes value of ware_id from recylserview
         Intent intent = getIntent();
