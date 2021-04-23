@@ -44,24 +44,24 @@
     <TextView
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:text="City"
+        android:text="SITE ID"
         android:layout_marginTop="12dp"
         android:textColor="#29f803"
         android:textSize="18dp"
         android:layout_below="@+id/txtwarename"
         android:backgroundTint="@null"
-        android:id="@+id/txtcity"/>
+        android:id="@+id/txtsiteid"/>
 
     <EditText
-        android:id="@+id/editTextcity"
+        android:id="@+id/editTextsiteid"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:ems="10"
         android:textColor="@color/yellow"
         android:layout_marginStart="5dp"
         android:layout_below="@+id/txtwarename"
-        android:layout_toRightOf="@+id/txtcity"
-        android:text="City" />
+        android:layout_toRightOf="@+id/txtsiteid"
+        android:text="Site ID" />
 
     <!-- Add texaddress -->
     <TextView
@@ -71,7 +71,7 @@
         android:layout_marginTop="12dp"
         android:textColor="#29f803"
         android:textSize="18dp"
-        android:layout_below="@+id/txtcity"
+        android:layout_below="@+id/txtsiteid"
         android:backgroundTint="@null"
         android:id="@+id/txtaddress"/>
 
@@ -82,7 +82,7 @@
         android:ems="10"
         android:textColor="@color/yellow"
         android:layout_marginStart="5dp"
-        android:layout_below="@+id/txtcity"
+        android:layout_below="@+id/txtsiteid"
         android:layout_toRightOf="@+id/txtaddress"
         android:text="Address" />
 

@@ -54,86 +54,23 @@ public class SpeedActivity extends AppCompatActivity {
         editTextDate.setText(varyear);
 
          // get data by defaukt based on sysdate
-         GetSpeedData();
+         GetSpeedData(1,10);
 
         //button previous in speedlist
         btnprevious.setOnClickListener (new View.OnClickListener ( ) {
             @Override
             public void onClick(View v) {
-                int j=pagination;
-                if (arraysize > 0) {
-                    //System.out.println ("Previous now ");
-                    int vprev=(varraysize - pagination) ;
-                    if((vprev) >=10) {
-                        pagination=0;
-                        speeds.clear ();
-                        //System.out.println("start previous is : "+vprev);
-                        for (int i=(vprev-10);i<vprev;i++) {
-                                speeds.add(new Speed(speeddb.get (i).getSpddownload (),speeddb.get (i).getSpdupload (),speeddb.get (i).getSpdlat (),speeddb.get (i).getSpdlng (),speeddb.get (i).getSpddate ()));
-                                //varraysize=varraysize-1;
-                                varraysize=vprev;
-                                pagination=pagination+1;
-                        }
-                        SpeedRecViewAdapter adapter =new SpeedRecViewAdapter(SpeedActivity.this);
-                        adapter.setContacts(speeds);
-                        speedsRecView.setAdapter(adapter);
-                        speedsRecView.setLayoutManager(new LinearLayoutManager (SpeedActivity.this));
-                    } else {
-                        varraysize=0;
-                        pagination=0;
-
-                        speeds.clear ();
-                        for (int i=0;i<j;i++) {
-                            varraysize=varraysize+1;
-                            pagination=pagination+1;
-                            speeds.add(new Speed(speeddb.get (i).getSpddownload (),speeddb.get (i).getSpdupload (),speeddb.get (i).getSpdlat (),speeddb.get (i).getSpdlng (),speeddb.get (i).getSpddate ()));
-                        }
-                        SpeedRecViewAdapter adapter =new SpeedRecViewAdapter(SpeedActivity.this);
-                        adapter.setContacts(speeds);
-                        speedsRecView.setAdapter(adapter);
-                        speedsRecView.setLayoutManager(new LinearLayoutManager (SpeedActivity.this));
-                    }
-
-                }
+                pagination=pagination-2;
+                if (pagination <=0 ) {pagination=0;}
+                GetSpeedData((pagination *10)+1,(pagination*10)+10);
             }
         });
-
-
-
-
-
 
         //button next in speedlist
         btnnext.setOnClickListener (new View.OnClickListener ( ) {
             @Override
             public void onClick(View v) {
-                //System.out.println ("Next now ");
-
-                if(varraysize <arraysize) {
-                    int vnext=0;
-                    pagination=0;
-                    if ((varraysize +10) >arraysize ) {
-                        vnext=arraysize;
-                    } else {
-                        vnext=varraysize +10;
-                    }
-                    speeds.clear ();
-
-                    for (int i=varraysize;i<vnext;i++) {
-                        if(varraysize <arraysize) {
-                            speeds.add(new Speed(speeddb.get (i).getSpddownload (),speeddb.get (i).getSpdupload (),speeddb.get (i).getSpdlat (),speeddb.get (i).getSpdlng (),speeddb.get (i).getSpddate ()));
-                            varraysize=varraysize+1;
-                            pagination=pagination+1;
-                        }
-                    }
-                    SpeedRecViewAdapter adapter =new SpeedRecViewAdapter(SpeedActivity.this);
-                    adapter.setContacts(speeds);
-                    speedsRecView.setAdapter(adapter);
-                    speedsRecView.setLayoutManager(new LinearLayoutManager (SpeedActivity.this));
-                } else {
-                    varraysize =arraysize;
-                }
-
+                GetSpeedData((pagination*10)+1,(pagination*10)+10);
             }
         });
 
@@ -166,7 +103,7 @@ public class SpeedActivity extends AppCompatActivity {
                                 //editTextDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
 
                                 // get data by defaukt based on editTextDate
-                                GetSpeedData();
+                                GetSpeedData(1,10);
                             }
                         }, year, month, day);
                 picker.show();
@@ -176,7 +113,7 @@ public class SpeedActivity extends AppCompatActivity {
 
     }
 
-   public void GetSpeedData() {
+   public void GetSpeedData(int vfrom, int vto) {
        // connect to DB
        OraDB oradb= new OraDB();
        String url = oradb.getoraurl ();
@@ -219,12 +156,9 @@ public class SpeedActivity extends AppCompatActivity {
        String sqlStmt;
        //System.out.println ("started with "+ vardate.length () );
        if (vardate.length () >0) {
-           //System.out.println ("on click "+ vardate );
-            sqlStmt = "select SPEED_DOWNLOAD,SPEED_UPLOAD,SPEED_LAT,SPEED_LNG,TO_DATE(TO_CHAR(SPEED_DATE, 'YYYY-MM-DD'),'YYYY-MM-DD') as SPEED_DATE from SPEEDTEST  where TO_DATE(TO_CHAR(SPEED_DATE, 'YYYY-MM-DD'),'YYYY-MM-DD') =TO_DATE('"+ vardate +"', 'YYYY-MM-DD') ";
-           //System.out.println (sqlStmt);
+            sqlStmt = "SELECT * FROM (select ROW_NUMBER() OVER (ORDER BY speedtstid) row_num,SPEED_DOWNLOAD,SPEED_UPLOAD,SPEED_LAT,SPEED_LNG,TO_DATE(TO_CHAR(SPEED_DATE, 'YYYY-MM-DD'),'YYYY-MM-DD') as SPEED_DATE from SPEEDTEST  where TO_DATE(TO_CHAR(SPEED_DATE, 'YYYY-MM-DD'),'YYYY-MM-DD') =TO_DATE('"+ vardate +"', 'YYYY-MM-DD') ) T WHERE row_num >= '" + vfrom +"' AND row_num <='" + vto +"' ";
        } else {
-           //System.out.println ("on open "+ vardate );
-            sqlStmt = "select SPEED_DOWNLOAD,SPEED_UPLOAD,SPEED_LAT,SPEED_LNG,SPEED_DATE from SPEEDTEST where TO_CHAR(SPEED_DATE, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') order by SPEED_DATE DESC";
+            sqlStmt = "SELECT * FROM ( select ROW_NUMBER() OVER (ORDER BY speedtstid) row_num,SPEED_DOWNLOAD,SPEED_UPLOAD,SPEED_LAT,SPEED_LNG,SPEED_DATE from SPEEDTEST where TO_CHAR(SPEED_DATE, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') order by SPEED_DATE DESC ) T WHERE row_num >= '" + vfrom +"' AND row_num <='" + vto +"' ";
        }
 
        ResultSet rs1 = null;
@@ -256,23 +190,26 @@ public class SpeedActivity extends AppCompatActivity {
        }
 
        arraysize=speeddb.size ();
-       //System.out.println("Array Size is : "+arraysize);
-       speeds.clear ();
-       varraysize=0;
-       for ( i=varraysize;i<10;i++) {
-           if(varraysize <arraysize) {
-               speeds.add(new Speed(speeddb.get (i).getSpddownload (),speeddb.get (i).getSpdupload (),speeddb.get (i).getSpdlat (),speeddb.get (i).getSpdlng (),speeddb.get (i).getSpddate ()));
-               varraysize=varraysize+1;
-               pagination=pagination+1;
-               // System.out.println("Page Array Size is : "+varraysize);
-           }
+
+       if (arraysize >0)  {
+               speeds.clear ();
+               varraysize=0;
+               for ( i=varraysize;i<10;i++) {
+                   if(varraysize <arraysize) {
+                       speeds.add(new Speed(speeddb.get (i).getSpddownload (),speeddb.get (i).getSpdupload (),speeddb.get (i).getSpdlat (),speeddb.get (i).getSpdlng (),speeddb.get (i).getSpddate ()));
+                       varraysize=varraysize+1;
+
+                   }
+               }
+                pagination=pagination+1;
+
+               //connect data to speedlistadapter
+               SpeedRecViewAdapter adapter =new SpeedRecViewAdapter(SpeedActivity.this);
+               adapter.setContacts(speeds);
+               speedsRecView.setAdapter(adapter);
+               speedsRecView.setLayoutManager(new LinearLayoutManager (SpeedActivity.this));
        }
 
 
-       //connect data to speedlistadapter
-       SpeedRecViewAdapter adapter =new SpeedRecViewAdapter(SpeedActivity.this);
-       adapter.setContacts(speeds);
-       speedsRecView.setAdapter(adapter);
-       speedsRecView.setLayoutManager(new LinearLayoutManager (SpeedActivity.this));
    }
 }

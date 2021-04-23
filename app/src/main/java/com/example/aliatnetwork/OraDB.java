@@ -8,7 +8,7 @@ public class OraDB {
 
 
     public OraDB() {
-        oraurl = "jdbc:oracle:thin:@192.168.91.54:1524:ALM";
+        oraurl = "jdbc:oracle:thin:@192.168.81.72:1524:ALM";
         orausername = "alm";
         orapwd = "alm";
     }

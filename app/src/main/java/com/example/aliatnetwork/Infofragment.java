@@ -98,7 +98,7 @@ public class Infofragment extends Fragment {
         Button btnsave = (Button) V.findViewById(R.id.btnsave);
         Button btndelete = (Button) V.findViewById(R.id.btndelete);
         TextView editTextwareName= (TextView) V.findViewById(R.id.editTextwareName);
-        TextView editTextcity= (TextView) V.findViewById(R.id.editTextcity);
+        TextView editTextsiteid= (TextView) V.findViewById(R.id.editTextsiteid);
         TextView editTextaddress= (TextView) V.findViewById(R.id.editTextaddress);
         TextView editTextlongitude= (TextView) V.findViewById(R.id.editTextlongitude);
         TextView editTextlatitude= (TextView) V.findViewById(R.id.editTextlatitude);
@@ -157,7 +157,7 @@ public class Infofragment extends Fragment {
             try {
                 if (!rs1.next()) break;
                 editTextwareName.setText (rs1.getString("WARE_NAME"));
-                editTextcity.setText (rs1.getString("CITY"));
+                editTextsiteid.setText (rs1.getString("SITE_ID"));
                 editTextlatitude.setText (rs1.getString("LATITUDE"));
                 editTextlongitude.setText (rs1.getString("LONGITUDE"));
                 editTextaddress.setText (rs1.getString("ADDRESS"));
@@ -286,9 +286,9 @@ public class Infofragment extends Fragment {
                         ((SiteInfoActivity)getActivity()).getfromfragment(globalwareid);
 
                         stmtinsert1 = conn.prepareStatement("insert into WAREHOUSE (WARE_ID,CREATION_DATE,LAST_MODIFY_DATE,WARE_NAME,CITY,LONGITUDE,LATITUDE,SITE,SITE_ID,TECH_2G,TECH_3G,TECH_4G,TECH_5G,AREA_ID,AREA_NAME,ADDRESS,CLUSTER_ID,CLUSTER_NAME) values " +
-                            "('"+globalwareid +"' ,sysdate, sysdate,'"+ editTextwareName.getText()  +"', '"+ editTextcity.getText ()  +"', '"+ editTextlongitude.getText ()  +"', '"+ editTextlatitude.getText ()  +"','"+chksite +"','0','"+tech2G +"','"+tech3G +"','"+tech4G +"','"+tech5G +"','0','0','"+ editTextaddress.getText ()  +"','0','0')");
+                            "('"+globalwareid +"' ,sysdate, sysdate,'"+ editTextwareName.getText()  +"', '0', '"+ editTextlongitude.getText ()  +"', '"+ editTextlatitude.getText ()  +"','"+chksite +"','"+ editTextsiteid.getText ()  +"','"+tech2G +"','"+tech3G +"','"+tech4G +"','"+tech5G +"','0','0','"+ editTextaddress.getText ()  +"','0','0')");
                     } else { // we wil use update where wareid= the one we selected
-                        stmtinsert1 = conn.prepareStatement("update  WAREHOUSE  set LAST_MODIFY_DATE=sysdate,WARE_NAME='"+ editTextwareName.getText()  +"',CITY='"+ editTextcity.getText ()  +"',LONGITUDE='"+ editTextlongitude.getText ()  +"',LATITUDE='"+ editTextlatitude.getText ()  +"',SITE='"+chksite +"',TECH_2G='"+tech2G +"',TECH_3G='"+tech3G +"',TECH_4G='"+tech4G +"',TECH_5G='"+tech5G +"',ADDRESS='"+ editTextaddress.getText ()  +"' where WARE_ID ='" + globalwareid +"' ");
+                        stmtinsert1 = conn.prepareStatement("update  WAREHOUSE  set LAST_MODIFY_DATE=sysdate,WARE_NAME='"+ editTextwareName.getText()  +"',SITE_ID='"+ editTextsiteid.getText ()  +"',LONGITUDE='"+ editTextlongitude.getText ()  +"',LATITUDE='"+ editTextlatitude.getText ()  +"',SITE='"+chksite +"',TECH_2G='"+tech2G +"',TECH_3G='"+tech3G +"',TECH_4G='"+tech4G +"',TECH_5G='"+tech5G +"',ADDRESS='"+ editTextaddress.getText ()  +"' where WARE_ID ='" + globalwareid +"' ");
                     }
 
                 } catch (SQLException throwables) {

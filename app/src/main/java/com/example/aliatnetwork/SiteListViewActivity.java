@@ -80,7 +80,7 @@ public class SiteListViewActivity extends AppCompatActivity {
         btnnew= findViewById (R.id.btnnew);
 
         // get sites data by default
-        GetSitesData();
+        GetSitesData(1,10);
 
         //btninfo  how to send variable from one activity ot other activity
        // btninfo.setOnClickListener (new View.OnClickListener ( ) {
@@ -100,7 +100,7 @@ public class SiteListViewActivity extends AppCompatActivity {
         btnnew.setOnClickListener (new View.OnClickListener ( ) {
             @Override
             public void onClick(View v) {
-                // call blank new page of siteinfo
+                // call bla(Vnk new page of siteinfo
                 openSiteInfoActivity();
 
             }
@@ -109,47 +109,16 @@ public class SiteListViewActivity extends AppCompatActivity {
                 intent.putExtra("message_key", "0");
                 startActivity(intent);
             }
+
         });
 
         //button previuos
         btnprevious.setOnClickListener (new View.OnClickListener ( ) {
             @Override
             public void onClick(View v) {
-                      int j=pagination;
-                    if (arraysize > 0) {
-                        //System.out.println ("Previous now ");
-                        int vprev=(varraysize - pagination) ;
-                        if((vprev) >=10) {
-                            pagination=0;
-                            sites.clear ();
-                            //System.out.println("start previous is : "+vprev);
-                            for (int i=(vprev-10);i<vprev;i++) {
-                                sites.add(new Sitelistview (sitedb.get (i).getWAREID (),sitedb.get (i).getSITEID (),sitedb.get (i).getWARENAME (),sitedb.get (i).getWADDRESS (),sitedb.get (i).getWARELAT (),sitedb.get (i).getWARELNG ()));
-                                //varraysize=varraysize-1;
-                                varraysize=vprev;
-                                pagination=pagination+1;
-                            }
-
-                           SiteRecViewAdapter adapter =new SiteRecViewAdapter(SiteListViewActivity.this);
-                            adapter.setContacts(sites);
-                            sitesRecView.setAdapter(adapter);
-                            sitesRecView.setLayoutManager(new LinearLayoutManager (SiteListViewActivity.this));
-                        } else {
-                            varraysize=0;
-                            pagination=0;
-                            sites.clear ();
-                            for (int i=0;i<j;i++) {
-                                varraysize=varraysize+1;
-                                pagination=pagination+1;
-                                sites.add(new Sitelistview (sitedb.get (i).getWAREID (),sitedb.get (i).getSITEID (),sitedb.get (i).getWARENAME (),sitedb.get (i).getWADDRESS (),sitedb.get (i).getWARELAT (),sitedb.get (i).getWARELNG ()));
-                            }
-                            SiteRecViewAdapter adapter =new SiteRecViewAdapter(SiteListViewActivity.this);
-                            adapter.setContacts(sites);
-                            sitesRecView.setAdapter(adapter);
-                            sitesRecView.setLayoutManager(new LinearLayoutManager (SiteListViewActivity.this));
-                        }
-
-                    }
+                pagination=pagination-2;
+                if (pagination <=0 ) {pagination=0;}
+                GetSitesData((pagination *10)+1,(pagination*10)+10);
                 }
 
         });
@@ -159,36 +128,12 @@ public class SiteListViewActivity extends AppCompatActivity {
         btnnext.setOnClickListener (new View.OnClickListener ( ) {
             @Override
             public void onClick(View v) {
-                if(varraysize <arraysize) {
-                    int vnext=0;
-                    pagination=0;
-                    if ((varraysize +10) >arraysize ) {
-                        vnext=arraysize;
-                    } else {
-                        vnext=varraysize +10;
-                    }
-                    sites.clear ();
-
-                    for (int i=varraysize;i<vnext;i++) {
-                        if(varraysize <arraysize) {
-                            sites.add(new Sitelistview (sitedb.get (i).getWAREID (),sitedb.get (i).getSITEID (),sitedb.get (i).getWARENAME (),sitedb.get (i).getWADDRESS (),sitedb.get (i).getWARELAT (),sitedb.get (i).getWARELNG ()));
-                            varraysize=varraysize+1;
-                            pagination=pagination+1;
-                        }
-                    }
-
-                    SiteRecViewAdapter adapter =new SiteRecViewAdapter (SiteListViewActivity.this);
-                    adapter.setContacts(sites);
-                    sitesRecView.setAdapter(adapter);
-                    sitesRecView.setLayoutManager(new LinearLayoutManager (SiteListViewActivity.this));
-                } else {
-                    varraysize =arraysize;
-                }
+                GetSitesData((pagination*10)+1,(pagination*10)+10);
             }
         });
     }
 
-    public void GetSitesData() {
+    public void GetSitesData(int vfrom, int vto) {
         // connect to DB
         OraDB oradb= new OraDB();
         String url = oradb.getoraurl ();
@@ -228,7 +173,7 @@ public class SiteListViewActivity extends AppCompatActivity {
             throwables.printStackTrace();
         }
 
-        String  sqlStmt = "select WARE_ID,SITE_ID, WARE_NAME,ADDRESS, LATITUDE,LONGITUDE from WAREHOUSE where SITE='1' order by SITE_ID";
+        String  sqlStmt = "SELECT * FROM (select ROW_NUMBER() OVER (ORDER BY WARE_ID) row_num,WARE_ID,SITE_ID, WARE_NAME,ADDRESS, LATITUDE,LONGITUDE from WAREHOUSE where SITE='1' order by SITE_ID) T WHERE row_num >= '" + vfrom +"' AND row_num <='" + vto +"'";
 
         ResultSet rs1 = null;
         try {
@@ -258,23 +203,24 @@ public class SiteListViewActivity extends AppCompatActivity {
         }
 
         arraysize=sitedb.size ();
-        //System.out.println("Array Size is : "+arraysize);
-        sites.clear ();
-        varraysize=0;
-        for ( i=varraysize;i<10;i++) {
-            if(varraysize <arraysize) {
-                sites.add(new Sitelistview (sitedb.get (i).getWAREID (),sitedb.get (i).getSITEID (),sitedb.get (i).getWARENAME (),sitedb.get (i).getWADDRESS (),sitedb.get (i).getWARELAT (),sitedb.get (i).getWARELNG ()));
-                varraysize=varraysize+1;
-                pagination=pagination+1;
-                // System.out.println("Page Array Size is : "+varraysize);
-            }
-        }
 
-        //connect data to coveragelistadapter
-        SiteRecViewAdapter adapter =new SiteRecViewAdapter(SiteListViewActivity.this);
-        adapter.setContacts(sites);
-        sitesRecView.setAdapter(adapter);
-        sitesRecView.setLayoutManager(new LinearLayoutManager (SiteListViewActivity.this));
+        if (arraysize >0) {
+                //System.out.println("Array Size is : "+arraysize);
+                sites.clear ( );
+                varraysize = 0;
+                for (i = varraysize; i < 10; i++) {
+                    if (varraysize < arraysize) {
+                        sites.add (new Sitelistview (sitedb.get (i).getWAREID ( ), sitedb.get (i).getSITEID ( ), sitedb.get (i).getWARENAME ( ), sitedb.get (i).getWADDRESS ( ), sitedb.get (i).getWARELAT ( ), sitedb.get (i).getWARELNG ( )));
+                        varraysize = varraysize + 1;
+                    }
+                }
+                pagination = pagination + 1;
+                //connect data to coveragelistadapter
+                SiteRecViewAdapter adapter = new SiteRecViewAdapter (SiteListViewActivity.this);
+                adapter.setContacts (sites);
+                sitesRecView.setAdapter (adapter);
+                sitesRecView.setLayoutManager (new LinearLayoutManager (SiteListViewActivity.this));
+        }
     }
 
     @Override

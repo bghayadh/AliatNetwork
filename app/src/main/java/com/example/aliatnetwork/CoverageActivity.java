@@ -52,86 +52,25 @@ public class CoverageActivity extends AppCompatActivity {
         editTextDate.setText(varyear);
 
         // get data by defaukt based on sysdate
-        GetCoverageData();
+        GetCoverageData(1,10);
 
         //button previous in speedlist
         btnprevious.setOnClickListener (new View.OnClickListener ( ) {
             @Override
             public void onClick(View v) {
-                int j=pagination;
-                if (arraysize > 0) {
-                    //System.out.println ("Previous now ");
-                    int vprev=(varraysize - pagination) ;
-                    if((vprev) >=10) {
-                        pagination=0;
-                        coverages.clear ();
-                        //System.out.println("start previous is : "+vprev);
-                        for (int i=(vprev-10);i<vprev;i++) {
-                            coverages.add(new Coverage (coveragedb.get (i).getCovsignal (),coveragedb.get (i).getCovlat (),coveragedb.get (i).getCovlng (),coveragedb.get (i).getCovdate ()));
-                            //varraysize=varraysize-1;
-                            varraysize=vprev;
-                            pagination=pagination+1;
-                        }
-                        CoverageRecViewAdapter adapter =new CoverageRecViewAdapter(CoverageActivity.this);
-                        adapter.setContacts(coverages);
-                        coveragesRecView.setAdapter(adapter);
-                        coveragesRecView.setLayoutManager(new LinearLayoutManager (CoverageActivity.this));
-                    } else {
-                        varraysize=0;
-                        pagination=0;
 
-                        coverages.clear ();
-                        for (int i=0;i<j;i++) {
-                            varraysize=varraysize+1;
-                            pagination=pagination+1;
-                            coverages.add(new Coverage (coveragedb.get (i).getCovsignal (),coveragedb.get (i).getCovlat (),coveragedb.get (i).getCovlng (),coveragedb.get (i).getCovdate ()));
-                        }
-                        CoverageRecViewAdapter adapter =new CoverageRecViewAdapter(CoverageActivity.this);
-                        adapter.setContacts(coverages);
-                        coveragesRecView.setAdapter(adapter);
-                        coveragesRecView.setLayoutManager(new LinearLayoutManager (CoverageActivity.this));
-                    }
-
-                }
+                pagination=pagination-2;
+                if (pagination <=0 ) {pagination=0;}
+                GetCoverageData((pagination*10)+1,(pagination*10)+10);
             }
         });
-
-
-
-
 
 
         //button next in speedlist
         btnnext.setOnClickListener (new View.OnClickListener ( ) {
             @Override
             public void onClick(View v) {
-                //System.out.println ("Next now ");
-
-                if(varraysize <arraysize) {
-                    int vnext=0;
-                    pagination=0;
-                    if ((varraysize +10) >arraysize ) {
-                        vnext=arraysize;
-                    } else {
-                        vnext=varraysize +10;
-                    }
-                    coverages.clear ();
-
-                    for (int i=varraysize;i<vnext;i++) {
-                        if(varraysize <arraysize) {
-                            coverages.add(new Coverage (coveragedb.get (i).getCovsignal (),coveragedb.get (i).getCovlat (),coveragedb.get (i).getCovlng (),coveragedb.get (i).getCovdate ()));
-                            varraysize=varraysize+1;
-                            pagination=pagination+1;
-                        }
-                    }
-                    CoverageRecViewAdapter adapter =new CoverageRecViewAdapter (CoverageActivity.this);
-                    adapter.setContacts(coverages);
-                    coveragesRecView.setAdapter(adapter);
-                    coveragesRecView.setLayoutManager(new LinearLayoutManager (CoverageActivity.this));
-                } else {
-                    varraysize =arraysize;
-                }
-
+                GetCoverageData((pagination*10)+1,(pagination*10)+10);
             }
         });
 
@@ -164,7 +103,7 @@ public class CoverageActivity extends AppCompatActivity {
                                 //editTextDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
 
                                 // get data by defaukt based on editTextDate
-                                GetCoverageData();
+                                GetCoverageData(1,10);
                             }
                         }, year, month, day);
                 picker.show();
@@ -174,104 +113,104 @@ public class CoverageActivity extends AppCompatActivity {
 
     }
 
-    public void GetCoverageData() {
+    public void GetCoverageData(int vfrom, int vto) {
         // connect to DB
-        OraDB oradb= new OraDB();
-        String url = oradb.getoraurl ();
-        String userName = oradb.getorausername ();
-        String password = oradb.getorapwd ();
+        OraDB oradb = new OraDB ( );
+        String url = oradb.getoraurl ( );
+        String userName = oradb.getorausername ( );
+        String password = oradb.getorapwd ( );
 
         try {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-            Class.forName("oracle.jdbc.driver.OracleDriver").newInstance();
-            conncov = DriverManager.getConnection(url,userName,password);
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder ( ).permitAll ( ).build ( );
+            StrictMode.setThreadPolicy (policy);
+            Class.forName ("oracle.jdbc.driver.OracleDriver").newInstance ( );
+            conncov = DriverManager.getConnection (url, userName, password);
             // Toast.makeText (SpeedActivity.this,"Connected to the database",Toast.LENGTH_SHORT).show ();
         } catch (IllegalArgumentException | ClassNotFoundException | SQLException e) { //catch (IllegalArgumentException e)       e.getClass().getName()   catch (Exception e)
-            System.out.println("error is: " +e.toString());
-            Toast.makeText (CoverageActivity.this,"" +e.toString(),Toast.LENGTH_SHORT).show ();
+            System.out.println ("error is: " + e.toString ( ));
+            Toast.makeText (CoverageActivity.this, "" + e.toString ( ), Toast.LENGTH_SHORT).show ( );
         } catch (IllegalAccessException e) {
-            System.out.println("error is: " +e.toString());
-            Toast.makeText (CoverageActivity.this,"" +e.toString(),Toast.LENGTH_SHORT).show ();
+            System.out.println ("error is: " + e.toString ( ));
+            Toast.makeText (CoverageActivity.this, "" + e.toString ( ), Toast.LENGTH_SHORT).show ( );
         } catch (InstantiationException e) {
-            System.out.println("error is: " +e.toString());
-            Toast.makeText (CoverageActivity.this,"" +e.toString(),Toast.LENGTH_SHORT).show ();
+            System.out.println ("error is: " + e.toString ( ));
+            Toast.makeText (CoverageActivity.this, "" + e.toString ( ), Toast.LENGTH_SHORT).show ( );
         }
-
 
 
         // define recyclerview of coveragelist
-        coveragesRecView=findViewById(R.id.coveragesRecView);
-        coverages =new ArrayList<>();
-        coveragedb=new ArrayList<>();
+        coveragesRecView = findViewById (R.id.coveragesRecView);
+        coverages = new ArrayList<> ( );
+        coveragedb = new ArrayList<> ( );
         //Add data for sppedlist recyclerview
         // Call Speed test DATA for display
         Statement stmt1 = null;
-        int i=0;
+        int i = 0;
         try {
-            stmt1 = conncov.createStatement();
+            stmt1 = conncov.createStatement ( );
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            throwables.printStackTrace ( );
         }
-        String vardate=editTextDate.getText ().toString ();
+        String vardate = editTextDate.getText ( ).toString ( );
         String sqlStmt;
         //System.out.println ("started with "+ vardate.length () );
-        if (vardate.length () >0) {
-           // System.out.println ("on click "+ vardate );
-            sqlStmt = "select COVERAGE_SIGNAL,COVERAGE_LAT,COVERAGE_LNG,TO_DATE(TO_CHAR(COVERAGE_DATE, 'YYYY-MM-DD'),'YYYY-MM-DD') as COVERAGE_DATE from COVERAGETEST  where TO_DATE(TO_CHAR(COVERAGE_DATE, 'YYYY-MM-DD'),'YYYY-MM-DD') =TO_DATE('"+ vardate +"', 'YYYY-MM-DD') ";
-           // System.out.println (sqlStmt);
+        if (vardate.length ( ) > 0) {
+            // System.out.println ("on click "+ vardate );
+            sqlStmt = "SELECT * FROM (select ROW_NUMBER() OVER (ORDER BY COVERAGETSTID) row_num,COVERAGE_SIGNAL,COVERAGE_LAT,COVERAGE_LNG,TO_DATE(TO_CHAR(COVERAGE_DATE, 'YYYY-MM-DD'),'YYYY-MM-DD') as COVERAGE_DATE from COVERAGETEST  where TO_DATE(TO_CHAR(COVERAGE_DATE, 'YYYY-MM-DD'),'YYYY-MM-DD') =TO_DATE('" + vardate + "', 'YYYY-MM-DD') ) T WHERE row_num >= '" + vfrom + "' AND row_num <='" + vto + "'";
+            // System.out.println (sqlStmt);
         } else {
-           // System.out.println ("on open "+ vardate );
-            sqlStmt = "select COVERAGE_SIGNAL,COVERAGE_LAT,COVERAGE_LNG,COVERAGE_DATE from COVERAGETEST where TO_CHAR(COVERAGE_DATE, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') order by COVERAGE_DATE DESC";
+            // System.out.println ("on open "+ vardate );
+            sqlStmt = "SELECT * FROM (select ROW_NUMBER() OVER (ORDER BY COVERAGETSTID) row_num,COVERAGE_SIGNAL,COVERAGE_LAT,COVERAGE_LNG,COVERAGE_DATE from COVERAGETEST where TO_CHAR(COVERAGE_DATE, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') order by COVERAGE_DATE DESC) T WHERE row_num >= '" + vfrom + "' AND row_num <='" + vto + "'";
         }
 
         ResultSet rs1 = null;
         try {
-            rs1 = stmt1.executeQuery(sqlStmt);
+            rs1 = stmt1.executeQuery (sqlStmt);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            throwables.printStackTrace ( );
         }
         while (true) {
             try {
-                if (!rs1.next()) break;
-                arraysize=arraysize+1;
+                if (!rs1.next ( )) break;
+                arraysize = arraysize + 1;
                 //System.out.println(rs1.getString("SPEED_DOWNLOAD") +" "+ rs1.getString("SPEED_UPLOAD") +" "+ rs1.getString("SPEED_DATE"));
-                coveragedb.add(new Coverage (rs1.getString("COVERAGE_SIGNAL"),rs1.getString("COVERAGE_LAT"),rs1.getString("COVERAGE_LNG"),rs1.getString("COVERAGE_DATE")));
+                coveragedb.add (new Coverage (rs1.getString ("COVERAGE_SIGNAL"), rs1.getString ("COVERAGE_LAT"), rs1.getString ("COVERAGE_LNG"), rs1.getString ("COVERAGE_DATE")));
             } catch (SQLException throwables) {
-                throwables.printStackTrace();
+                throwables.printStackTrace ( );
             }
         }
         try {
-            rs1.close();
+            rs1.close ( );
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            throwables.printStackTrace ( );
         }
         try {
-            stmt1.close();
-            conncov.close ();
+            stmt1.close ( );
+            conncov.close ( );
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            throwables.printStackTrace ( );
         }
 
-        arraysize=coveragedb.size ();
-        //System.out.println("Array Size is : "+arraysize);
-        coverages.clear ();
-        varraysize=0;
-        for ( i=varraysize;i<10;i++) {
-            if(varraysize <arraysize) {
-                coverages.add(new Coverage (coveragedb.get (i).getCovsignal (),coveragedb.get (i).getCovlat (),coveragedb.get (i).getCovlng (),coveragedb.get (i).getCovdate ()));
-                varraysize=varraysize+1;
-                pagination=pagination+1;
-                // System.out.println("Page Array Size is : "+varraysize);
-            }
+        arraysize = coveragedb.size ( );
+
+        if (arraysize > 0) {
+                //System.out.println("Array Size is : "+arraysize);
+                coverages.clear ( );
+                varraysize = 0;
+                for (i = varraysize; i < 10; i++) {
+                    if (varraysize < arraysize) {
+                        coverages.add (new Coverage (coveragedb.get (i).getCovsignal ( ), coveragedb.get (i).getCovlat ( ), coveragedb.get (i).getCovlng ( ), coveragedb.get (i).getCovdate ( )));
+                        varraysize = varraysize + 1;
+                    }
+                }
+                pagination = pagination + 1;
+
+                //connect data to coveragelistadapter
+                CoverageRecViewAdapter adapter = new CoverageRecViewAdapter (CoverageActivity.this);
+                adapter.setContacts (coverages);
+                coveragesRecView.setAdapter (adapter);
+                coveragesRecView.setTextAlignment (View.TEXT_ALIGNMENT_CENTER);
+                coveragesRecView.setLayoutManager (new LinearLayoutManager (CoverageActivity.this));
         }
-
-
-        //connect data to coveragelistadapter
-        CoverageRecViewAdapter adapter =new CoverageRecViewAdapter(CoverageActivity.this);
-        adapter.setContacts(coverages);
-        coveragesRecView.setAdapter(adapter);
-        coveragesRecView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        coveragesRecView.setLayoutManager(new LinearLayoutManager (CoverageActivity.this));
     }
 }
