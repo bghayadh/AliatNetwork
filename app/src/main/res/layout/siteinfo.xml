@@ -19,7 +19,7 @@
 
     <TextView
         android:id="@+id/txtwareid"
-        android:layout_width="100dp"
+        android:layout_width="140dp"
         android:layout_height="40dp"
         android:text="TextView"
         android:layout_marginStart="2dp"

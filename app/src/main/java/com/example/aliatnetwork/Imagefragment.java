@@ -147,13 +147,13 @@ public class Imagefragment extends  Fragment  {
         ////////
         imagerecView = V.findViewById(R.id.imageRecView);
         images = new ArrayList<>();
-        images.add(new ImageListView("//hghghdfhsd/dssdsd/ddsdds/dsdss.png",R.drawable.imgbtn_foreground));
+       /* images.add(new ImageListView("//hghghdfhsd/dssdsd/ddsdds/dsdss.png",R.drawable.imgbtn_foreground));
         images.add(new ImageListView("//hghghdfhsd/dssdsd/ddsdds/dsdss.png",R.drawable.imgbtn_foreground));
         images.add(new ImageListView("//hghghdfhsd/dssdsd/ddsdds/dsdss.png",R.drawable.imgbtn_foreground));
         images.add(new ImageListView("//hghghdfhsd/dssdsd/ddsdds/dsdss.png",R.drawable.imgbtn_foreground));
         ImageRecViewAdapter imageRecViewAdapter = new ImageRecViewAdapter(getContext(),images);
         imagerecView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        imagerecView.setAdapter(imageRecViewAdapter);
+        imagerecView.setAdapter(imageRecViewAdapter);*/
         //////////
 
 
@@ -342,6 +342,8 @@ public class Imagefragment extends  Fragment  {
                         Uri imageUri=data.getClipData().getItemAt(i).getUri();
                         imagesUris.add(imageUri);
 
+                        ///add images in the recyclerview
+                        images.add(new ImageListView(getpath(imageUri),R.drawable.imgbtn_foreground));
                         // get path of image of all in one shot
                         //System.out.println(getpath(imageUri));
                         imagesource[i]=getpath(imageUri);
@@ -367,6 +369,11 @@ public class Imagefragment extends  Fragment  {
 
 
                     }
+                    ///fill the recyclerview with imagespath
+                    ImageRecViewAdapter imageRecViewAdapter = new ImageRecViewAdapter(getContext(),images);
+                    imagerecView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    imagerecView.setAdapter(imageRecViewAdapter);
+
 
                     // set first image to our main screen image
                     imagesIs.setImageURI(imagesUris.get(0));
