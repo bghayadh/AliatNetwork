@@ -1,8 +1,10 @@
 package com.example.aliatnetwork;
 
 import android.content.DialogInterface;
+import android.media.Image;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -76,12 +78,13 @@ public class Imagefragment extends  Fragment  {
     private static final int PICK_IMAGES_CODE=0;
     private String[] imagesource;
     int position =0;
-
     String server = "ftp.ipage.com";
     int port = 21;
     String user = "beid";
     String pass = "10th@Loop";
     FTPClient ftpClient = new FTPClient();
+    private RecyclerView imagerecView;
+    private ArrayList<ImageListView> images;
 
     private View rootView;
 
@@ -140,6 +143,25 @@ public class Imagefragment extends  Fragment  {
         Button btnftpimages = (Button) V.findViewById(R.id.btnftpimages);
         imagesIs = (ImageSwitcher) V.findViewById(R.id.imagesIs);
         imagesUris=new ArrayList<>();
+
+        ////////
+        imagerecView = V.findViewById(R.id.imageRecView);
+        images = new ArrayList<>();
+        images.add(new ImageListView("//hghghdfhsd/dssdsd/ddsdds/dsdss.png",R.drawable.imgbtn_foreground));
+        images.add(new ImageListView("//hghghdfhsd/dssdsd/ddsdds/dsdss.png",R.drawable.imgbtn_foreground));
+        images.add(new ImageListView("//hghghdfhsd/dssdsd/ddsdds/dsdss.png",R.drawable.imgbtn_foreground));
+        images.add(new ImageListView("//hghghdfhsd/dssdsd/ddsdds/dsdss.png",R.drawable.imgbtn_foreground));
+        ImageRecViewAdapter imageRecViewAdapter = new ImageRecViewAdapter(getContext(),images);
+        imagerecView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        imagerecView.setAdapter(imageRecViewAdapter);
+        //////////
+
+
+
+
+
+
+
 
 
         previousBtn.setOnClickListener(new View.OnClickListener() {
@@ -271,6 +293,12 @@ public class Imagefragment extends  Fragment  {
 
         // after you've done all your manipulation, return your layout to be shown
         return V;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
     }
 
     public void pickImagesIntent() {
