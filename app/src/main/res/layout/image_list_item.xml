@@ -2,22 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="52dp"
+    android:layout_height="45dp"
     android:padding="16dp">
 
-    <ImageView
-        android:layout_width="40dp"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:id="@+id/imgid"
-        android:src="@drawable/ic_launcher_background"/>
+        android:id="@+id/wareid"
+        android:textSize="10dp"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:id="@+id/imgpath"
-        android:nextFocusRight="@id/imgid"
-        android:textSize="17dp"
+        android:nextFocusRight="@id/wareid"
+        android:textSize="10dp"
         android:textColor="@color/white"
-        android:textStyle="bold"/>
-
-
+        android:textStyle="bold"
+        />
 </LinearLayout>

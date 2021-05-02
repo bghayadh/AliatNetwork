@@ -1,7 +1,5 @@
 package com.example.aliatnetwork;
 
-import android.content.DialogInterface;
-import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,58 +10,38 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.os.StrictMode;
-import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
+
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import android.Manifest;
-import android.app.Activity;
-import android.content.ActivityNotFoundException;
+
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
-import android.os.StrictMode;
 import android.provider.MediaStore;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
-import android.widget.Toast;
 import android.widget.ViewSwitcher;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
+
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.function.BinaryOperator;
 
 import static com.example.aliatnetwork.R.layout.fragment_imagefragment;
 
@@ -73,10 +51,12 @@ import static com.example.aliatnetwork.R.layout.fragment_imagefragment;
  * create an instance of this fragment.
  */
 public class Imagefragment extends  Fragment  {
+    private String globalwareid;
     private ImageSwitcher imagesIs;
     private ArrayList<Uri> imagesUris;
     private static final int PICK_IMAGES_CODE=0;
     private String[] imagesource;
+    private TextView txtwareid,txtimgpath;
     int position =0;
     String server = "ftp.ipage.com";
     int port = 21;
@@ -84,8 +64,8 @@ public class Imagefragment extends  Fragment  {
     String pass = "10th@Loop";
     FTPClient ftpClient = new FTPClient();
     private RecyclerView imagerecView;
-    private ArrayList<ImageListView> images;
-
+    private ArrayList<ImageListView> images,imagesdb;
+    public Connection conn;
     private View rootView;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -135,35 +115,92 @@ public class Imagefragment extends  Fragment  {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         //return inflater.inflate (fragment_imagefragment, container, false);
-
         View V = inflater.inflate (fragment_imagefragment, container, false);
         Button previousBtn = (Button) V.findViewById(R.id.previousBtn);
+        Button btnmain = (Button) V.findViewById(R.id.btnmain);
         Button nextBtn = (Button) V.findViewById(R.id.nextBtn);
         Button btnpickimages = (Button) V.findViewById(R.id.btnpickimages);
         Button btnftpimages = (Button) V.findViewById(R.id.btnftpimages);
         imagesIs = (ImageSwitcher) V.findViewById(R.id.imagesIs);
         imagesUris=new ArrayList<>();
-
-        ////////
         imagerecView = V.findViewById(R.id.imageRecView);
         images = new ArrayList<>();
-       /* images.add(new ImageListView("//hghghdfhsd/dssdsd/ddsdds/dsdss.png",R.drawable.imgbtn_foreground));
-        images.add(new ImageListView("//hghghdfhsd/dssdsd/ddsdds/dsdss.png",R.drawable.imgbtn_foreground));
-        images.add(new ImageListView("//hghghdfhsd/dssdsd/ddsdds/dsdss.png",R.drawable.imgbtn_foreground));
-        images.add(new ImageListView("//hghghdfhsd/dssdsd/ddsdds/dsdss.png",R.drawable.imgbtn_foreground));
+        imagesdb = new ArrayList<>();
+        txtwareid = (TextView) V.findViewById(R.id.wareid);
+        txtimgpath = (TextView) V.findViewById(R.id.imgpath);
+
+
+
+     /*   ///receiver
+        Bundle bundle = this.getArguments();
+        if(bundle != null) {
+            String data = bundle.getString("key1");
+            System.out.println("receiving data : "+data);
+            globalwareid=data;
+        }*/
+        //System.out.println ("here is the received data : "+((SiteInfoActivity)getActivity()).settofragment().toString());
+
+
+
+        //read passes value of ware_id from recylserview
+        Intent intent = getActivity().getIntent();
+        String str = intent.getStringExtra("message_key");
+        globalwareid = str.toString();
+
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//connect to database
+        connecttoDB();
+        Statement stmt1 = null;
+        int i=0;
+        try {
+            stmt1 = conn.createStatement();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        String  sqlStmt = "Select WARE_ID,IMAGE_PATH FROM WAREHOUSE_IMAGE WHERE WARE_ID='"+globalwareid+"'";
+
+        ResultSet rs1 = null;
+        try {
+            rs1 = stmt1.executeQuery(sqlStmt);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        while (true) {
+            try {
+                if (!rs1.next()) break;
+                imagesdb.add(new ImageListView (rs1.getString("WARE_ID"),rs1.getString("IMAGE_PATH")));
+            }
+            catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+
+        try {
+            rs1.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        try {
+            stmt1.close();
+            conn.close ();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        for(i=0;i<imagesdb.size();i++) {
+            images.add(new ImageListView(imagesdb.get(i).getWareID(), imagesdb.get(i).getImagePath()));
+        }
+        ///fill the recyclerview with imagespath
         ImageRecViewAdapter imageRecViewAdapter = new ImageRecViewAdapter(getContext(),images);
         imagerecView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        imagerecView.setAdapter(imageRecViewAdapter);*/
-        //////////
+        imagerecView.setAdapter(imageRecViewAdapter);
+        ////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
-
-
-
-
-
+        ////////////////////////////////////////////////////////////////////////////////////////////
         previousBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,9 +220,20 @@ public class Imagefragment extends  Fragment  {
                     position++;
                     imagesIs.setImageURI(imagesUris.get(position));
 
+
                 }else {
                     Toast.makeText(getActivity (),"No more image",Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        ///return to main page
+        btnmain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent =new Intent(getActivity(),MainActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -216,10 +264,12 @@ public class Imagefragment extends  Fragment  {
                             ftpClient.enterLocalPassiveMode ( );
                             String workingDir = ftpClient.printWorkingDirectory ( );
                             System.out.println ("OUR PWD IS " + workingDir);
-                            ftpClient.changeWorkingDirectory (workingDir + "bassam");
+                            ftpClient.changeWorkingDirectory (workingDir + "Sites");
                             ftpClient.setFileType (FTP.BINARY_FILE_TYPE);
                             workingDir = ftpClient.printWorkingDirectory ( );
 
+                            ///validate warehouse id folder if not found created else change directory
+                            /// /Sites/WARE_ID/Image_name
                             // upload file
                             try {
                                 for (int i = 0; i < imagesource.length; i++) {
@@ -234,6 +284,7 @@ public class Imagefragment extends  Fragment  {
                                         String[] data1 ;
                                         data1=destination1.split("/",-1);
                                         destination1=data1[(data1.length) -1];
+                                        System.out.println(destination1);
                                     }
 
 
@@ -278,7 +329,14 @@ public class Imagefragment extends  Fragment  {
                         e.printStackTrace ( );
                     }
                 } // end if selection array not null
+
+
+
             }
+
+
+
+
         });
 
         //setup Image Swircher
@@ -293,12 +351,22 @@ public class Imagefragment extends  Fragment  {
 
         // after you've done all your manipulation, return your layout to be shown
         return V;
+
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ///added for pass data in fragment
+        txtwareid = view.findViewById(R.id.txtwareid);
+    }
 
+    ///added for pass data in fragment
+    void displayReceivedData(String message) {
+        //txtwareid.setText("Data received: " + message);
+        txtwareid.setText(message);
+        globalwareid = txtwareid.getText().toString();
+        System.out.println("Global ware ID: "+globalwareid);
     }
 
     public void pickImagesIntent() {
@@ -343,7 +411,7 @@ public class Imagefragment extends  Fragment  {
                         imagesUris.add(imageUri);
 
                         ///add images in the recyclerview
-                        images.add(new ImageListView(getpath(imageUri),R.drawable.imgbtn_foreground));
+                        images.add(new ImageListView(globalwareid,getpath(imageUri)));
                         // get path of image of all in one shot
                         //System.out.println(getpath(imageUri));
                         imagesource[i]=getpath(imageUri);
@@ -366,14 +434,42 @@ public class Imagefragment extends  Fragment  {
                          } **/
 
 
+                        connecttoDB();
+                        PreparedStatement stmtinsert1 = null;
+
+
+                        try {
+                            // System.out.println("id:"+globalwareid);
+
+                              /*  System.out.println("insert into WAREHOUSE_IMAGE (WARE_ID,IMAGE_PATH,UPLOAD_DATE) values " +
+                                        "('"+globalwareid +"','"+getpath(imageUri)  +"',sysdate)");*/
+
+                            stmtinsert1 = conn.prepareStatement("insert into WAREHOUSE_IMAGE (WARE_ID,IMAGE_PATH,UPLOAD_DATE) values " +
+                                    "('"+globalwareid +"','"+getpath(imageUri)  +"', sysdate)");
+
+                        }
+                        catch (SQLException throwables) {
+                            throwables.printStackTrace ( );
+                        }
+                        try {
+                            stmtinsert1.executeUpdate();
+                            Toast.makeText (getActivity (),"Saving Completed",Toast.LENGTH_SHORT).show ();
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace ( );
+                        }
+
+
+
+
+                        try {
+                            stmtinsert1.close();
+                            conn.close ();
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace ( );
+                        }
 
 
                     }
-                    ///fill the recyclerview with imagespath
-                    ImageRecViewAdapter imageRecViewAdapter = new ImageRecViewAdapter(getContext(),images);
-                    imagerecView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                    imagerecView.setAdapter(imageRecViewAdapter);
-
 
                     // set first image to our main screen image
                     imagesIs.setImageURI(imagesUris.get(0));
@@ -387,8 +483,39 @@ public class Imagefragment extends  Fragment  {
                     imagesIs.setImageURI(imagesUris.get(0));
                     position=0;
                 }
+
+
             }
         }
     }
+
+
+    public void connecttoDB() {
+        // connect to DB
+        OraDB oradb= new OraDB();
+        String url = oradb.getoraurl ();
+        String userName = oradb.getorausername ();
+        String password = oradb.getorapwd ();
+        try {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            Class.forName("oracle.jdbc.driver.OracleDriver").newInstance();
+            conn = DriverManager.getConnection(url,userName,password);
+            //Toast.makeText (MainActivity.this,"Connected to the database",Toast.LENGTH_SHORT).show ();
+        } catch (IllegalArgumentException | ClassNotFoundException | SQLException e) { //catch (IllegalArgumentException e)       e.getClass().getName()   catch (Exception e)
+            System.out.println("error is: " +e.toString());
+            Toast.makeText (getActivity (),"" +e.toString(),Toast.LENGTH_SHORT).show ();
+        } catch (IllegalAccessException e) {
+            System.out.println("error is: " +e.toString());
+            Toast.makeText (getActivity (),"" +e.toString(),Toast.LENGTH_SHORT).show ();
+        } catch (java.lang.InstantiationException e) {
+            System.out.println("error is: " +e.toString());
+            Toast.makeText (getActivity (),"" +e.toString(),Toast.LENGTH_SHORT).show ();
+        }
+    }
+
+
+
+
 }
 

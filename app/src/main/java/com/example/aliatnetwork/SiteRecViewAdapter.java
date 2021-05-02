@@ -54,12 +54,14 @@ public class SiteRecViewAdapter extends RecyclerView.Adapter<SiteRecViewAdapter.
                 Intent intent =  new Intent(context, SiteInfoActivity.class);
                 intent.putExtra("message_key", sites.get(position).getWAREID ());
                 context.startActivity(intent);
+
             }
         });
 
 
 
     }
+
 
     @Override
     public int getItemCount() {

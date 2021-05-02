@@ -1,5 +1,6 @@
 package com.example.aliatnetwork;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,30 +11,34 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener;
 
-public class SiteInfoActivity extends AppCompatActivity {
+public class SiteInfoActivity extends AppCompatActivity implements Infofragment.SendMessage {
     TextView txtwareid;
     Button previousBtn;
+    private Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate (savedInstanceState);
-        setContentView (R.layout.siteinfo);
-        txtwareid=findViewById (R.id.txtwareid);
-         previousBtn = findViewById (R.id.previousBtn);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.siteinfo);
+        txtwareid = findViewById(R.id.txtwareid);
+        previousBtn = findViewById(R.id.previousBtn);
 
 
-        TabLayout tabLayout=findViewById(R.id.tabBar);
-        TabItem tabChats=findViewById(R.id.tabInfo);
-        TabItem tabStatus=findViewById(R.id.tabImage);
-        TabItem tabCalls=findViewById(R.id.tabScan);
-        ViewPager viewPager=findViewById(R.id.viewPager);
+        TabLayout tabLayout = findViewById(R.id.tabBar);
+        TabItem tabChats = findViewById(R.id.tabInfo);
+        TabItem tabStatus = findViewById(R.id.tabImage);
+        TabItem tabCalls = findViewById(R.id.tabScan);
+        ViewPager viewPager = findViewById(R.id.viewPager);
 
-        PagerAdapter pagerAdapter=new PagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
+
+        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
 
 
@@ -43,21 +48,22 @@ public class SiteInfoActivity extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 //viewPager.setCurrentItem(tab.getPosition());
                 //to focus on TAB name after selecting it like focus on Info or image or Scan
-                System.out.println ( "tabs is : "+ tab.getPosition() );
-                switch(tab.getPosition()) {
+                System.out.println("tabs is : " + tab.getPosition());
+                switch (tab.getPosition()) {
                     case 0:
-                        viewPager.setCurrentItem (0);
+                        viewPager.setCurrentItem(0);
                         break;
                     case 1:
-                        viewPager.setCurrentItem (1);
+                        viewPager.setCurrentItem(1);
                         break;
                     case 2:
-                        viewPager.setCurrentItem (2);
-                          break;
+                        viewPager.setCurrentItem(2);
+                        break;
                     default:
                         viewPager.setCurrentItem(tab.getPosition());
-                          break;
+                        break;
                 }
+
 
             }
 
@@ -72,27 +78,37 @@ public class SiteInfoActivity extends AppCompatActivity {
             }
 
 
-
         });
-
 
 
         //read passes value of ware_id from recylserview
         Intent intent = getIntent();
         String str = intent.getStringExtra("message_key");
-        txtwareid.setText (str);
-
+        txtwareid.setText(str);
 
 
     }
-   // to read data coming from fragment
-    public void getfromfragment(String test)
-    {
+
+    // to read data coming from fragment
+    public void getfromfragment(String test) {
         try {
-            txtwareid.setText (test);
-        } catch(Exception e) {
+            txtwareid.setText(test);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    public String settofragment() {
+        return txtwareid.getText().toString();
+
+    }
+
+
+    ///added for pass data in fragment
+    public void sendData(String message) {
+        String tag = "android:switcher:" + R.id.viewPager + ":" + 1;
+        Imagefragment f = (Imagefragment) getSupportFragmentManager().findFragmentByTag(tag);
+        f.displayReceivedData(message);
+
+    }
 }

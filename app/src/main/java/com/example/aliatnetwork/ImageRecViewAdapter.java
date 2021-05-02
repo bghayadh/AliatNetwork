@@ -35,10 +35,10 @@ public class ImageRecViewAdapter extends RecyclerView.Adapter<ImageRecViewAdapte
     @Override
     public void onBindViewHolder(@NonNull ImageRecViewAdapter.ViewHolder holder, int position) {
 
-        holder.txt1.setText(images.get(position).getImagePath());
-        holder.img1.setImageResource(images.get(position).getImageIcon());
+        holder.wareid.setText(images.get(position).getWareID());
+        holder.imgpath.setText(images.get(position).getImagePath());
 
-        holder.img1.setOnClickListener(new View.OnClickListener() {
+        holder.wareid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context,images.get(position).getImagePath () ,Toast.LENGTH_SHORT).show();
@@ -55,13 +55,13 @@ public class ImageRecViewAdapter extends RecyclerView.Adapter<ImageRecViewAdapte
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView txt1;
-        private ImageView img1;
+        private TextView wareid;
+        private TextView imgpath;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            txt1= itemView.findViewById(R.id.imgpath);
-            img1=itemView.findViewById(R.id.imgid);
+            wareid= itemView.findViewById(R.id.wareid);
+            imgpath=itemView.findViewById(R.id.imgpath);
         }
     }
 }

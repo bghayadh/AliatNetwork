@@ -1,9 +1,12 @@
 package com.example.aliatnetwork;
 
+import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -48,6 +51,9 @@ public class Infofragment extends Fragment {
     private GpsTracker gpsTracker;
     private String globalwareid;
     private double vLatitude,vLongitude;
+
+    ///added for pass data in fragment
+    private SendMessage sendMessage;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -97,6 +103,7 @@ public class Infofragment extends Fragment {
         View V = inflater.inflate (fragment_infofragment, container, false);
         Button btnsave = (Button) V.findViewById(R.id.btnsave);
         Button btndelete = (Button) V.findViewById(R.id.btndelete);
+        Button btnmain = (Button) V.findViewById(R.id.btnmain);
         TextView editTextwareName= (TextView) V.findViewById(R.id.editTextwareName);
         TextView editTextsiteid= (TextView) V.findViewById(R.id.editTextsiteid);
         TextView editTextaddress= (TextView) V.findViewById(R.id.editTextaddress);
@@ -118,21 +125,21 @@ public class Infofragment extends Fragment {
 
 
 
-       // @RequiresApi(api = Build.VERSION_CODES.P)
-           if (globalwareid.equalsIgnoreCase ("0")) {
-               // call class Gps to get our location
-               gpsTracker = new GpsTracker (getActivity ( ));
-               if (gpsTracker.canGetLocation ( )) {
-                   double latitude = gpsTracker.getLatitude ( );
-                   double longitude = gpsTracker.getLongitude ( );
-                   editTextlatitude.setText(String.valueOf(latitude));
-                   editTextlongitude.setText(String.valueOf(longitude));
-               } else {
-                   gpsTracker.showSettingsAlert ( );
-                   editTextlatitude.setText("Error to get latitude");
-                   editTextlatitude.setText("Error to get longitude");
-               }
-           }
+        // @RequiresApi(api = Build.VERSION_CODES.P)
+        if (globalwareid.equalsIgnoreCase ("0")) {
+            // call class Gps to get our location
+            gpsTracker = new GpsTracker (getActivity ( ));
+            if (gpsTracker.canGetLocation ( )) {
+                double latitude = gpsTracker.getLatitude ( );
+                double longitude = gpsTracker.getLongitude ( );
+                editTextlatitude.setText(String.valueOf(latitude));
+                editTextlongitude.setText(String.valueOf(longitude));
+            } else {
+                gpsTracker.showSettingsAlert ( );
+                editTextlatitude.setText("Error to get latitude");
+                editTextlatitude.setText("Error to get longitude");
+            }
+        }
 
 
         //Display warehouse selected
@@ -286,8 +293,20 @@ public class Infofragment extends Fragment {
                         ((SiteInfoActivity)getActivity()).getfromfragment(globalwareid);
 
                         stmtinsert1 = conn.prepareStatement("insert into WAREHOUSE (WARE_ID,CREATION_DATE,LAST_MODIFY_DATE,WARE_NAME,CITY,LONGITUDE,LATITUDE,SITE,SITE_ID,TECH_2G,TECH_3G,TECH_4G,TECH_5G,AREA_ID,AREA_NAME,ADDRESS,CLUSTER_ID,CLUSTER_NAME) values " +
-                            "('"+globalwareid +"' ,sysdate, sysdate,'"+ editTextwareName.getText()  +"', '0', '"+ editTextlongitude.getText ()  +"', '"+ editTextlatitude.getText ()  +"','"+chksite +"','"+ editTextsiteid.getText ()  +"','"+tech2G +"','"+tech3G +"','"+tech4G +"','"+tech5G +"','0','0','"+ editTextaddress.getText ()  +"','0','0')");
-                    } else { // we wil use update where wareid= the one we selected
+                                "('"+globalwareid +"' ,sysdate, sysdate,'"+ editTextwareName.getText()  +"', '0', '"+ editTextlongitude.getText ()  +"', '"+ editTextlatitude.getText ()  +"','"+chksite +"','"+ editTextsiteid.getText ()  +"','"+tech2G +"','"+tech3G +"','"+tech4G +"','"+tech5G +"','0','0','"+ editTextaddress.getText ()  +"','0','0')");
+
+                     /*   Bundle bundle = new Bundle();
+                        bundle.putString("key1", globalwareid);
+                        Imagefragment imgfr = new Imagefragment();
+                        imgfr.setArguments(bundle);
+                        getFragmentManager().beginTransaction().replace(R.id.infofragment,imgfr).commit();*/
+
+                        ///added for pass data in fragment
+                        sendMessage.sendData(globalwareid);
+
+                    }
+
+                    else { // we wil use update where wareid= the one we selected
                         stmtinsert1 = conn.prepareStatement("update  WAREHOUSE  set LAST_MODIFY_DATE=sysdate,WARE_NAME='"+ editTextwareName.getText()  +"',SITE_ID='"+ editTextsiteid.getText ()  +"',LONGITUDE='"+ editTextlongitude.getText ()  +"',LATITUDE='"+ editTextlatitude.getText ()  +"',SITE='"+chksite +"',TECH_2G='"+tech2G +"',TECH_3G='"+tech3G +"',TECH_4G='"+tech4G +"',TECH_5G='"+tech5G +"',ADDRESS='"+ editTextaddress.getText ()  +"' where WARE_ID ='" + globalwareid +"' ");
                     }
 
@@ -346,11 +365,26 @@ public class Infofragment extends Fragment {
                     throwables.printStackTrace ( );
                 }
 
-
+                Intent intent = new Intent(getActivity(),SiteListViewActivity.class);
+                startActivity(intent);
 
             }
 
 
+
+
+
+        });
+
+
+        //// return to main page
+        btnmain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent =new Intent(getActivity(),MainActivity.class);
+                startActivity(intent);
+            }
         });
 
 
@@ -420,6 +454,19 @@ public class Infofragment extends Fragment {
 
 
 
-
+    ///added for pass data in fragment
+    interface SendMessage {
+        void sendData(String message);
+    }
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            sendMessage = (SendMessage) getActivity();
+        }
+        catch (ClassCastException e) {
+            throw new ClassCastException("Error in retrieving data. Please try again");
+        }
+    }
 
 }

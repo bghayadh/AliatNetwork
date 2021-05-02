@@ -1,13 +1,23 @@
 package com.example.aliatnetwork;
 
 public class ImageListView {
-
-    private String imagePath;
-    private int imageIcon;
-
-    public ImageListView(String imagePath, int imageIcon) {
+    public ImageListView(String wareID, String imagePath) {
+        this.wareID = wareID;
         this.imagePath = imagePath;
-        this.imageIcon = imageIcon;
+    }
+
+    private String wareID;
+    private String imagePath;
+
+
+
+
+    public String getWareID() {
+        return wareID;
+    }
+
+    public void setWareID(String wareID) {
+        this.wareID = wareID;
     }
 
     public String getImagePath() {
@@ -16,13 +26,5 @@ public class ImageListView {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
-    }
-
-    public int getImageIcon() {
-        return imageIcon;
-    }
-
-    public void setImageIcon(int imageIcon) {
-        this.imageIcon = imageIcon;
     }
 }

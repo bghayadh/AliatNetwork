@@ -83,18 +83,18 @@ public class SiteListViewActivity extends AppCompatActivity {
         GetSitesData(1,10);
 
         //btninfo  how to send variable from one activity ot other activity
-       // btninfo.setOnClickListener (new View.OnClickListener ( ) {
-       //     @Override
-       //     public void onClick(View v) {
-      //          // to call siteinfo
-     //           openSiteInfoActivity();
-      //      }
-       //     public void openSiteInfoActivity(){
-       //         Intent intent = new Intent(SiteListViewActivity.this, SiteInfoActivity.class);
-       //         intent.putExtra("message_key", "hi ALl there");
-       //         startActivity(intent);
-       //     }
-      //  });
+        // btninfo.setOnClickListener (new View.OnClickListener ( ) {
+        //     @Override
+        //     public void onClick(View v) {
+        //          // to call siteinfo
+        //           openSiteInfoActivity();
+        //      }
+        //     public void openSiteInfoActivity(){
+        //         Intent intent = new Intent(SiteListViewActivity.this, SiteInfoActivity.class);
+        //         intent.putExtra("message_key", "hi ALl there");
+        //         startActivity(intent);
+        //     }
+        //  });
 
 
         btnnew.setOnClickListener (new View.OnClickListener ( ) {
@@ -119,7 +119,7 @@ public class SiteListViewActivity extends AppCompatActivity {
                 pagination=pagination-2;
                 if (pagination <=0 ) {pagination=0;}
                 GetSitesData((pagination *10)+1,(pagination*10)+10);
-                }
+            }
 
         });
 
@@ -163,8 +163,8 @@ public class SiteListViewActivity extends AppCompatActivity {
         sitesRecView=findViewById(R.id.sitesRecView);
         sites =new ArrayList<>();
         sitedb=new ArrayList<>();
-        //Add data for sitelistview recyclerview
 
+        //Add data for sitelistview recyclerview
         Statement stmt1 = null;
         int i=0;
         try {
@@ -205,21 +205,21 @@ public class SiteListViewActivity extends AppCompatActivity {
         arraysize=sitedb.size ();
 
         if (arraysize >0) {
-                //System.out.println("Array Size is : "+arraysize);
-                sites.clear ( );
-                varraysize = 0;
-                for (i = varraysize; i < 10; i++) {
-                    if (varraysize < arraysize) {
-                        sites.add (new Sitelistview (sitedb.get (i).getWAREID ( ), sitedb.get (i).getSITEID ( ), sitedb.get (i).getWARENAME ( ), sitedb.get (i).getWADDRESS ( ), sitedb.get (i).getWARELAT ( ), sitedb.get (i).getWARELNG ( )));
-                        varraysize = varraysize + 1;
-                    }
+            //System.out.println("Array Size is : "+arraysize);
+            sites.clear ( );
+            varraysize = 0;
+            for (i = varraysize; i < 10; i++) {
+                if (varraysize < arraysize) {
+                    sites.add (new Sitelistview (sitedb.get (i).getWAREID ( ), sitedb.get (i).getSITEID ( ), sitedb.get (i).getWARENAME ( ), sitedb.get (i).getWADDRESS ( ), sitedb.get (i).getWARELAT ( ), sitedb.get (i).getWARELNG ( )));
+                    varraysize = varraysize + 1;
                 }
-                pagination = pagination + 1;
-                //connect data to coveragelistadapter
-                SiteRecViewAdapter adapter = new SiteRecViewAdapter (SiteListViewActivity.this);
-                adapter.setContacts (sites);
-                sitesRecView.setAdapter (adapter);
-                sitesRecView.setLayoutManager (new LinearLayoutManager (SiteListViewActivity.this));
+            }
+            pagination = pagination + 1;
+            //connect data to coveragelistadapter
+            SiteRecViewAdapter adapter = new SiteRecViewAdapter (SiteListViewActivity.this);
+            adapter.setContacts (sites);
+            sitesRecView.setAdapter (adapter);
+            sitesRecView.setLayoutManager (new LinearLayoutManager (SiteListViewActivity.this));
         }
     }
 

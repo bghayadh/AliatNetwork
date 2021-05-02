@@ -5,16 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0A5EA8"
-    tools:context=".Imagefragment">
+    tools:context=".Imagefragment"
+    android:id="@+id/fragmentimageid">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:id="@+id/txtwareid"
+        android:visibility="invisible"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/imageRecView"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="250dp"
         android:orientation="horizontal"
+        android:scrollbars="vertical"
+
         />
+
+
 
     <ImageSwitcher
         android:layout_width="400dp"
@@ -26,57 +38,59 @@
     <Button
         android:layout_width="200dp"
         android:layout_height="60dp"
-        android:text="Previous"
-        android:layout_marginStart="1dp"
-        android:textStyle="bold"
-        android:layout_below="@+id/imagesIs"
-        android:backgroundTint="@color/red"
-        android:id="@+id/previousBtn"/>
-
-    <Button
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:text="Next"
-        android:textStyle="bold"
-        android:layout_marginStart="5dp"
-        android:layout_toRightOf="@+id/previousBtn"
-        android:layout_marginRight="1dp"
-        android:layout_below="@+id/imagesIs"
-        android:backgroundTint="@color/red"
-        android:id="@+id/nextBtn"/>
-
-    <Button
-        android:id="@+id/btnpickimages"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
         android:text="Select Photos"
         android:layout_marginStart="1dp"
         android:textStyle="bold"
-        android:layout_below="@+id/previousBtn"
+        android:layout_below="@+id/imagesIs"
+        android:backgroundTint="@color/red"
+        android:id="@+id/btnpickimages"/>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:text="Upload Photos"
+        android:textStyle="bold"
+        android:layout_marginStart="5dp"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/btnpickimages"
+        android:layout_marginRight="1dp"
+        android:layout_below="@+id/imagesIs"
+        android:backgroundTint="@color/red"
+        android:id="@+id/btnftpimages"/>
+
+    <Button
+        android:id="@+id/previousBtn"
+        android:layout_width="133dp"
+        android:layout_height="60dp"
+        android:text="Previous"
+        android:layout_marginStart="1dp"
+        android:textStyle="bold"
+        android:layout_below="@+id/btnpickimages"
         android:backgroundTint="@color/red"
         />
 
     <Button
-        android:id="@+id/btnftpimages"
-        android:layout_width="200dp"
+        android:id="@+id/nextBtn"
+        android:layout_width="133dp"
         android:layout_height="60dp"
-        android:layout_below="@+id/previousBtn"
+        android:layout_below="@+id/btnftpimages"
         android:textStyle="bold"
-        android:layout_toRightOf="@+id/btnpickimages"
+        android:layout_toRightOf="@+id/previousBtn"
         android:layout_marginStart="5dp"
         android:layout_marginRight="1dp"
-        android:text="Upload Photos"
+        android:text="Next"
         android:backgroundTint="@color/red"
         />
-
-
-
-
-
-
-
-
-
-
-
+    <Button
+        android:id="@+id/btnmain"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
+        android:text="Main Page"
+        android:layout_marginStart="5dp"
+        android:layout_alignParentRight="true"
+        android:textStyle="bold"
+        android:layout_below="@id/btnftpimages"
+        android:layout_toRightOf="@+id/nextBtn"
+        android:backgroundTint="@color/red"
+        />
 </RelativeLayout>
