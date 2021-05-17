@@ -68,7 +68,7 @@ public class SiteListViewActivity extends AppCompatActivity {
     private int pagination=0;
     public Connection connsite;
     public ArrayList<Sitelistview> sites,sitedb;
-    private Button btnprevious,btnnext,btnnew;
+    private Button btnprevious,btnnext,btnnew,btnmain;
 
 
     @Override
@@ -78,6 +78,7 @@ public class SiteListViewActivity extends AppCompatActivity {
         btnprevious = findViewById (R.id.btnprevious);
         btnnext = findViewById (R.id.btnnext);
         btnnew= findViewById (R.id.btnnew);
+        btnmain=findViewById (R.id.BtnMain);
 
         // get sites data by default
         GetSitesData(1,10);
@@ -129,6 +130,16 @@ public class SiteListViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 GetSitesData((pagination*10)+1,(pagination*10)+10);
+            }
+        });
+
+        //// return to main page
+        btnmain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent =new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intent);
             }
         });
     }

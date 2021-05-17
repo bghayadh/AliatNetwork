@@ -40,12 +40,24 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/sitesRecView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="565dp"
         android:scrollbarSize="12dp"
         android:scrollbars="vertical"
         android:layout_below="@+id/btnprevious"
-        android:layout_marginTop="5dp"
+
         tools:layout_editor_absoluteX="191dp" />
 
-
+    <!-- display Main Page button -->
+    <Button
+        android:id="@+id/BtnMain"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/sitesRecView"
+        android:backgroundTint="@color/red"
+        android:textColor="@color/white"
+        android:text="Main Page"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:layout_alignParentRight="true"
+        />
 </RelativeLayout>
