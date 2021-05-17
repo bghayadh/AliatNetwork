@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,17 @@ import android.view.ViewGroup;
 import android.app.Activity;
 import android.os.StrictMode;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -56,7 +62,9 @@ public class Imagefragment extends  Fragment  {
     private ArrayList<Uri> imagesUris;
     private static final int PICK_IMAGES_CODE=0;
     private String[] imagesource;
-    private TextView txtwareid,txtimgpath;
+    private TextView txtimgpath;
+    private ImageButton imgbtn;
+    private TextView txtwareid;
     int position =0;
     String server = "ftp.ipage.com";
     int port = 21;
@@ -126,7 +134,6 @@ public class Imagefragment extends  Fragment  {
         imagerecView = V.findViewById(R.id.imageRecView);
         images = new ArrayList<>();
         imagesdb = new ArrayList<>();
-        txtwareid = (TextView) V.findViewById(R.id.wareid);
         txtimgpath = (TextView) V.findViewById(R.id.imgpath);
 
 
@@ -161,7 +168,7 @@ public class Imagefragment extends  Fragment  {
             throwables.printStackTrace();
         }
 
-        String  sqlStmt = "Select WARE_ID,IMAGE_PATH FROM WAREHOUSE_IMAGE WHERE WARE_ID='"+globalwareid+"'";
+        String  sqlStmt = "Select IMAGE_PATH FROM WAREHOUSE_IMAGE WHERE WARE_ID='"+globalwareid+"'";
 
         ResultSet rs1 = null;
         try {
@@ -173,7 +180,7 @@ public class Imagefragment extends  Fragment  {
         while (true) {
             try {
                 if (!rs1.next()) break;
-                imagesdb.add(new ImageListView (rs1.getString("WARE_ID"),rs1.getString("IMAGE_PATH")));
+                imagesdb.add(new ImageListView (R.drawable.imgdelete_foreground,R.drawable.imgbtn_foreground,rs1.getString("IMAGE_PATH")));
             }
             catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -192,7 +199,7 @@ public class Imagefragment extends  Fragment  {
             throwables.printStackTrace();
         }
         for(i=0;i<imagesdb.size();i++) {
-            images.add(new ImageListView(imagesdb.get(i).getWareID(), imagesdb.get(i).getImagePath()));
+            images.add(new ImageListView(R.drawable.imgdelete_foreground,R.drawable.imgbtn_foreground, imagesdb.get(i).getImagePath()));
         }
         ///fill the recyclerview with imagespath
         ImageRecViewAdapter imageRecViewAdapter = new ImageRecViewAdapter(getContext(),images);
@@ -265,10 +272,23 @@ public class Imagefragment extends  Fragment  {
                             String workingDir = ftpClient.printWorkingDirectory ( );
                             System.out.println ("OUR PWD IS " + workingDir);
                             ftpClient.changeWorkingDirectory (workingDir + "Sites");
+
+                            //return true if the directory found
+                            System.out.println(ftpClient.changeWorkingDirectory (workingDir + "Sites"));
+                            //System.out.println(ftpClient.changeWorkingDirectory (workingDir + "Sites"+workingDir+"WARE_2021_211"));
+
+
+                            ftpClient.makeDirectory(globalwareid);
+                            ftpClient.changeWorkingDirectory(workingDir+"Sites"+"/"+globalwareid);
+                            // check if the directory correctly created
+                            System.out.println(ftpClient.changeWorkingDirectory(workingDir+"Sites"+"/"+globalwareid));
                             ftpClient.setFileType (FTP.BINARY_FILE_TYPE);
                             workingDir = ftpClient.printWorkingDirectory ( );
 
+                            System.out.println("Directory: "+workingDir);
+
                             ///validate warehouse id folder if not found created else change directory
+
                             /// /Sites/WARE_ID/Image_name
                             // upload file
                             try {
@@ -284,21 +304,64 @@ public class Imagefragment extends  Fragment  {
                                         String[] data1 ;
                                         data1=destination1.split("/",-1);
                                         destination1=data1[(data1.length) -1];
-                                        System.out.println(destination1);
+                                        System.out.println("Image Name:"+destination1);
                                     }
+                                    //get the image path in the ftp
+                                    String path = workingDir+"/"+destination1;
+                                    System.out.println("path"+path);
 
 
 
                                     //srcFilePath is source to read
                                     // workingDir  is destination to upload
                                     FileInputStream srcFileStream = new FileInputStream (srcFilePath);
+
                                     //System.out.println ("OPEN STREAM ");
                                     //status = ftpClient.storeFile(workingDir, srcFileStream);
 
                                     // upload function
-                                    //System.out.println ("upload " + srcFileStream + "Destination " + workingDir);
+                                    System.out.println ("upload " + srcFileStream + "Destination " + workingDir);
                                     ftpClient.storeFile (destination1, srcFileStream);
+
+
                                     srcFileStream.close ( );
+
+
+
+                                    connecttoDB();
+                                    PreparedStatement stmtinsert1 = null;
+
+
+                                    try {
+                                        // System.out.println("id:"+globalwareid);
+
+                              /*  System.out.println("insert into WAREHOUSE_IMAGE (WARE_ID,IMAGE_PATH,UPLOAD_DATE) values " +
+                                        "('"+globalwareid +"','"+getpath(imageUri)  +"',sysdate)");*/
+
+                                        stmtinsert1 = conn.prepareStatement("insert into WAREHOUSE_IMAGE (WARE_ID,IMAGE_PATH,UPLOAD_DATE) values " +
+                                                "('"+globalwareid +"','"+path  +"', sysdate)");
+
+                                    }
+                                    catch (SQLException throwables) {
+                                        throwables.printStackTrace ( );
+                                    }
+                                    try {
+                                        stmtinsert1.executeUpdate();
+                                        Toast.makeText (getActivity (),"Saving Completed",Toast.LENGTH_SHORT).show ();
+                                    } catch (SQLException throwables) {
+                                        throwables.printStackTrace ( );
+                                    }
+
+
+
+
+                                    try {
+                                        stmtinsert1.close();
+                                        conn.close ();
+                                    } catch (SQLException throwables) {
+                                        throwables.printStackTrace ( );
+                                    }
+
                                 }
                                 Toast.makeText (getActivity (),"upload Completed",Toast.LENGTH_SHORT).show ();
                                 imagesource=null;
@@ -309,6 +372,7 @@ public class Imagefragment extends  Fragment  {
                             }
 
                         }
+
 
                     } catch (IOException e) {
                         Toast.makeText (getActivity (),e.toString (),Toast.LENGTH_SHORT).show ();
@@ -328,16 +392,15 @@ public class Imagefragment extends  Fragment  {
                         Toast.makeText (getActivity (),e.toString (),Toast.LENGTH_SHORT).show ();
                         e.printStackTrace ( );
                     }
+
                 } // end if selection array not null
 
-
-
             }
-
-
-
-
         });
+
+        // download image from ftp by clicking on the camera icon
+
+
 
         //setup Image Swircher
         imagesIs.setFactory(new ViewSwitcher.ViewFactory() {
@@ -411,7 +474,7 @@ public class Imagefragment extends  Fragment  {
                         imagesUris.add(imageUri);
 
                         ///add images in the recyclerview
-                        images.add(new ImageListView(globalwareid,getpath(imageUri)));
+                         images.add(new ImageListView(R.drawable.imgdelete_foreground,R.drawable.imgbtn_foreground,getpath(imageUri)));
                         // get path of image of all in one shot
                         //System.out.println(getpath(imageUri));
                         imagesource[i]=getpath(imageUri);
@@ -432,41 +495,6 @@ public class Imagefragment extends  Fragment  {
                          catch(Exception e) {
                          System.out.println("Path Error"+ e.toString());
                          } **/
-
-
-                        connecttoDB();
-                        PreparedStatement stmtinsert1 = null;
-
-
-                        try {
-                            // System.out.println("id:"+globalwareid);
-
-                              /*  System.out.println("insert into WAREHOUSE_IMAGE (WARE_ID,IMAGE_PATH,UPLOAD_DATE) values " +
-                                        "('"+globalwareid +"','"+getpath(imageUri)  +"',sysdate)");*/
-
-                            stmtinsert1 = conn.prepareStatement("insert into WAREHOUSE_IMAGE (WARE_ID,IMAGE_PATH,UPLOAD_DATE) values " +
-                                    "('"+globalwareid +"','"+getpath(imageUri)  +"', sysdate)");
-
-                        }
-                        catch (SQLException throwables) {
-                            throwables.printStackTrace ( );
-                        }
-                        try {
-                            stmtinsert1.executeUpdate();
-                            Toast.makeText (getActivity (),"Saving Completed",Toast.LENGTH_SHORT).show ();
-                        } catch (SQLException throwables) {
-                            throwables.printStackTrace ( );
-                        }
-
-
-
-
-                        try {
-                            stmtinsert1.close();
-                            conn.close ();
-                        } catch (SQLException throwables) {
-                            throwables.printStackTrace ( );
-                        }
 
 
                     }
@@ -513,8 +541,6 @@ public class Imagefragment extends  Fragment  {
             Toast.makeText (getActivity (),"" +e.toString(),Toast.LENGTH_SHORT).show ();
         }
     }
-
-
 
 
 }

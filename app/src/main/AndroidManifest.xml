@@ -47,6 +47,7 @@
         <activity android:name=".CoverageActivity"></activity>
         <activity android:name=".SiteListViewActivity"></activity>
         <activity android:name=".SiteInfoActivity"></activity>
+        <activity android:name=".ImageDisplay"></activity>
 
         <!-- Main layout/form-->
         <activity android:name=".MainActivity">
