@@ -42,7 +42,7 @@ public class SiteRecViewAdapter extends RecyclerView.Adapter<SiteRecViewAdapter.
         holder.txtwarename.setText(sites.get(position).getWARENAME ());
         holder.txtwareaddr.setText(sites.get(position).getWADDRESS ());
         holder.txtwarelat.setText(sites.get(position).getWARELAT ());
-        holder.txtwarelng.setText(sites.get (position).getWARELNG ().toString ());
+        holder.txtwarelng.setText(sites.get (position).getWARELNG ());
 
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override

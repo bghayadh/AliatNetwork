@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0A5EA8"
+    >
+
+    <Button
+        android:id="@+id/btnprevious"
+        android:layout_width="133dp"
+        android:layout_height="50dp"
+        android:text="PREVIOUS"
+        android:layout_marginStart="1dp"
+        android:backgroundTint="@color/red"
+        />
+
+    <Button
+        android:id="@+id/btnnext"
+        android:layout_width="133dp"
+        android:layout_height="50dp"
+        android:text="NEXT"
+        android:backgroundTint="@color/red"
+        android:layout_toRightOf="@+id/btnprevious"
+        android:layout_marginStart="5dp"
+        />
+
+    <Button
+        android:id="@+id/btnnew"
+        android:layout_width="133dp"
+        android:layout_height="50dp"
+        android:text="NEW"
+        android:layout_marginRight="5dp"
+        android:backgroundTint="@color/red"
+        android:layout_toRightOf="@+id/btnnext"
+        android:layout_marginStart="5dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/TicketsRecView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarSize="12dp"
+        android:scrollbars="vertical"
+        android:layout_below="@+id/btnprevious"
+        android:layout_marginTop="5dp"
+        tools:layout_editor_absoluteX="191dp" />
+
+
+</RelativeLayout>

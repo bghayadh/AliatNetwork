@@ -358,6 +358,22 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        // to move to ticket
+        Btntickets.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                openTicketlistviewActivity();
+            }
+
+
+            public void openTicketlistviewActivity(){
+                Intent intent = new Intent(MainActivity.this, TicketListViewActivity.class);
+                startActivity(intent);
+            }
+
+        });
+
         // click to move to shop List
         Btnshops.setOnClickListener(new View.OnClickListener() {
             @Override

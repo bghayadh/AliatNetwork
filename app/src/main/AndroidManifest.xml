@@ -48,6 +48,8 @@
         <activity android:name=".SiteListViewActivity"></activity>
         <activity android:name=".SiteInfoActivity"></activity>
         <activity android:name=".ImageDisplay"></activity>
+        <activity android:name=".TicketListViewActivity"></activity>
+        <activity android:name=".TicketInfoActivity"></activity>
 
         <!-- Main layout/form-->
         <activity android:name=".MainActivity">
