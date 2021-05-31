@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -177,12 +178,19 @@ public class ImageRecViewAdapter extends RecyclerView.Adapter<ImageRecViewAdapte
             @Override
             public void onClick(View v) {
                 // pass on click camera icon value to new activity ImageDisplay
+
                 holder.imgIcon.setColorFilter(Color.GREEN);
+
                 Intent intent =  new Intent(context, ImageDisplay.class);
                 intent.putExtra("message_key", images.get(position).getImagePath ());
                 context.startActivity(intent);
 
-
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        holder.imgIcon.setColorFilter(Color.YELLOW);
+                    }
+                },5000);
 
 
             }

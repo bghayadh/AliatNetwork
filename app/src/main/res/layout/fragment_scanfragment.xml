@@ -4,11 +4,125 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Scanfragment">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<!-- Edit Text for scanning-->
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Enter your scan here"
+        android:id="@+id/editscan"
+        android:layout_marginStart="5dp"
+        android:maxLines="1"
+        />
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!-- Edit Text for deleting-->
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Enter barcode to delete"
+        android:id="@+id/deletescan"
+        android:layout_marginStart="200dp"
+        android:nextFocusRight="@id/editscan"
+        android:maxLines="1"
+        />
+</RelativeLayout>
+
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Scan_fragment" />
+        android:id="@+id/tableid"
+        android:layout_marginTop="70dp"
+        android:stretchColumns="1,2,3,4"
+        android:background="@drawable/cast_skip_ad_label_border"
+        >
 
+        <TableRow>
+            <TextView
+                android:text="Item Code"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:padding="10dp"
+                android:layout_column="1"
+                android:textColor="@color/yellowheader"
+                />
+            <TextView
+                android:text="Bar Code"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:padding="10dp"
+                android:layout_column="1"
+                android:textColor="@color/yellowheader"
+               />
+            <TextView
+                android:text="Serial Number"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:padding="10dp"
+                android:layout_column="1"
+                android:textColor="@color/yellowheader"
+                />
+            <TextView
+                android:text="Quantity"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:padding="10dp"
+                android:layout_column="1"
+                android:textColor="@color/yellowheader"
+                />
+
+
+        </TableRow>
+
+    </TableLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:layout_marginTop="116dp"
+        android:layout_marginStart="5dp"
+        android:id="@+id/scanrecview"
+        android:scrollbars="vertical"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <!-- display Main Page button -->
+    <Button
+        android:id="@+id/BtnMain"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/red"
+        android:textColor="@color/white"
+        android:layout_marginTop="520dp"
+        android:text="Main Page"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="263dp"
+        />
+    <Button
+        android:id="@+id/BtnDelete"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/red"
+        android:textColor="@color/white"
+        android:layout_marginTop="520dp"
+        android:text="Delete"
+        android:layout_marginStart="140dp"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        />
+    <Button
+        android:id="@+id/BtnSave"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/red"
+        android:textColor="@color/white"
+        android:layout_marginTop="520dp"
+        android:text="Save"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        />
+    </RelativeLayout>
 </FrameLayout>

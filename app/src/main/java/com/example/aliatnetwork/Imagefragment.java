@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -135,6 +136,7 @@ public class Imagefragment extends  Fragment  {
         images = new ArrayList<>();
         imagesdb = new ArrayList<>();
         txtimgpath = (TextView) V.findViewById(R.id.imgpath);
+
 
 
 
@@ -541,6 +543,10 @@ public class Imagefragment extends  Fragment  {
             Toast.makeText (getActivity (),"" +e.toString(),Toast.LENGTH_SHORT).show ();
         }
     }
+
+
+
+
 
 
 }

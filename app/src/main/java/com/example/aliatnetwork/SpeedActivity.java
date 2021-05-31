@@ -2,6 +2,7 @@ package com.example.aliatnetwork;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
@@ -39,6 +40,7 @@ public class SpeedActivity extends AppCompatActivity {
     private Button btnprevious,btnnext,btnrundate;
     private DatePickerDialog picker;
     private TextView editTextDate;
+    private Button btnmain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class SpeedActivity extends AppCompatActivity {
         editTextDate=findViewById (R.id.editTextDate);
          btnprevious = findViewById (R.id.btnprevious);
          btnnext = findViewById (R.id.btnnext);
+         btnmain=findViewById(R.id.BtnMain);
 
          // set date in textdate by default
         String varyear=year + "-" + (month+1 ) + "-"+day;
@@ -108,6 +111,16 @@ public class SpeedActivity extends AppCompatActivity {
                         }, year, month, day);
                 picker.show();
 
+            }
+        });
+
+        //// return to main page
+        btnmain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent =new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intent);
             }
         });
 

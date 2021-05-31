@@ -107,10 +107,12 @@ public class ImageDisplay extends AppCompatActivity {
         btnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                
                 finish();
             }
         });
+
+
     }
 
 

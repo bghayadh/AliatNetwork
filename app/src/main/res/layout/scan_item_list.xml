@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:stretchColumns="1,2,3,4">
+
+    <TableRow>
+        <TextView
+            android:id="@+id/item_id"
+            android:textSize="13dp"
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:layout_column="1"
+            android:textColor="@color/white"
+            />
+        <TextView
+            android:id="@+id/barcode_id"
+            android:textSize="13dp"
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:layout_column="1"
+            android:textColor="@color/white"
+            />
+        <TextView
+            android:id="@+id/serialnb_id"
+            android:textSize="13dp"
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:layout_column="1"
+            android:textColor="@color/white"
+           />
+        <TextView
+            android:id="@+id/quantity_id"
+            android:textSize="13dp"
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:layout_column="1"
+            android:textColor="@color/white"
+            />
+
+    </TableRow>
+
+</TableLayout>
+</RelativeLayout>
