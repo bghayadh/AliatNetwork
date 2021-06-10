@@ -70,7 +70,7 @@ public class TicketListViewActivity extends AppCompatActivity {
     private int pagination = 0;
     public Connection connsite;
     public ArrayList<TicketListView> tickets, ticketDb;
-    private Button btnprevious, btnnext, btnnew;
+    private Button btnprevious, btnnext, btnnew,btnmain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +79,7 @@ public class TicketListViewActivity extends AppCompatActivity {
         btnprevious = findViewById(R.id.btnprevious);
         btnnext = findViewById(R.id.btnnext);
         btnnew = findViewById(R.id.btnnew);
-
+        btnmain=findViewById (R.id.BtnMain);
         GetTicketsData(1,10); // get ticket data by default
 
             // start btnNew
@@ -118,6 +118,16 @@ public class TicketListViewActivity extends AppCompatActivity {
             }
         });
         ///end btn next
+
+        //// return to main page
+        btnmain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent =new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

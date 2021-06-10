@@ -329,6 +329,8 @@ public class Infofragment extends Fragment {
                     throwables.printStackTrace ( );
                 }
 
+                Intent intent = new Intent(getActivity(),SiteListViewActivity.class);
+                startActivity(intent);
 
             }
         });

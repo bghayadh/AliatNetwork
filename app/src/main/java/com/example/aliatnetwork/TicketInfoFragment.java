@@ -619,8 +619,8 @@ public class TicketInfoFragment extends Fragment {
                 }
 
 
-
-
+                Intent intent = new Intent(getActivity(),TicketListViewActivity.class);
+                startActivity(intent);
             }
 
         });
@@ -656,7 +656,8 @@ public class TicketInfoFragment extends Fragment {
                 }
 
 
-
+                Intent intent = new Intent(getActivity(),TicketListViewActivity.class);
+                startActivity(intent);
             }
 
 

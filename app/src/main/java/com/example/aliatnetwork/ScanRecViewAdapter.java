@@ -1,6 +1,10 @@
 package com.example.aliatnetwork;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +15,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.apache.commons.net.ftp.FTPReply;
+
+import java.io.IOException;
 import java.sql.Array;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,6 +30,7 @@ import java.util.List;
 public class ScanRecViewAdapter extends RecyclerView.Adapter<ScanRecViewAdapter.ViewHolder> {
     Context context;
     List<ScanList> scanList;
+    Connection conn;
 
 
     public ScanRecViewAdapter(Context context, List<ScanList> scanList) {
@@ -44,9 +56,49 @@ public class ScanRecViewAdapter extends RecyclerView.Adapter<ScanRecViewAdapter.
             @Override
             public boolean onLongClick(View v) {
 
-                int p= holder.getLayoutPosition();
-                ScanList scanlist= scanList.get(p);
-                Toast.makeText(context, "Recycle Click" + scanlist +"  ", Toast.LENGTH_SHORT).show();
+                Integer pos = (Integer) holder.itemView.getTag();
+                String barcode = scanList.get(position).getBarcode().toString();
+                String serialnb = scanList.get(position).getSerialNb().toString();
+                new AlertDialog.Builder(context)
+                        .setTitle("Are You Sure You Want To Delete This ?")
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                connecttoDB();
+
+                                PreparedStatement stmtinsert1 = null;
+                                try {
+                                    // Delete Ware_id
+
+                                    stmtinsert1 = conn.prepareStatement("delete  WAREHOUSE_SCAN_ONSITE  where BARCODE ='" + barcode + "' and SERIAL_NUMBER='"+serialnb+"'");
+
+                                } catch (SQLException throwables) {
+                                    throwables.printStackTrace();
+                                }
+
+                                try {
+                                    stmtinsert1.executeUpdate();
+                                    // Toast.makeText(context, "Delete Completed", Toast.LENGTH_SHORT).show();
+                                } catch (SQLException throwables) {
+                                    throwables.printStackTrace();
+                                }
+
+
+                                try {
+                                    stmtinsert1.close();
+                                    conn.close();
+                                } catch (SQLException throwables) {
+                                    throwables.printStackTrace();
+                                }
+
+
+                                Intent intent = new Intent(context, SiteListViewActivity.class);
+                                context.startActivity(intent);
+
+                            }
+                        })
+                        .setNegativeButton("NO", null)
+                        .show();
                 return true;
             }
         });
@@ -77,7 +129,29 @@ public class ScanRecViewAdapter extends RecyclerView.Adapter<ScanRecViewAdapter.
         }
     }
 
-
+    public void connecttoDB() {
+        // connect to DB
+        OraDB oradb= new OraDB();
+        String url = oradb.getoraurl ();
+        String userName = oradb.getorausername ();
+        String password = oradb.getorapwd ();
+        try {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            Class.forName("oracle.jdbc.driver.OracleDriver").newInstance();
+            conn = DriverManager.getConnection(url,userName,password);
+            //Toast.makeText (context,"Connected to the database",Toast.LENGTH_SHORT).show ();
+        } catch (IllegalArgumentException | ClassNotFoundException | SQLException e) { //catch (IllegalArgumentException e)       e.getClass().getName()   catch (Exception e)
+            System.out.println("error is: " +e.toString());
+            Toast.makeText (context,"" +e.toString(),Toast.LENGTH_SHORT).show ();
+        } catch (IllegalAccessException e) {
+            System.out.println("error is: " +e.toString());
+            Toast.makeText (context,"" +e.toString(),Toast.LENGTH_SHORT).show ();
+        } catch (java.lang.InstantiationException e) {
+            System.out.println("error is: " +e.toString());
+            Toast.makeText (context,"" +e.toString(),Toast.LENGTH_SHORT).show ();
+        }
+    }
 }
 
 

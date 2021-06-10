@@ -41,13 +41,13 @@ import static com.example.aliatnetwork.R.layout.fragment_scanfragment;
 public class Scanfragment extends Fragment {
     RecyclerView scanrecview;
     ScanRecViewAdapter adapter;
-    private Button btnmain,btnSave,btnDelete;
+    private Button btnmain,btnSave;
     private String globalwareid;
     private Connection conn;
     List<ScanList> scanList = new ArrayList<>();
     List<ScanList> scanListdb = new ArrayList<>();
-    private EditText edittxtbarcode,edittextdelete;
-    private String test,delete_scan;
+    private EditText edittxtbarcode;
+    private String test;
     private String result;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -99,8 +99,7 @@ public class Scanfragment extends Fragment {
         btnSave=V.findViewById(R.id.BtnSave);
         scanrecview=V.findViewById(R.id.scanrecview);
         edittxtbarcode=V.findViewById(R.id.editscan);
-        edittextdelete=V.findViewById(R.id.deletescan);
-        btnDelete=V.findViewById(R.id.BtnDelete);
+
 
 
         //read passes value of ware_id from recylserview
@@ -251,65 +250,6 @@ public class Scanfragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count){}
         });
 
-
-
-
-        edittextdelete.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-                test= s.toString();
-                System.out.println(test);
-                String value=edittextdelete.getText().toString();
-                result=value;
-
-
-                btnDelete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        connecttoDB();
-
-                        PreparedStatement stmtinsert1 = null;
-                        try {
-                            // Delete Ware_id
-
-                            stmtinsert1 = conn.prepareStatement("delete  WAREHOUSE_SCAN_ONSITE   where BARCODE ='" + result + "' ");
-
-                        } catch (SQLException throwables) {
-                            throwables.printStackTrace();
-                        }
-
-                        try {
-                            stmtinsert1.executeUpdate();
-                             Toast.makeText(getActivity(), "Delete Completed", Toast.LENGTH_SHORT).show();
-                        } catch (SQLException throwables) {
-                            throwables.printStackTrace();
-                        }
-
-
-                        try {
-                            stmtinsert1.close();
-                            conn.close();
-                        } catch (SQLException throwables) {
-                            throwables.printStackTrace();
-                        }
-
-                    }
-
-
-                });
-            }
-        });
 
 
        //// return to main page
