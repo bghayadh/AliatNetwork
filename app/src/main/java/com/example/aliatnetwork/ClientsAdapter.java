@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Filter;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,9 +44,9 @@ public class ClientsAdapter extends ArrayAdapter<Clients> {
             );
         }
 
-        AutoCompleteTextView textViewClientId = convertView.findViewById(R.id.edit_text_client_id);
-        AutoCompleteTextView textViewClientFirstName = convertView.findViewById(R.id.edit_text_client_first_name);
-        AutoCompleteTextView textViewClientLastName = convertView.findViewById(R.id.edit_text_client_last_name);
+        TextView textViewClientId = convertView.findViewById(R.id.edit_text_client_id);
+        TextView textViewClientFirstName = convertView.findViewById(R.id.edit_text_client_first_name);
+        TextView textViewClientLastName = convertView.findViewById(R.id.edit_text_client_last_name);
 
         Clients clients = getItem(position);
 

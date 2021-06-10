@@ -9,7 +9,7 @@
     android:id="@+id/infoTicketFragment"
     tools:context="com.example.aliatnetwork.TicketInfoActivity"
 
->
+    >
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -19,19 +19,21 @@
         >
 
 
-    <fragment
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:id="@+id/google_map_ticket"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        />
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:id="@+id/google_map_ticket"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            />
 
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_below="@+id/google_map_ticket"
-    android:scrollbars="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/google_map_ticket"
+            android:focusableInTouchMode="true"
+            android:focusable="true"
+            android:scrollbars="vertical">
 
             <!-- Add text Site ID -->
             <TextView
@@ -41,7 +43,6 @@
                 android:textColor="#29f803"
                 android:textSize="18dp"
                 android:backgroundTint="@null"
-
                 android:id="@+id/txtSiteID"/>
 
 
@@ -52,6 +53,7 @@
                 android:ems="10"
                 android:textColor="@color/yellow"
                 android:layout_marginStart="5dp"
+                android:clickable="true"
                 android:completionThreshold="1"
                 android:hint="Site ID"
                 android:layout_toRightOf="@+id/txtSiteID"
@@ -64,29 +66,29 @@
 
             <!-- Add text Site Name -->
 
-    <TextView
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="Site Name"
-        android:textColor="#29f803"
-        android:textSize="18dp"
-        android:layout_below="@+id/txtSiteID"
-        android:backgroundTint="@null"
-        android:id="@+id/txtSiteName"/>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:text="Site Name"
+                android:textColor="#29f803"
+                android:textSize="18dp"
+                android:layout_below="@+id/txtSiteID"
+                android:backgroundTint="@null"
+                android:id="@+id/txtSiteName"/>
 
-    <EditText
-        android:id="@+id/editTxtSiteName"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:textColor="@color/yellow"
-        android:layout_marginStart="5dp"
-        android:layout_below="@+id/editTextSitID"
-        android:layout_toRightOf="@+id/txtRegion"
-        android:hint="Site Name" />
+            <EditText
+                android:id="@+id/editTxtSiteName"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:ems="10"
+                android:textColor="@color/yellow"
+                android:layout_marginStart="5dp"
+                android:layout_below="@+id/editTextSitID"
+                android:layout_toRightOf="@+id/txtRegion"
+                android:hint="Site Name" />
 
 
-    <!-- Add text Region -->
+            <!-- Add text Region -->
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="50dp"
@@ -248,84 +250,88 @@
                 android:hint="Service Issue" />
 
 
-    <!--  Show date selected -->
+            <!--  Show date selected -->
 
-    <TextView
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:textColor="#29f803"
-        android:textSize="18dp"
-        android:layout_below="@+id/txtSerIs"
-        android:backgroundTint="@null"
-        android:id="@+id/txtIssApp"
-        android:text="Issue Appeared"
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:textColor="#29f803"
+                android:textSize="18dp"
+                android:layout_below="@+id/txtSerIs"
+                android:backgroundTint="@null"
+                android:id="@+id/txtIssApp"
+                android:text="Issue Appeared"
                 />
 
 
-    <TextView
-        android:id="@+id/editTextDateTicket"
-        android:layout_width="140dp"
-        android:layout_height="40dp"
-        android:layout_below="@+id/editTxtSerIs"
-        android:layout_toRightOf="@+id/txtIssApp"
-        android:ems="10"
-        android:layout_marginTop="10dp"
-        android:text=""
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        android:inputType="date"
-        android:visibility="invisible"/>
-    <!--  Button to get selected date -->
-    <Button
-        android:id="@+id/btnrundate"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:layout_toRightOf="@+id/editTextDate"
-        android:layout_below="@+id/txtSerIs"
-        android:backgroundTint="@color/silver"
-        android:layout_marginRight="1dp"
-        android:text="Select Date"
-        android:textColor="#0A5EA8"
-        android:layout_marginStart="10dp"
-        android:visibility="invisible"
-        />
+            <TextView
+                android:id="@+id/editTextDateTicket"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_below="@+id/editTxtSerIs"
+                android:layout_toRightOf="@+id/txtIssApp"
+                android:ems="10"
+                android:layout_marginTop="10dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:inputType="date"
+                android:visibility="visible"/>
+            <!--  Button to get selected date -->
+
+            <ImageButton
+                android:id="@+id/btnrundate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtSerIs"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/ic_baseline_today_24"
+                />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+            <Button
+                android:id="@+id/btnsave"
+                android:layout_width="130dp"
+                android:layout_height="60dp"
+                android:text="Save"
+                android:textStyle="bold"
+                android:layout_alignParentBottom="true"
+                android:backgroundTint="@color/red"
+                />
 
 
 
-
-
-</RelativeLayout>
-
-<RelativeLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    >
-    <Button
-        android:id="@+id/btnsave"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-
-        android:text="Save"
-        android:textStyle="bold"
-        android:layout_alignParentBottom="true"
-        android:backgroundTint="@color/red"
-        />
-
-
-    <Button
-        android:id="@+id/btndelete"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:text="Delete"
-        android:textStyle="bold"
-        android:layout_marginStart="5dp"
-        android:layout_toRightOf="@+id/btnsave"
-        android:layout_alignParentBottom="true"
-        android:backgroundTint="@color/red"
-        />
-</RelativeLayout>
+            <Button
+                android:id="@+id/btndelete"
+                android:layout_width="130dp"
+                android:layout_height="60dp"
+                android:text="Delete"
+                android:textStyle="bold"
+                android:layout_marginStart="5dp"
+                android:layout_toRightOf="@+id/btnsave"
+                android:layout_alignParentBottom="true"
+                android:backgroundTint="@color/red"
+                />
+            <Button
+                android:id="@+id/btnMain"
+                android:layout_width="135dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="5dp"
+                android:text="Main Page"
+                android:textStyle="bold"
+                android:layout_alignParentBottom="true"
+                android:backgroundTint="@color/red"
+                android:layout_toRightOf="@+id/btndelete"
+                />
+        </RelativeLayout>
     </LinearLayout>
 </ScrollView>
 

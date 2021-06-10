@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Filter;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,8 +42,8 @@ public class SiteIdAdapter  extends ArrayAdapter<SiteId> {
             );
         }
 
-        AutoCompleteTextView textViewSiteID = convertView.findViewById(R.id.edit_text_site_id);
-        AutoCompleteTextView textViewSiteName= convertView.findViewById(R.id.edit_text_site_name);
+        TextView textViewSiteID = convertView.findViewById(R.id.edit_text_site_id);
+        TextView textViewSiteName= convertView.findViewById(R.id.edit_text_site_name);
 
         SiteId siteID = getItem(position);
 

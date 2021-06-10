@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -75,7 +77,8 @@ public class TicketInfoFragment extends Fragment {
     private int arraysize=0;
     private int varraysize=0;
     private int pagination=0;
-    private DatePickerDialog picker;
+    private DatePickerDialog.OnDateSetListener datePicker;
+    private String ticketDate;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -134,7 +137,8 @@ public class TicketInfoFragment extends Fragment {
         View V = inflater.inflate(fragment_ticket_info, container, false);
         Button btnsave = (Button) V.findViewById(R.id.btnsave);
         Button btndelete = (Button) V.findViewById(R.id.btndelete);
-        Button btnDate = (Button) V.findViewById(R.id.btnrundate);
+        ImageButton btnDate = (ImageButton) V.findViewById(R.id.btnrundate);
+        Button btnMain = (Button) V.findViewById(R.id.btnMain);
         AutoCompleteTextView editTxtSiteId = V.findViewById(R.id.editTextSitID);
 
         TextView editTxtSiteName = V.findViewById(R.id.editTxtSiteName);
@@ -147,12 +151,44 @@ public class TicketInfoFragment extends Fragment {
         TextView editTxtSerIs = V.findViewById(R.id.editTxtSerIs);
         TextView editTxtIssApp = V.findViewById(R.id.editTextDateTicket);
 
+        /*DateFormat date = new SimpleDateFormat("MMM dd yyyy, h:mm");
+        String dateformat = date.format(Calendar.getInstance().getTime());
+        editTxtIssApp.setText(dateformat);*/
+
         btnDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                }
+                Calendar calendar = Calendar.getInstance();
+                int year =calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int days = calendar.get(Calendar.DAY_OF_MONTH);
 
+                DatePickerDialog dialog = new DatePickerDialog(getContext(),
+                        android.R.style.Theme_DeviceDefault_Dialog,datePicker,year,month,days);
+                dialog.show();
+            }
+        });
+        datePicker = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                month = month+1;
+               // Log.d(TAG,"onDateSet: dd/mm/yyyy:"+dayOfMonth+"/"+month+"/"+year);
+
+                String date = dayOfMonth +"/"+month+"/"+year;
+                editTxtIssApp.setText(date);
+                ticketDate = editTxtIssApp.getText().toString();
+                System.out.println("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT"+ticketDate);
+
+            }
+        };
+        btnMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),MainActivity.class);
+                startActivity(intent);
+            }
         });
 
 
@@ -399,6 +435,7 @@ public class TicketInfoFragment extends Fragment {
                 editTxtSiteId.setText(rs2.getString("SITE_ID"));
                 editTxtSiteName.setText(rs2.getString("SITE_NAME"));
                 editTxtRegion.setText(rs2.getString("REGIONNAME"));
+                editTxtClient.setText(rs2.getString("CLIENT_ID"));
                 editTxtDepa.setText(rs2.getString("DEPARTMENT"));
                 editTxtDesc.setText(rs2.getString("DESCRIPTION"));
                 editTxtSubject.setText(rs2.getString("SUBJECT"));
@@ -553,12 +590,13 @@ public class TicketInfoFragment extends Fragment {
 
                         getSiteMap(lat,longi);*/
 
-                        stmtInserTicket = conn.prepareStatement("insert into TROUBLE_TICKETS (TICKET_ID,CREATION_DATE,LAST_MODIFIED_DATE,SITE_ID,SITE_NAME,REGIONNAME,SUBJECT,DEPARTMENT,CLIENT,DESCRIPTION,SERVICE,SERVICE_ISSUE,ISSUE_APPEARED) values " +
-                                "('"+globalTicketId +"',sysdate,sysdate,'"+ editTxtSiteId.getText()+"','"+ editTxtSiteName.getText()  +"','"+ editTxtRegion.getText ()  +"', '"+ editTxtSubject.getText ()  +"','"+editTxtDepa.getText() +"','"+ editTxtClient.getText ()  +"','"+editTxtDesc.getText() +"','"+editTxtSer.getText() +"','"+editTxtSerIs.getText() +"','"+editTxtIssApp.getText()+"' )");
+                        stmtInserTicket = conn.prepareStatement("insert into TROUBLE_TICKETS (TICKET_ID,CREATION_DATE,LAST_MODIFIED_DATE,SITE_ID,SITE_NAME,REGIONNAME,SUBJECT,DEPARTMENT,CLIENT_ID,DESCRIPTION,SERVICE,SERVICE_ISSUE,ISSUE_APPEARED) values " +
+                                "('"+globalTicketId +"',sysdate,sysdate,'"+ editTxtSiteId.getText()+"','"+ editTxtSiteName.getText()  +"','"+ editTxtRegion.getText ()  +"', '"+ editTxtSubject.getText ()  +"','"+editTxtDepa.getText() +"','"+ editTxtClient.getText ()  +"','"+editTxtDesc.getText() +"','"+editTxtSer.getText() +"','"+editTxtSerIs.getText() +"',TO_DATE('"+ticketDate+"','DD-MM-YYYY') )");
 
                     }
+
                     else { // we wil use update where Ticket_ID= the one we selected
-                        stmtInserTicket = conn.prepareStatement("update  TROUBLE_TICKETS set LAST_MODIFIED_DATE=sysdate,SITE_ID='"+ editTxtSiteId.getText ()  +"',SITE_NAME='"+ editTxtSiteName.getText ()  +"',REGIONNAME='"+ editTxtRegion.getText ()  +"',SUBJECT='"+editTxtSubject.getText() +"',DEPARTMENT='"+editTxtDepa.getText() +"',DESCRIPTION='"+editTxtDesc.getText() +"',SERVICE='"+editTxtSer.getText() +"',SERVICE_ISSUE='"+editTxtSerIs.getText() +"',ISSUE_APPEARED='"+ editTxtIssApp.getText ()+"' where TICKET_ID='"+globalTicketId+"'");
+                        stmtInserTicket = conn.prepareStatement("update  TROUBLE_TICKETS set LAST_MODIFIED_DATE=sysdate,SITE_ID='"+ editTxtSiteId.getText ()  +"',SITE_NAME='"+ editTxtSiteName.getText ()  +"',REGIONNAME='"+ editTxtRegion.getText ()  +"',SUBJECT='"+editTxtSubject.getText() +"',DEPARTMENT='"+editTxtDepa.getText() +"',DESCRIPTION='"+editTxtDesc.getText() +"',SERVICE='"+editTxtSer.getText() +"',SERVICE_ISSUE='"+editTxtSerIs.getText() +"',ISSUE_APPEARED='"+ ticketDate+"' where TICKET_ID='"+globalTicketId+"'");
                     }
 
                 } catch (SQLException throwables) {
@@ -571,6 +609,7 @@ public class TicketInfoFragment extends Fragment {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace ( );
                 }
+                System.out.println("sqlllllllllll"+stmtInserTicket);
 
                 try {
                     stmtInserTicket.close();
