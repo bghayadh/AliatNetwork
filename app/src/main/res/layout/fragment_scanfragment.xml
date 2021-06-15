@@ -7,23 +7,39 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtscan"
+        android:layout_marginStart="7dp"
+        android:textColor="@color/yellow"
+        android:textStyle="bold"
+        android:textSize="16dp"
+        android:text="Enter Your Barcode">
+
+    </TextView>
 <!-- Edit Text for scanning-->
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Enter your scan here"
         android:id="@+id/editscan"
+        android:layout_marginLeft="10dp"
+        android:nextFocusRight="@id/txtscan"
         android:layout_marginStart="5dp"
         android:maxLines="1"
         />
-
+    </LinearLayout>
 </RelativeLayout>
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/tableid"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="47dp"
         android:stretchColumns="1,2,3,4"
         android:background="@drawable/cast_skip_ad_label_border"
         >
