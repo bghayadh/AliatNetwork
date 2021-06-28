@@ -1,14 +1,50 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".TicketAssToFrag">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:context=".TicketActivityFrag"
+        android:orientation="vertical"
+        android:background="#0A5EA8"
+        android:id="@+id/relAction">
 
-</FrameLayout>
+        <TextView
+            android:layout_marginTop="20dp"
+            android:id="@+id/txtemployee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Employee"
+            android:textSize="20dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="#29f803"
+            />
+        <EditText
+            android:id="@+id/editTxtemployee"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@id/txtemployee"/>
+
+        <Button
+            android:id="@+id/BtnSave"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="5dp"
+            android:backgroundTint="@color/red"
+            android:text="Save"
+            />
+        <Button
+            android:id="@+id/BtnMain"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/BtnSave"
+            android:layout_alignParentBottom="true"
+            android:backgroundTint="@color/red"
+            android:text="Main"
+            />
+
+    </RelativeLayout>

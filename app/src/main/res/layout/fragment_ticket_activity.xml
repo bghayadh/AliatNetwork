@@ -1,14 +1,86 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TicketActivityFrag">
+    tools:context=".TicketActivityFrag"
+    android:orientation="vertical"
+    android:background="#0A5EA8"
+    android:id="@+id/relAction">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    android:layout_marginTop="20dp"
+    android:id="@+id/txtstatus"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Status"
+    android:textSize="20dp"
+    android:layout_marginLeft="10dp"
+    android:textColor="#29f803"
+    />
+    <Spinner
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/txtstatus"
+        android:id="@+id/spinnerTicket"
+        android:layout_marginLeft="50dp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown"
+        android:gravity="start"
+        android:defaultFocusHighlightEnabled="true"
+        android:descendantFocusability="beforeDescendants"
+        />
 
-</FrameLayout>
+    <TextView
+        android:layout_marginTop="20dp"
+        android:id="@+id/txtDesc"
+        android:layout_below="@+id/txtstatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Action"
+        android:textSize="20dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="#29f803"
+        />
+    <EditText
+        android:id="@+id/txtAction"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinnerTicket"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:layout_toRightOf="@id/txtDesc"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_below="@+id/txtAction"
+        android:id="@+id/RecAct"
+        />
+
+    <Button
+        android:id="@+id/BtnSave"
+        android:layout_width="190dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/RecAct"
+        android:layout_alignParentStart="true"
+        android:backgroundTint="@color/red"
+        android:layout_marginStart="5dp"
+        android:text="Save" />
+    <Button
+        android:id="@+id/BtnMain"
+        android:layout_width="190dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/RecAct"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/BtnSave"
+        android:backgroundTint="@color/red"
+        android:text="Main"
+        />
+
+
+
+</RelativeLayout>

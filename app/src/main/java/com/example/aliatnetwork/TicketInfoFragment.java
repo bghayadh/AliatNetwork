@@ -408,8 +408,8 @@ public class TicketInfoFragment extends Fragment {
                         lat=rsLatLong.getString("lat");
 
 
-                        System.out.println("longiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"+longi);
-                        System.out.println("latttttttttttttttttttttttttttttttttttttt"+lat);
+                        //System.out.println("longiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"+longi);
+                        //System.out.println("latttttttttttttttttttttttttttttttttttttt"+lat);
 
                     } catch (SQLException throwables) {
                         throwables.printStackTrace ( );
@@ -469,8 +469,8 @@ public class TicketInfoFragment extends Fragment {
                 double lng = gpsTracker.getLongitude ( );
                 newlat=String.valueOf(lat);
                 newlong=String.valueOf(lng);
-                System.out.println("++++++"+newlat);
-                System.out.println("++++++"+newlong);
+                //System.out.println("++++++"+newlat);
+                //System.out.println("++++++"+newlong);
 
                 getSiteMap(newlat,newlong);
 
@@ -536,7 +536,7 @@ public class TicketInfoFragment extends Fragment {
                         ((TicketInfoActivity)getActivity()).getTicketFragment(globalTicketId);
 
 
-                        /*connecttoDB();
+                       /* connecttoDB();
 
                         Statement stmtLatLong =null;
                         try {
@@ -547,7 +547,7 @@ public class TicketInfoFragment extends Fragment {
 
 
 
-                        String sqlLatLong = "select WAREHOUSE.LONGITUDE as longi,WAREHOUSE.LATITUDE as lat from TROUBLE_TICKETS INNER JOIN warehouse ON trouble_tickets.site_id=warehouse.site_id where TICKET_ID='"+globalTicketId+"'";
+                        String sqlLatLong = "select WAREHOUSE.LONGITUDE as longi,WAREHOUSE.LATITUDE as lat from warehouse where SITE_ID='"+editTxtSiteId.getText().toString()+"'";
 
                         ResultSet rsLatLong = null;
                         try {
@@ -583,12 +583,12 @@ public class TicketInfoFragment extends Fragment {
                             conn.close ();
                         } catch (SQLException throwables) {
                             throwables.printStackTrace();
-                        }
+                        }*/
 
 
 
 
-                        getSiteMap(lat,longi);*/
+                        //getSiteMap(lat,longi);
 
                         stmtInserTicket = conn.prepareStatement("insert into TROUBLE_TICKETS (TICKET_ID,CREATION_DATE,LAST_MODIFIED_DATE,SITE_ID,SITE_NAME,REGIONNAME,SUBJECT,DEPARTMENT,CLIENT_ID,DESCRIPTION,SERVICE,SERVICE_ISSUE,ISSUE_APPEARED) values " +
                                 "('"+globalTicketId +"',sysdate,sysdate,'"+ editTxtSiteId.getText()+"','"+ editTxtSiteName.getText()  +"','"+ editTxtRegion.getText ()  +"', '"+ editTxtSubject.getText ()  +"','"+editTxtDepa.getText() +"','"+ editTxtClient.getText ()  +"','"+editTxtDesc.getText() +"','"+editTxtSer.getText() +"','"+editTxtSerIs.getText() +"',TO_DATE('"+ticketDate+"','DD-MM-YYYY') )");
@@ -619,8 +619,8 @@ public class TicketInfoFragment extends Fragment {
                 }
 
 
-                Intent intent = new Intent(getActivity(),TicketListViewActivity.class);
-                startActivity(intent);
+
+
             }
 
         });
@@ -656,8 +656,7 @@ public class TicketInfoFragment extends Fragment {
                 }
 
 
-                Intent intent = new Intent(getActivity(),TicketListViewActivity.class);
-                startActivity(intent);
+
             }
 
 
