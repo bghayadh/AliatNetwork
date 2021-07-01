@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0A5EA8"
+    android:id="@+id/infofragment"
+    tools:context=".Infofragment">
+
+
+
+    <!-- TODO: Update blank fragment layout -->
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:id="@+id/google_map_shops"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        />
+
+
+    <!-- Add textShopsName -->
+    <TextView
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:text="Shops Name"
+        android:textColor="#29f803"
+        android:textSize="18dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/google_map_shops"
+        android:backgroundTint="@null"
+        android:id="@+id/txtShopName"/>
+
+
+    <EditText
+        android:layout_marginTop="10dp"
+        android:id="@+id/editTextShopName"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:textColor="@color/yellow"
+        android:layout_marginStart="5dp"
+        android:layout_below="@+id/google_map_shops"
+        android:layout_toRightOf="@+id/txtShopName"
+        />
+
+    <!-- OWNER -->
+    <TextView
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:text="OWNER"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="5dp"
+        android:textColor="#29f803"
+        android:textSize="18dp"
+        android:layout_below="@+id/txtShopName"
+        android:backgroundTint="@null"
+        android:id="@+id/textOwner"/>
+
+    <EditText
+        android:layout_marginTop="12dp"
+        android:id="@+id/editTextOwner"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:textColor="@color/yellow"
+        android:layout_marginStart="5dp"
+        android:layout_below="@+id/editTextShopName"
+        android:layout_toRightOf="@+id/textOwner"
+         />
+
+    <!-- Add texaddress -->
+    <TextView
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:text="Address"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="12dp"
+        android:textColor="#29f803"
+        android:textSize="18dp"
+        android:layout_below="@+id/textOwner"
+        android:backgroundTint="@null"
+        android:id="@+id/txtaddress"/>
+
+    <EditText
+        android:layout_marginTop="12dp"
+        android:id="@+id/editTextaddress"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:textColor="@color/yellow"
+        android:layout_marginStart="5dp"
+        android:layout_below="@+id/editTextOwner"
+        android:layout_toRightOf="@+id/txtaddress"
+         />
+
+    <!-- Latitude -->
+    <TextView
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:text="LATITUDE"
+        android:layout_marginTop="12dp"
+        android:textColor="#29f803"
+        android:textSize="18dp"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@+id/txtaddress"
+        android:backgroundTint="@null"
+        android:id="@+id/txtShopslati"/>
+
+    <EditText
+        android:id="@+id/editTextShopslati"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/yellow"
+        android:layout_marginStart="5dp"
+        android:layout_below="@+id/editTextaddress"
+        android:layout_toRightOf="@+id/txtShopslati"
+        android:enabled="false"
+        />
+    <!-- Longitude -->
+    <TextView
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:text="LONGITUDE"
+        android:layout_marginTop="12dp"
+        android:textColor="#29f803"
+        android:textSize="18dp"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@+id/txtShopslati"
+        android:backgroundTint="@null"
+        android:id="@+id/txtShopslong"/>
+
+    <EditText
+        android:id="@+id/editTextShopslong"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/yellow"
+        android:layout_marginStart="5dp"
+        android:layout_below="@+id/editTextShopslati"
+        android:layout_toRightOf="@+id/txtShopslong"
+        android:enabled="false"
+        />
+
+
+
+
+    <Button
+        android:id="@+id/btnShopsSave"
+        android:layout_width="133dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="3dp"
+        android:text="Save"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/red"
+        />
+
+    <Button
+        android:id="@+id/btnShopsdelete"
+        android:layout_width="133dp"
+        android:layout_height="60dp"
+        android:text="Delete"
+        android:textStyle="bold"
+        android:layout_marginStart="5dp"
+        android:layout_toRightOf="@+id/btnShopsSave"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/red"
+        />
+    <Button
+        android:id="@+id/btnShopsmain"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
+        android:text="Main Page"
+        android:textStyle="bold"
+        android:layout_marginStart="5dp"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/btnShopsdelete"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/red"
+        />
+
+</RelativeLayout>
