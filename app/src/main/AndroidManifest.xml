@@ -50,7 +50,9 @@
         <activity android:name=".ImageDisplay"></activity>
         <activity android:name=".TicketListViewActivity"></activity>
         <activity android:name=".TicketInfoActivity"></activity>
-       <activity android:name=".ShopInfoActivity"></activity>
+        <activity android:name=".ShopInfoActivity"></activity>
+        <activity android:name=".ShopsImageDisplay"></activity>
+        <activity android:name=".GisActivity"></activity>
 
 
         <!-- Main layout/form-->

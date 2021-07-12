@@ -34,6 +34,7 @@
         android:layout_marginTop="5dp"
         android:id="@+id/tabBarTicket"
         android:background="@color/silver"
+        app:tabIndicatorColor="@android:color/white"
         android:layout_below="@+id/txtTicketId"
         tools:layout_editor_absoluteX="227dp"
         tools:layout_editor_absoluteY="363dp">

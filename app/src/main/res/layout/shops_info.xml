@@ -7,6 +7,11 @@
     android:background="#0A5EA8"
     android:id="@+id/shopsInfo"
     tools:context=".MainActivity">
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/pager"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <TextView
         android:id="@+id/textShopsID"
@@ -34,6 +39,8 @@
         android:id="@+id/tabBarShops"
         android:background="@color/silver"
         android:layout_below="@+id/editTxtShopsID"
+        app:tabTextColor="#0A5EA8"
+        app:tabIndicatorColor="@android:color/white"
         tools:layout_editor_absoluteX="227dp"
         tools:layout_editor_absoluteY="363dp">
 
@@ -47,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tabActShops"
-            android:text="ACTIVITY" />
+            android:text="IMAGE" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -55,6 +62,7 @@
             android:id="@+id/tabAstoShops"
             android:text="ASSIGN TO" />
     </com.google.android.material.tabs.TabLayout>
+
 
     <androidx.viewpager.widget.ViewPager
         android:layout_width="wrap_content"

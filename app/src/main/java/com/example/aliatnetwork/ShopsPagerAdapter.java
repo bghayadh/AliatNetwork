@@ -17,7 +17,7 @@ public class ShopsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0: return new ShopInfoFragment();
-            case 1: return new ShopActFragment();
+            case 1: return new ShopImageFragment();
             case 2: return new AssToShopsFragment();
             default:return null;
 

@@ -49,6 +49,7 @@ public class Scanfragment extends Fragment {
     private EditText edittxtbarcode;
     private String test;
     private String result;
+    private String resultValue;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -112,21 +113,29 @@ public class Scanfragment extends Fragment {
         getScannedData();
 
         //get text from edittext after pressing enter
-       /* edittxtbarcode.setOnKeyListener(new View.OnKeyListener() {
+     edittxtbarcode.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 // If the event is a key-down event on the "enter" button
+
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    System.out.println("Aliiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"+edittxtbarcode.toString());
+
                     // Perform action on key press
                     Toast.makeText(getActivity(), edittxtbarcode.getText(), Toast.LENGTH_SHORT).show();
+
+
+
                     test=edittxtbarcode.getText().toString();
+                    //scanList.add(new ScanList(test,test,test,test));
+                    //SaveNewBarcodeEnter();
                     System.out.println("test : "+test);
                     return true;
 
                 }
                 return false;
             }
-        });*/
+        });
 
         /// get text from edittext while typing
         //and select from database according to the scanned barcode
@@ -167,7 +176,21 @@ public class Scanfragment extends Fragment {
                     while (true) {
                         try {
 
-                            if (!rs1.next()) break;
+
+                            if (!rs1.next()){
+                            scanList.add(new ScanList(result,result,result,result));
+
+                                btnSave.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        SaveNewBarcode();
+                                    }
+                                });
+
+
+                                break;
+                            }
+
 
                             scanListdb.add(new ScanList (rs1.getString("ITEM_CODE"),rs1.getString("BARCODE_NUMBER"),rs1.getString("SERIAL_NUMBER"),"1"));
 
@@ -247,7 +270,14 @@ public class Scanfragment extends Fragment {
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after){}
 
-            public void onTextChanged(CharSequence s, int start, int before, int count){}
+            public void onTextChanged(CharSequence s, int start, int before, int count){
+
+                 String enteredValue = edittxtbarcode.getText().toString();
+                 resultValue = enteredValue;
+
+
+
+            }
         });
 
 
@@ -303,7 +333,7 @@ public class Scanfragment extends Fragment {
             throwables.printStackTrace();
         }
 
-        String  sqlStmt = "select ITEM_ID,BARCODE,SERIAL_NUMBER,QUANTITY from WAREHOUSE_SCAN_ONSITE where WARE_ID='"+globalwareid+"'";
+        String  sqlStmt = "select distinct ITEM_ID,BARCODE,SERIAL_NUMBER,QUANTITY from WAREHOUSE_SCAN_ONSITE where WARE_ID='"+globalwareid+"'";
 
         ResultSet rs1 = null;
         try {
@@ -349,6 +379,69 @@ public class Scanfragment extends Fragment {
         scanrecview.setAdapter(scanRecViewAdapter);
      
 
+    }
+
+    public void SaveNewBarcodeEnter(){
+        connecttoDB();
+        PreparedStatement stmtinsert1 = null;
+
+
+        try {
+
+            stmtinsert1 = conn.prepareStatement("insert into WAREHOUSE_SCAN_ONSITE (WARE_ID,ITEM_ID,BARCODE,SERIAL_NUMBER,QUANTITY) values" +
+                    "('" + globalwareid + "','" +test+ "','"+test+"','"+test+"','"+1+"')");
+        }
+        catch (SQLException throwables) {
+            throwables.printStackTrace ( );
+        }
+        try {
+            stmtinsert1.executeUpdate();
+            Toast.makeText (getActivity (),"Saving Completed",Toast.LENGTH_SHORT).show ();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace ( );
+        }
+
+
+
+
+        try {
+            stmtinsert1.close();
+            conn.close ();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace ( );
+        }
+    }
+
+
+    public void SaveNewBarcode(){
+        connecttoDB();
+        PreparedStatement stmtinsert1 = null;
+
+
+        try {
+
+            stmtinsert1 = conn.prepareStatement("insert into WAREHOUSE_SCAN_ONSITE (WARE_ID,ITEM_ID,BARCODE,SERIAL_NUMBER,QUANTITY) values" +
+                    "('" + globalwareid + "','" +result+ "','"+result+"','"+result+"','"+1+"')");
+        }
+        catch (SQLException throwables) {
+            throwables.printStackTrace ( );
+        }
+        try {
+            stmtinsert1.executeUpdate();
+            Toast.makeText (getActivity (),"Saving Completed",Toast.LENGTH_SHORT).show ();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace ( );
+        }
+
+
+
+
+        try {
+            stmtinsert1.close();
+            conn.close ();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace ( );
+        }
     }
 
 

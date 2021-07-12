@@ -5,9 +5,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.StrictMode;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,12 +33,18 @@ import java.util.List;
 public class ScanRecViewAdapter extends RecyclerView.Adapter<ScanRecViewAdapter.ViewHolder> {
     Context context;
     List<ScanList> scanList;
+    EditText editText;
+
+
+
+
     Connection conn;
 
 
     public ScanRecViewAdapter(Context context, List<ScanList> scanList) {
         this.context = context;
         this.scanList = scanList;
+
     }
 
     @NonNull
@@ -51,6 +60,7 @@ public class ScanRecViewAdapter extends RecyclerView.Adapter<ScanRecViewAdapter.
         holder.barcode.setText(scanList.get(position).getBarcode());
         holder.serialnb.setText(scanList.get(position).getSerialNb());
         holder.quantity.setText(scanList.get(position).getQuantity());
+
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -128,6 +138,7 @@ public class ScanRecViewAdapter extends RecyclerView.Adapter<ScanRecViewAdapter.
 
         }
     }
+
 
     public void connecttoDB() {
         // connect to DB

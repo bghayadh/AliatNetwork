@@ -207,7 +207,8 @@ public class Imagefragment extends  Fragment  {
         ImageRecViewAdapter imageRecViewAdapter = new ImageRecViewAdapter(getContext(),images);
         imagerecView.setLayoutManager(new LinearLayoutManager(getActivity()));
         imagerecView.setAdapter(imageRecViewAdapter);
-        ////////////////////////////////////////////////////////////////////////////////////////////
+
+    ////////////////////////////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         previousBtn.setOnClickListener(new View.OnClickListener() {
@@ -466,7 +467,7 @@ public class Imagefragment extends  Fragment  {
         if (requestCode == PICK_IMAGES_CODE) {
             if (resultCode == Activity.RESULT_OK) {
 
-                if (data.getClipData() != null) {
+                    if (data.getClipData() != null) {
                     // pick multiple images
                     int cout=data.getClipData().getItemCount();
                     imagesource = new String[cout];

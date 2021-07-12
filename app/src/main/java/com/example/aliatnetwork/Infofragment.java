@@ -317,6 +317,7 @@ public class Infofragment extends Fragment {
                 try {
                     stmtinsert1.executeUpdate();
                     Toast.makeText (getActivity (),"Saving Completed",Toast.LENGTH_SHORT).show ();
+
                 } catch (SQLException throwables) {
                     throwables.printStackTrace ( );
                 }

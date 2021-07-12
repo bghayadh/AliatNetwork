@@ -3,6 +3,7 @@ package com.example.aliatnetwork;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -13,10 +14,14 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
+
 public class ShopInfoActivity extends AppCompatActivity  {
 
     TextView txtShopsId;
     private Context context;
+    ViewPager viewPager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +36,36 @@ public class ShopInfoActivity extends AppCompatActivity  {
         TabItem tabCalls=findViewById(R.id.tabAsto);
         ViewPager viewPager = findViewById(R.id.viewPagerShops);
 
+
+
         ShopsPagerAdapter shopsPagerAdapter = new ShopsPagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
         viewPager.setAdapter(shopsPagerAdapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+                tabLayout.setScrollPosition(position,0,true);
+                tabLayout.setSelected(true);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 System.out.println("tab is :"+tab.getPosition());
+
+
+
                 switch (tab.getPosition()){
 
                     case 0:
@@ -56,6 +84,7 @@ public class ShopInfoActivity extends AppCompatActivity  {
                     break;
                 }
             }
+
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {

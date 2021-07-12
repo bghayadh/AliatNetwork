@@ -219,12 +219,12 @@ public class TicketListViewActivity extends AppCompatActivity {
                 }
             }
             pagination=pagination+1;
-            //connect data to coveragelistadapter
-            TicketRecViewAdapter adapter =new TicketRecViewAdapter(TicketListViewActivity.this);
-            adapter.setContacts(tickets);
-            TicketsRecView.setAdapter(adapter);
-            TicketsRecView.setLayoutManager(new LinearLayoutManager (TicketListViewActivity.this));
-        }
+        //connect data to coveragelistadapter
+        TicketRecViewAdapter adapter =new TicketRecViewAdapter(TicketListViewActivity.this);
+        adapter.setContacts(tickets);
+        TicketsRecView.setAdapter(adapter);
+        TicketsRecView.setLayoutManager(new LinearLayoutManager (TicketListViewActivity.this));
+    }
 
 
     }

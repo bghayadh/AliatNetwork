@@ -10,7 +10,9 @@ import android.os.StrictMode;
 import android.provider.Settings;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
     private Button Btncoverage, Btnspeed, Btnsites, Btnshops, Btnstartspeed, Btnstartcoverage, Btngis, Btntickets, Btncapturespeed, Btncapturecoverage, BtnExit, Btndeviceid, Btniccid;
     private TextView Notifyspeedtesttime, Notifycoveragetesttime, txtlat, txtlng, downloadTextView, uploadTextView, txtsignal, textinfo;
     private GpsTracker gpsTracker;
+    Animation ScaleUP,ScaleDOWN;
 
 
     // read uploadTextView and downloadTextView
@@ -112,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
         Btncapturespeed = findViewById (R.id.Btncapturespeed);
         Btndeviceid = findViewById (R.id.Btndeviceid);
         Btniccid = findViewById (R.id.Btniccid);
+
 
         // text to display latitude and longitude and Dwonload and upload
         txtlat = findViewById (R.id.txtlat);
@@ -268,6 +272,17 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        Btngis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Show message to know where are we transferred
+                Toast.makeText(MainActivity.this,  "Welcome to GIS ",Toast.LENGTH_SHORT).show();
+                //Call Layout /form shoplist
+                Intent intent =new Intent(MainActivity.this,GisActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
 
         //Get Device ID

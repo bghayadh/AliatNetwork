@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0A5EA8"
+    tools:context=".Imagefragment"
+    android:id="@+id/fragmentimageid">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:id="@+id/txtshopsId"
+        android:visibility="invisible"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/imageShopsRecView"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="400dp"
+        android:layout_height="200dp"
+        android:orientation="horizontal"
+        android:scrollbars="vertical"
+        android:layout_marginBottom="20dp"
+        android:layout_below="@+id/txtshopsId"
+        />
+    <ImageSwitcher
+        android:layout_width="400dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="27dp"
+        android:id="@+id/imagesSwShops"
+        android:layout_below="@+id/imageShopsRecView"/>
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:text="Select Photos"
+        android:layout_marginStart="1dp"
+        android:textStyle="bold"
+        android:layout_below="@+id/imagesSwShops"
+        android:backgroundTint="@color/red"
+        android:id="@+id/btnSelectImagesShops"/>
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:text="Upload Photos"
+        android:textStyle="bold"
+        android:layout_marginStart="5dp"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/btnSelectImagesShops"
+        android:layout_marginRight="1dp"
+        android:layout_below="@+id/imagesSwShops"
+        android:backgroundTint="@color/red"
+        android:id="@+id/btnUploadpimagesShops"/>
+    <Button
+        android:id="@+id/btnPreviousShops"
+        android:layout_width="133dp"
+        android:layout_height="60dp"
+        android:text="Previous"
+        android:layout_marginStart="1dp"
+        android:textStyle="bold"
+        android:layout_below="@+id/btnSelectImagesShops"
+        android:backgroundTint="@color/red"
+        />
+    <Button
+        android:id="@+id/btnNextShops"
+        android:layout_width="133dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/btnUploadpimagesShops"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/btnPreviousShops"
+        android:layout_marginStart="5dp"
+        android:layout_marginRight="1dp"
+        android:text="Next"
+        android:backgroundTint="@color/red"
+        />
+    <Button
+        android:id="@+id/btnShopsMain"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
+        android:text="Main Page"
+        android:layout_marginStart="5dp"
+        android:layout_alignParentRight="true"
+        android:textStyle="bold"
+        android:layout_below="@id/btnUploadpimagesShops"
+        android:layout_toRightOf="@+id/btnNextShops"
+        android:backgroundTint="@color/red"
+        />
+</RelativeLayout>

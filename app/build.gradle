@@ -37,6 +37,7 @@ android {
     }
 }
 
+
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -54,4 +55,5 @@ dependencies {
     // used them for Google maps
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.google.android.gms:play-services:11.8.0'
+
 }
