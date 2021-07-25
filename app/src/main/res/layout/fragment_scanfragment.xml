@@ -100,16 +100,18 @@
 
     </TableLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="450dp"
-        android:layout_marginTop="116dp"
-        android:layout_marginStart="5dp"
-        android:id="@+id/scanrecview"
-        android:scrollbars="vertical"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
+            android:layout_marginTop="116dp"
+            android:layout_marginStart="5dp"
+            android:id="@+id/scanrecview"
+            android:scrollbars="vertical"/>
     <!-- display Main Page button -->
     <Button
         android:id="@+id/BtnMain"
@@ -117,10 +119,10 @@
         android:layout_height="50dp"
         android:backgroundTint="@color/red"
         android:textColor="@color/white"
-        android:layout_marginTop="520dp"
         android:text="Main Page"
         android:textStyle="bold"
         android:textSize="15dp"
+        android:layout_below="@+id/scanrecview"
         android:layout_alignParentRight="true"
         android:layout_marginStart="263dp"
         />
@@ -131,7 +133,7 @@
         android:layout_height="50dp"
         android:backgroundTint="@color/red"
         android:textColor="@color/white"
-        android:layout_marginTop="520dp"
+        android:layout_below="@+id/scanrecview"
         android:text="Save"
         android:textStyle="bold"
         android:textSize="15dp"
