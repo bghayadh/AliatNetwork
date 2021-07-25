@@ -9,6 +9,8 @@ import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,6 +23,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.example.aliatnetwork.R.layout.fragment_ticket_activity;
 import static com.example.aliatnetwork.R.layout.fragment_ticket_ass_to;
@@ -30,8 +33,10 @@ public class TicketAssToFrag extends Fragment {
     public TextView txtemployee;
     Connection conn;
     private String globalTicketId,globalactionID;
-    public  EditText editTextEmployee;
-    public ArrayList<TicketActionView> ticketAction,ticketActionDb;
+    public AutoCompleteTextView editTextEmployee;
+    private List<Users> usersList = new ArrayList<>();
+    private List<Users> usersListDb= new ArrayList<>();
+
 
 
     @Override
@@ -39,7 +44,7 @@ public class TicketAssToFrag extends Fragment {
                              Bundle savedInstanceState) {
         View V = inflater.inflate(fragment_ticket_ass_to,container,false);
 
-        editTextEmployee=(EditText) V.findViewById(R.id.editTxtemployee);
+        editTextEmployee=(AutoCompleteTextView) V.findViewById(R.id.editTxtemployee);
         txtemployee = (TextView) V.findViewById(R.id.txtemployee);
         Button btnSave = (Button) V.findViewById(R.id.BtnSave);
         Button btnMain = (Button) V.findViewById(R.id.BtnMain);
@@ -47,6 +52,68 @@ public class TicketAssToFrag extends Fragment {
         Intent intent = getActivity().getIntent();
         String str = intent.getStringExtra("message_key");
         globalTicketId = str.toString();
+
+        connecttoDB();
+        Statement stmtUsers = null;
+
+        int i = 0;
+        try {
+            stmtUsers = conn.createStatement();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        String sqlStmtUsers = "select USER_FIRST_NAME,USER_MIDDLE_NAME,USER_LAST_NAME from USERS_TABLE";
+
+        ResultSet rs1 = null;
+        try {
+
+            rs1 = stmtUsers.executeQuery(sqlStmtUsers);
+            System.out.println("ALiiiiiiiiiiiiiiiiiiiiii"+rs1);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        while (true) {
+            try {
+                if (!rs1.next()) break;
+                usersListDb.add(new Users(rs1.getString("USER_FIRST_NAME"),rs1.getString("USER_MIDDLE_NAME"),rs1.getString("USER_LAST_NAME")));
+                System.out.println(rs1.getString("USER_FIRST_NAME"));
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+        try {
+            rs1.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        try {
+            stmtUsers.close();
+            conn.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        for (i=0;i<usersListDb.size();i++) {
+            usersList.add(new Users(usersListDb.get(i).getFirstName(),usersListDb.get(i).getMiddleName(),usersListDb.get(i).getLastName()));
+
+        }
+
+        UsersAdapter usersAdapter = new UsersAdapter(getActivity(),usersList);
+        editTextEmployee.setThreshold(1);
+        editTextEmployee.setAdapter(usersAdapter);
+        editTextEmployee.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Object item = parent.getItemAtPosition(position);
+                if(item instanceof Users){
+                    Users firtName = (Users) item;
+                    Users lastName = (Users) item;
+
+                    editTextEmployee.setText(firtName.getFirstName()+"  "+lastName.getLastName());
+                }
+            }
+        });
 
         btnMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +149,7 @@ public class TicketAssToFrag extends Fragment {
                         try {
                             if (!rs1.next()) break;
                             globalactionID= rs1.getString("ACTION_ID");
-                            System.out.println("ACTIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIION"+           globalactionID);
+                            System.out.println("ACTIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIION"+  globalactionID);
                         } catch (SQLException throwables) {
                             throwables.printStackTrace();
                         }
@@ -112,6 +179,7 @@ public class TicketAssToFrag extends Fragment {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+
             }
         });
 

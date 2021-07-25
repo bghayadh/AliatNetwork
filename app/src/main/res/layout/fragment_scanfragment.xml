@@ -7,7 +7,7 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
     <TextView
@@ -21,18 +21,35 @@
         android:text="Enter Your Barcode">
 
     </TextView>
+
 <!-- Edit Text for scanning-->
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Enter your scan here"
+        android:layout_toRightOf="@+id/txtscan"
         android:id="@+id/editscan"
         android:layout_marginLeft="10dp"
         android:nextFocusRight="@id/txtscan"
         android:layout_marginStart="5dp"
         android:maxLines="1"
         />
-    </LinearLayout>
+<!--        <Button
+            android:id="@+id/BtnAdd"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/red"
+            android:layout_toRightOf="@+id/editscan"
+            android:textColor="@color/white"
+            android:text="Add"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:layout_alignParentRight="true"
+
+            />-->
+
+
+    </RelativeLayout>
 </RelativeLayout>
 
     <TableLayout

@@ -19,7 +19,7 @@
             android:layout_marginLeft="10dp"
             android:textColor="#29f803"
             />
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/editTxtemployee"
             android:layout_width="200dp"
             android:layout_height="wrap_content"

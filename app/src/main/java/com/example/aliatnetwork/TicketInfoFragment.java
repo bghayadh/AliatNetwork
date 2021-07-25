@@ -535,59 +535,6 @@ public class TicketInfoFragment extends Fragment {
                         // send data from fragment to super activity
                         ((TicketInfoActivity)getActivity()).getTicketFragment(globalTicketId);
 
-
-                       /* connecttoDB();
-
-                        Statement stmtLatLong =null;
-                        try {
-                            stmtLatLong = conn.createStatement();
-                        } catch (SQLException throwables) {
-                            throwables.printStackTrace();
-                        }
-
-
-
-                        String sqlLatLong = "select WAREHOUSE.LONGITUDE as longi,WAREHOUSE.LATITUDE as lat from warehouse where SITE_ID='"+editTxtSiteId.getText().toString()+"'";
-
-                        ResultSet rsLatLong = null;
-                        try {
-
-                            rsLatLong = stmtLatLong.executeQuery(sqlLatLong);
-                            System.out.println("latlonglatlonglatlong"+rsLatLong.toString());
-                        } catch (SQLException throwables) {
-                            throwables.printStackTrace();
-                        }
-
-                        while (true) {
-                            try {
-                                if (!rsLatLong.next ( )) break;
-                                longi=rsLatLong.getString ("longi");
-                                lat=rsLatLong.getString("lat");
-
-
-                                System.out.println("longiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"+longi);
-                                System.out.println("latttttttttttttttttttttttttttttttttttttt"+lat);
-
-                            } catch (SQLException throwables) {
-                                throwables.printStackTrace ( );
-                            }
-                        }
-
-                        try {
-                            rsLatLong.close();
-                        } catch (SQLException throwables) {
-                            throwables.printStackTrace();
-                        }
-                        try {
-                            stmtLatLong.close();
-                            conn.close ();
-                        } catch (SQLException throwables) {
-                            throwables.printStackTrace();
-                        }*/
-
-
-
-
                         //getSiteMap(lat,longi);
 
                         stmtInserTicket = conn.prepareStatement("insert into TROUBLE_TICKETS (TICKET_ID,CREATION_DATE,LAST_MODIFIED_DATE,SITE_ID,SITE_NAME,REGIONNAME,SUBJECT,DEPARTMENT,CLIENT_ID,DESCRIPTION,SERVICE,SERVICE_ISSUE,ISSUE_APPEARED) values " +

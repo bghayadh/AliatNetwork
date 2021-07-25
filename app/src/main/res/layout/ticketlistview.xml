@@ -37,17 +37,17 @@
         android:layout_marginStart="5dp"
         />
 
+    <!-- display Main Page button -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/TicketsRecView"
         android:layout_width="match_parent"
         android:layout_height="565dp"
-        android:scrollbarSize="12dp"
-        android:scrollbars="vertical"
         android:layout_below="@+id/btnprevious"
         android:layout_marginTop="5dp"
+        android:scrollbarSize="12dp"
+        android:scrollbars="vertical"
         tools:layout_editor_absoluteX="191dp" />
 
-    <!-- display Main Page button -->
     <Button
         android:id="@+id/BtnMain"
         android:layout_width="150dp"
