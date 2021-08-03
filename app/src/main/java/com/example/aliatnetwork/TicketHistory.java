@@ -52,7 +52,7 @@ public class TicketHistory extends Fragment {
                              Bundle savedInstanceState) {
         View V = inflater.inflate(fragment_ticket_history, container, false);
         recHis = V.findViewById(R.id.RecAct);
-        Button btnMain = (Button) V.findViewById(R.id.BtnMain);
+        ImageButton btnMain = (ImageButton) V.findViewById(R.id.BtnMain);
         Intent intent = getActivity().getIntent();
         String str = intent.getStringExtra("message_key");
         globalTicketId = str.toString();

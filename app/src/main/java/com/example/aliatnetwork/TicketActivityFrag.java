@@ -68,14 +68,14 @@ public class TicketActivityFrag extends Fragment {
         //return inflater.inflate(R.layout.fragment_ticket_activity, container, false);
         View V = inflater.inflate(fragment_ticket_activity,container,false);
         spinnerAction = (Spinner) V.findViewById(R.id.spinnerTicket);
-        Button btnSave = (Button) V.findViewById(R.id.BtnSave);
-        Button btnMain = (Button) V.findViewById(R.id.BtnMain);
+        ImageButton btnSave = (ImageButton) V.findViewById(R.id.BtnSave);
+        ImageButton btnMain = (ImageButton) V.findViewById(R.id.BtnMain);
         editTextEmployee= V.findViewById(R.id.editTextEmployee);
 
         editAction = (EditText) V.findViewById(R.id.txtAction);
         RecViewAction = V.findViewById(R.id.RecAct);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.spinner, android.R.layout.simple_spinner_item);
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.spinner, R.layout.item_spinner);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerAction.setAdapter(adapter);
 

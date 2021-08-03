@@ -113,7 +113,7 @@ public class TicketInfoFragment extends Fragment {
 
 
         ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.spinner, android.R.layout.simple_spinner_item);
+                R.array.spinner, R.layout.item_spinner);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTicketInfo.setAdapter(spinnerAdapter);
 

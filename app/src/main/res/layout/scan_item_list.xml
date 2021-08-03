@@ -17,6 +17,7 @@
             android:padding="10dp"
             android:layout_column="1"
             android:textColor="@color/white"
+            android:gravity="left"
             />
         <TextView
             android:id="@+id/barcode_id"
@@ -25,6 +26,7 @@
             android:padding="10dp"
             android:layout_column="1"
             android:textColor="@color/white"
+            android:gravity="left"
             />
         <TextView
             android:id="@+id/serialnb_id"
@@ -33,6 +35,7 @@
             android:padding="10dp"
             android:layout_column="1"
             android:textColor="@color/white"
+            android:gravity="left"
            />
         <TextView
             android:id="@+id/quantity_id"
@@ -41,6 +44,7 @@
             android:padding="10dp"
             android:layout_column="1"
             android:textColor="@color/white"
+            android:gravity="left"
             />
 
     </TableRow>

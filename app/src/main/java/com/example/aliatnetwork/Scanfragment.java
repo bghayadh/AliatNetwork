@@ -80,6 +80,7 @@ public class Scanfragment extends Fragment {
 
                 BarcodeExe();
 
+
                     }
             });
 
@@ -445,6 +446,7 @@ public class Scanfragment extends Fragment {
             } catch (NumberFormatException e) {
 
             }
+        edittxtbarcode.setText("");
 
     }
 
