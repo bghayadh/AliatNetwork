@@ -51,13 +51,75 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="50dp"
         android:layout_toRightOf="@id/txtDesc"/>
+    <TextView
+        android:layout_marginTop="20dp"
+        android:id="@+id/txtEmployee"
+        android:layout_below="@+id/txtAction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Employee"
+        android:textSize="20dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="#29f803"
+        />
+    <AutoCompleteTextView
+        android:id="@+id/editTextEmployee"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtDesc"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:layout_toRightOf="@id/txtDesc"/>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtDesc"
+        android:id="@+id/tableid"
+        android:layout_marginTop="60dp"
+        android:stretchColumns="1,2,3,4"
+        >
+
+        <TableRow>
+            <TextView
+                android:text="Action"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:padding="10dp"
+                android:layout_column="1"
+                android:textColor="@color/yellowheader"
+                />
+
+            <TextView
+                android:layout_column="1"
+                android:padding="10dp"
+                android:text="Status"
+                android:textColor="@color/yellowheader"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:text="Employe"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:padding="10dp"
+                android:layout_column="1"
+                android:textColor="@color/yellowheader"
+                />
+
+
+
+        </TableRow>
+
+    </TableLayout>
+
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="60dp"
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        android:layout_below="@+id/txtAction"
+        android:layout_below="@+id/txtEmployee"
         android:id="@+id/RecAct"
         />
 
@@ -68,8 +130,9 @@
         android:layout_below="@+id/RecAct"
         android:layout_alignParentStart="true"
         android:backgroundTint="@color/red"
+        android:text="Save"
         android:layout_marginStart="5dp"
-        android:text="Save" />
+         />
     <Button
         android:id="@+id/BtnMain"
         android:layout_width="190dp"
@@ -79,7 +142,9 @@
         android:layout_toEndOf="@+id/BtnSave"
         android:backgroundTint="@color/red"
         android:text="Main"
+
         />
+
 
 
 

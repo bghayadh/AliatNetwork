@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Scanfragment">
+
+    
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -34,7 +36,7 @@
         android:layout_marginStart="5dp"
         android:maxLines="1"
         />
-<!--        <Button
+        <Button
             android:id="@+id/BtnAdd"
             android:layout_width="130dp"
             android:layout_height="50dp"
@@ -46,7 +48,7 @@
             android:textSize="15dp"
             android:layout_alignParentRight="true"
 
-            />-->
+            />
 
 
     </RelativeLayout>
@@ -105,38 +107,45 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="450dp"
+            android:layout_height="350dp"
             android:layout_marginTop="116dp"
             android:layout_marginStart="5dp"
             android:id="@+id/scanrecview"
             android:scrollbars="vertical"/>
-    <!-- display Main Page button -->
-    <Button
-        android:id="@+id/BtnMain"
-        android:layout_width="130dp"
-        android:layout_height="50dp"
-        android:backgroundTint="@color/red"
-        android:textColor="@color/white"
-        android:text="Main Page"
-        android:textStyle="bold"
-        android:textSize="15dp"
-        android:layout_below="@+id/scanrecview"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="263dp"
-        />
 
-    <Button
-        android:id="@+id/BtnSave"
-        android:layout_width="130dp"
-        android:layout_height="50dp"
-        android:backgroundTint="@color/red"
-        android:textColor="@color/white"
-        android:layout_below="@+id/scanrecview"
-        android:text="Save"
-        android:textStyle="bold"
-        android:textSize="15dp"
-        />
+    <!-- display Main Page button -->
+        <RelativeLayout
+            android:layout_marginLeft="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/scanrecview"
+            android:layout_marginTop="0dp"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/btnSaveScan"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:layout_alignParentBottom="true"
+                android:text="Save"
+                android:background="@drawable/ic_save_item_foreground"/>
+
+
+            <ImageButton
+                android:id="@+id/btnMainScan"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="5dp"
+                android:layout_toRightOf="@+id/btnSaveScan"
+                android:background="@drawable/ic_main_page_foreground"
+                android:text="Main Page"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+
     </RelativeLayout>
 </FrameLayout>

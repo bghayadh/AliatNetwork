@@ -89,13 +89,39 @@
 
 
             <!-- Add text Region -->
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:text="Status"
+                android:textColor="#29f803"
+                android:textSize="18dp"
+                android:layout_below="@+id/txtSiteName"
+                android:backgroundTint="@null"
+                android:id="@+id/TxtStatus"/>
+
+            <Spinner
+                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@+id/TxtStatus"
+                android:id="@+id/spinnerTicketInfo"
+                android:layout_below="@+id/editTxtSiteName"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"
+                android:gravity="start"
+                android:outlineSpotShadowColor="@color/yellow"
+                android:defaultFocusHighlightEnabled="true"
+                android:descendantFocusability="beforeDescendants"
+                />
+
+
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:text="Region"
                 android:textColor="#29f803"
                 android:textSize="18dp"
-                android:layout_below="@+id/txtSiteName"
+                android:layout_below="@+id/TxtStatus"
                 android:backgroundTint="@null"
                 android:id="@+id/txtRegion"/>
 
@@ -106,11 +132,9 @@
                 android:ems="10"
                 android:textColor="@color/yellow"
                 android:layout_marginStart="5dp"
-                android:layout_below="@+id/editTxtSiteName"
+                android:layout_below="@+id/spinnerTicketInfo"
                 android:layout_toRightOf="@+id/txtRegion"
                 android:hint="Region" />
-
-            <!-- Add text Department -->
 
             <TextView
                 android:layout_width="100dp"
@@ -297,40 +321,37 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             >
-            <Button
+            <ImageButton
                 android:id="@+id/btnsave"
                 android:layout_width="130dp"
                 android:layout_height="60dp"
-                android:text="Save"
                 android:textStyle="bold"
                 android:layout_alignParentBottom="true"
-                android:backgroundTint="@color/red"
-                />
+                android:background="@drawable/ic_save_item_foreground" />
 
-
-
-            <Button
+            <ImageButton
                 android:id="@+id/btndelete"
                 android:layout_width="130dp"
                 android:layout_height="60dp"
-                android:text="Delete"
                 android:textStyle="bold"
-                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/btnsave"
                 android:layout_alignParentBottom="true"
-                android:backgroundTint="@color/red"
+                android:background="@drawable/ic_delete_foreground"
+
+
                 />
-            <Button
+            <ImageButton
                 android:id="@+id/btnMain"
-                android:layout_width="135dp"
+                android:layout_width="130dp"
                 android:layout_height="60dp"
-                android:layout_marginStart="5dp"
-                android:text="Main Page"
                 android:textStyle="bold"
                 android:layout_alignParentBottom="true"
-                android:backgroundTint="@color/red"
                 android:layout_toRightOf="@+id/btndelete"
+                android:background="@drawable/ic_main_page_foreground"
+                android:layout_marginLeft="10dp"
                 />
+
         </RelativeLayout>
     </LinearLayout>
 </ScrollView>

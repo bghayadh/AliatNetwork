@@ -38,10 +38,10 @@ public class TicketRecViewAdapter extends RecyclerView.Adapter<TicketRecViewAdap
     @Override
     public void onBindViewHolder(@NonNull TicketRecViewAdapter.ViewHolder holder, int position) {
         holder.txtTicketId.setText(tickets.get(position).getTICKET_ID ());
-        holder.txtDepar.setText(tickets.get(position).getDEPARTMENT ());
-        holder.txtSubj.setText(tickets.get(position).getSUBJECT ());
-        holder.txtlati.setText(tickets.get(position).getLATITUDE());
-        holder.txtlong.setText(tickets.get(position).getLONGITUDE());
+        holder.txtSiteId.setText(tickets.get(position).getSITE_ID());
+        holder.txtSiteName.setText(tickets.get(position).getSITE_NAME ());
+        holder.txtDesc.setText(tickets.get(position).getDESCRIPTION());
+        holder.txtSubj.setText(tickets.get(position).getSUBJECT());
         holder.txtstatus.setText(tickets.get(position).getSTATUS());
 
 
@@ -53,9 +53,10 @@ public class TicketRecViewAdapter extends RecyclerView.Adapter<TicketRecViewAdap
                 Toast.makeText(context,tickets.get(position).getTICKET_ID () ,Toast.LENGTH_SHORT).show();
                 System.out.println(tickets.get(position).getTICKET_ID ());
 
-                // pass on click wareid value to new activity Sitinforactivity
+                // pass on click wareid value to new activity Sitinforactivitytic
                 Intent intent =  new Intent(context, TicketInfoActivity.class);
                 intent.putExtra("message_key", tickets.get(position).getTICKET_ID ());
+                intent.putExtra("Status",tickets.get(position).getSTATUS());
                 context.startActivity(intent);
             }
         });
@@ -76,16 +77,16 @@ public class TicketRecViewAdapter extends RecyclerView.Adapter<TicketRecViewAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private RelativeLayout parent;
-        private TextView txtTicketId,txtDepar,txtSubj,txtstatus,txtlong,txtlati;
+        private TextView txtTicketId,txtSiteId,txtSiteName,txtstatus,txtSubj,txtDesc;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             txtTicketId=itemView.findViewById(R.id.txtTicketId);
-            txtDepar=itemView.findViewById(R.id.txtDepar);
+            txtSiteId=itemView.findViewById(R.id.siteId);
+            txtSiteName=itemView.findViewById(R.id.txtSiteName);
+            txtDesc=itemView.findViewById(R.id.txtDescre);
             txtSubj=itemView.findViewById(R.id.txtSubj);
-            txtlati=itemView.findViewById(R.id.txtlati);
-            txtlong=itemView.findViewById(R.id.txtlong);
-            txtstatus=itemView.findViewById(R.id.txtstatus);
+            txtstatus=itemView.findViewById(R.id.txtStatus);
             parent=itemView.findViewById(R.id.parent);
         }
     }

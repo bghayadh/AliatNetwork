@@ -5,6 +5,7 @@ public class TicketActionView {
     private String ACTION_ID;
     private String ACTION;
     private String STATUS;
+    private String EMPLOYEE;
 
     public String getACTION_ID() {
         return ACTION_ID;
@@ -14,6 +15,13 @@ public class TicketActionView {
         this.ACTION_ID = ACTION_ID;
     }
 
+    public String getEMPLOYEE() {
+        return EMPLOYEE;
+    }
+
+    public void setEMPLOYEE(String EMPLOYEE) {
+        this.EMPLOYEE = EMPLOYEE;
+    }
 
     public String getACTION() {
         return ACTION;
@@ -31,10 +39,11 @@ public class TicketActionView {
         this.STATUS = STATUS;
     }
 
-    public TicketActionView(String ACTION_ID, String ACTION, String STATUS) {
+    public TicketActionView(String ACTION_ID, String ACTION, String STATUS,String EMPLOYEE) {
         this.ACTION_ID = ACTION_ID;
         this.ACTION = ACTION;
         this.STATUS = STATUS;
+        this.EMPLOYEE = EMPLOYEE;
     }
 
 

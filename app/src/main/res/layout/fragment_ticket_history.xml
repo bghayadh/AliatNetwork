@@ -1,0 +1,76 @@
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".TicketActivityFrag"
+        android:orientation="vertical"
+        android:background="#0A5EA8"
+        android:id="@+id/relAction">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tableHistory"
+            android:stretchColumns="1,2,3,4"
+            >
+
+            <TableRow>
+                <TextView
+                    android:text="Action"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:padding="10dp"
+                    android:layout_column="1"
+                    android:textColor="@color/yellowheader"
+                    />
+
+                <TextView
+                    android:layout_column="1"
+                    android:padding="10dp"
+                    android:text="Status"
+                    android:textColor="@color/yellowheader"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:text="Employe"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:padding="10dp"
+                    android:layout_column="1"
+                    android:textColor="@color/yellowheader"
+                    />
+
+
+
+            </TableRow>
+
+        </TableLayout>
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_below="@+id/tableHistory"
+            android:id="@+id/RecAct"
+            />
+
+
+
+
+
+
+        <Button
+            android:id="@+id/BtnMain"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="5dp"
+            android:layout_alignParentBottom="true"
+            android:backgroundTint="@color/red"
+            android:text="Main"
+            />
+
+    </RelativeLayout>

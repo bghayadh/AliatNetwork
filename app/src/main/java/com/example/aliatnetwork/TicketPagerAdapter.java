@@ -6,7 +6,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 public class TicketPagerAdapter extends FragmentPagerAdapter {
+
             private int numOfTabs;
+
+
     public TicketPagerAdapter (FragmentManager fm, int numOfTabs) {
         super(fm);
         this.numOfTabs=numOfTabs;
@@ -18,7 +21,7 @@ public class TicketPagerAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 0: return new TicketInfoFragment();
             case 1: return new TicketActivityFrag();
-            case 2: return new TicketAssToFrag();
+            case 2: return new TicketHistory();
             default:  return null;
         }
 

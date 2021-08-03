@@ -1,10 +1,13 @@
 package com.example.aliatnetwork;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,10 +17,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,16 +51,13 @@ import java.util.List;
 import static com.example.aliatnetwork.R.layout.fragment_ticket_info;
 import static com.example.aliatnetwork.R.layout.place_autocomplete_item_powered_by_google;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link TicketInfoFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class TicketInfoFragment extends Fragment {
 
     public Connection conn;
     private GpsTracker gpsTracker;
     private String globalTicketId;
+    private String  globalStatus;
     private List<SiteId> siteIDS = new ArrayList<>();
     private List<Clients> clientsList = new ArrayList<>();
     //private List<SiteId> siteName =new ArrayList<>();
@@ -79,51 +81,7 @@ public class TicketInfoFragment extends Fragment {
     private int pagination=0;
     private DatePickerDialog.OnDateSetListener datePicker;
     private String ticketDate;
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public TicketInfoFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TicketInfoFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TicketInfoFragment newInstance(String param1, String param2) {
-        TicketInfoFragment fragment = new TicketInfoFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-
-    }
+    private Spinner spinnerTicketInfo;
 
 
 
@@ -135,10 +93,10 @@ public class TicketInfoFragment extends Fragment {
         //return inflater.inflate(R.layout.fragment_ticket_info, container, false);
 
         View V = inflater.inflate(fragment_ticket_info, container, false);
-        Button btnsave = (Button) V.findViewById(R.id.btnsave);
-        Button btndelete = (Button) V.findViewById(R.id.btndelete);
+        ImageButton btnsave = (ImageButton) V.findViewById(R.id.btnsave);
+        ImageButton btndelete = (ImageButton) V.findViewById(R.id.btndelete);
         ImageButton btnDate = (ImageButton) V.findViewById(R.id.btnrundate);
-        Button btnMain = (Button) V.findViewById(R.id.btnMain);
+        ImageButton btnMain = (ImageButton) V.findViewById(R.id.btnMain);
         AutoCompleteTextView editTxtSiteId = V.findViewById(R.id.editTextSitID);
 
         TextView editTxtSiteName = V.findViewById(R.id.editTxtSiteName);
@@ -150,10 +108,16 @@ public class TicketInfoFragment extends Fragment {
         TextView editTxtSer = V.findViewById(R.id.editTxtSer);
         TextView editTxtSerIs = V.findViewById(R.id.editTxtSerIs);
         TextView editTxtIssApp = V.findViewById(R.id.editTextDateTicket);
+        spinnerTicketInfo = V.findViewById(R.id.spinnerTicketInfo);
 
-        /*DateFormat date = new SimpleDateFormat("MMM dd yyyy, h:mm");
-        String dateformat = date.format(Calendar.getInstance().getTime());
-        editTxtIssApp.setText(dateformat);*/
+
+
+        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.spinner, android.R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTicketInfo.setAdapter(spinnerAdapter);
+
+        globalStatus = spinnerTicketInfo.getSelectedItem().toString();
 
         btnDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,7 +143,6 @@ public class TicketInfoFragment extends Fragment {
                 String date = dayOfMonth +"/"+month+"/"+year;
                 editTxtIssApp.setText(date);
                 ticketDate = editTxtIssApp.getText().toString();
-                System.out.println("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT"+ticketDate);
 
             }
         };
@@ -199,6 +162,8 @@ public class TicketInfoFragment extends Fragment {
         Intent intent = getActivity().getIntent();
         String str = intent.getStringExtra("message_key");
         globalTicketId = str.toString();
+
+
 
 
         ///begin of Site AUTO-Complete////
@@ -280,6 +245,8 @@ public class TicketInfoFragment extends Fragment {
 
 
 
+
+
         ///End of Site AUTO-Complete////
 
         ///begin of Client AUTO-Complete////
@@ -301,7 +268,6 @@ public class TicketInfoFragment extends Fragment {
         try {
 
             rs3 = stmtClient.executeQuery(sqlStmtClient);
-            System.out.println("ALiiiiiiiiiiiiiiiiiiiiii"+rs3);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -408,9 +374,6 @@ public class TicketInfoFragment extends Fragment {
                         lat=rsLatLong.getString("lat");
 
 
-                        //System.out.println("longiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"+longi);
-                        //System.out.println("latttttttttttttttttttttttttttttttttttttt"+lat);
-
                     } catch (SQLException throwables) {
                         throwables.printStackTrace ( );
                     }
@@ -434,6 +397,7 @@ public class TicketInfoFragment extends Fragment {
 
                 editTxtSiteId.setText(rs2.getString("SITE_ID"));
                 editTxtSiteName.setText(rs2.getString("SITE_NAME"));
+                spinnerTicketInfo.setSelection(spinnerAdapter.getPosition(rs2.getString("STATUS")));
                 editTxtRegion.setText(rs2.getString("REGIONNAME"));
                 editTxtClient.setText(rs2.getString("CLIENT_ID"));
                 editTxtDepa.setText(rs2.getString("DEPARTMENT"));
@@ -534,17 +498,22 @@ public class TicketInfoFragment extends Fragment {
 
                         // send data from fragment to super activity
                         ((TicketInfoActivity)getActivity()).getTicketFragment(globalTicketId);
+                        ((TicketInfoActivity)getActivity()).getStatusFragment(globalStatus);
 
-                        //getSiteMap(lat,longi);
 
-                        stmtInserTicket = conn.prepareStatement("insert into TROUBLE_TICKETS (TICKET_ID,CREATION_DATE,LAST_MODIFIED_DATE,SITE_ID,SITE_NAME,REGIONNAME,SUBJECT,DEPARTMENT,CLIENT_ID,DESCRIPTION,SERVICE,SERVICE_ISSUE,ISSUE_APPEARED) values " +
-                                "('"+globalTicketId +"',sysdate,sysdate,'"+ editTxtSiteId.getText()+"','"+ editTxtSiteName.getText()  +"','"+ editTxtRegion.getText ()  +"', '"+ editTxtSubject.getText ()  +"','"+editTxtDepa.getText() +"','"+ editTxtClient.getText ()  +"','"+editTxtDesc.getText() +"','"+editTxtSer.getText() +"','"+editTxtSerIs.getText() +"',TO_DATE('"+ticketDate+"','DD-MM-YYYY') )");
+                        stmtInserTicket = conn.prepareStatement("insert into TROUBLE_TICKETS (TICKET_ID,CREATION_DATE,LAST_MODIFIED_DATE,SITE_ID,SITE_NAME,STATUS,REGIONNAME,SUBJECT,DEPARTMENT,CLIENT_ID,DESCRIPTION,SERVICE,SERVICE_ISSUE,ISSUE_APPEARED) values " +
+                                "('"+globalTicketId +"',sysdate,sysdate,'"+ editTxtSiteId.getText()+"','"+ editTxtSiteName.getText()  +"','"+spinnerTicketInfo.getSelectedItem().toString()+"','"+ editTxtRegion.getText ()  +"', '"+ editTxtSubject.getText ()  +"','"+editTxtDepa.getText() +"','"+ editTxtClient.getText ()  +"','"+editTxtDesc.getText() +"','"+editTxtSer.getText() +"','"+editTxtSerIs.getText() +"',TO_DATE('"+ticketDate+"','DD-MM-YYYY') )");
+                        ///added for pass data in fragment
+
+
+
 
                     }
 
                     else { // we wil use update where Ticket_ID= the one we selected
-                        stmtInserTicket = conn.prepareStatement("update  TROUBLE_TICKETS set LAST_MODIFIED_DATE=sysdate,SITE_ID='"+ editTxtSiteId.getText ()  +"',SITE_NAME='"+ editTxtSiteName.getText ()  +"',REGIONNAME='"+ editTxtRegion.getText ()  +"',SUBJECT='"+editTxtSubject.getText() +"',DEPARTMENT='"+editTxtDepa.getText() +"',DESCRIPTION='"+editTxtDesc.getText() +"',SERVICE='"+editTxtSer.getText() +"',SERVICE_ISSUE='"+editTxtSerIs.getText() +"',ISSUE_APPEARED='"+ ticketDate+"' where TICKET_ID='"+globalTicketId+"'");
+                        stmtInserTicket = conn.prepareStatement("update  TROUBLE_TICKETS set LAST_MODIFIED_DATE=sysdate,SITE_ID='"+ editTxtSiteId.getText ()  +"',SITE_NAME='"+ editTxtSiteName.getText ()  +"',STATUS='"+spinnerTicketInfo.getSelectedItem().toString()+"',REGIONNAME='"+ editTxtRegion.getText ()  +"',SUBJECT='"+editTxtSubject.getText() +"',DEPARTMENT='"+editTxtDepa.getText() +"',DESCRIPTION='"+editTxtDesc.getText() +"',SERVICE='"+editTxtSer.getText() +"',SERVICE_ISSUE='"+editTxtSerIs.getText() +"',ISSUE_APPEARED='"+ ticketDate+"' where TICKET_ID='"+globalTicketId+"'");
                     }
+
 
                 } catch (SQLException throwables) {
                     throwables.printStackTrace ( );
@@ -565,6 +534,14 @@ public class TicketInfoFragment extends Fragment {
                     throwables.printStackTrace ( );
                 }
 
+                Intent intentStatus = new Intent(getActivity(),TicketInfoActivity.class);
+                intentStatus.putExtra("Status",globalStatus);
+                startActivity(intentStatus);
+
+
+
+                Intent intent = new Intent(getActivity(),TicketListViewActivity.class);
+                startActivity(intent);
 
 
 
@@ -601,6 +578,8 @@ public class TicketInfoFragment extends Fragment {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace ( );
                 }
+                Intent intent = new Intent(getActivity(),TicketListViewActivity.class);
+                startActivity(intent);
 
 
 
@@ -678,6 +657,8 @@ public class TicketInfoFragment extends Fragment {
 
         });
     }
+
+
 
 
 

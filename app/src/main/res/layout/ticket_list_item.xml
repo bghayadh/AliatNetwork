@@ -10,7 +10,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#AFEEEE" />
+        android:background="#F50CFA03" />
 
     <TextView
         android:layout_width="133dp"
@@ -25,7 +25,7 @@
     <TextView
         android:layout_width="133dp"
         android:layout_height="20dp"
-        android:id="@+id/txtDepar"
+        android:id="@+id/siteId"
         android:textStyle="bold"
         android:textColor="@color/white"
         android:layout_marginStart="10dp"
@@ -37,20 +37,21 @@
     <TextView
         android:layout_width="133dp"
         android:layout_height="20dp"
-        android:id="@+id/txtSubj"
+        android:id="@+id/txtSiteName"
         android:textStyle="bold"
         android:layout_marginStart="10dp"
         android:textColor="@color/white"
         android:textAlignment="center"
         android:layout_marginTop="5dp"
-        android:layout_toRightOf="@+id/txtDepar"
+        android:layout_toRightOf="@+id/siteId"
         />
 
     <TextView
-        android:id="@+id/txtlati"
+        android:id="@+id/txtDescre"
         android:layout_width="133dp"
         android:layout_height="20dp"
         android:layout_below="@id/txtTicketId"
+        android:maxLength="10"
         android:layout_marginStart="0dp"
         android:layout_marginTop="5dp"
         android:textAlignment="center"
@@ -60,26 +61,26 @@
     <TextView
         android:layout_width="133dp"
         android:layout_height="20dp"
-        android:id="@+id/txtlong"
+        android:id="@+id/txtSubj"
         android:textStyle="bold"
         android:layout_marginStart="10dp"
         android:textColor="@color/white"
         android:textAlignment="center"
         android:layout_marginTop="5dp"
-        android:layout_toRightOf="@+id/txtlati"
-        android:layout_below="@id/txtDepar"
+        android:layout_toRightOf="@+id/txtDescre"
+        android:layout_below="@id/siteId"
         />
     <TextView
         android:layout_width="133dp"
         android:layout_height="20dp"
-        android:id="@+id/txtstatus"
+        android:id="@+id/txtStatus"
         android:textStyle="bold"
         android:layout_marginStart="10dp"
         android:textColor="@color/white"
         android:textAlignment="center"
         android:layout_marginTop="5dp"
-        android:layout_toRightOf="@+id/txtlong"
-        android:layout_below="@id/txtSubj"
+        android:layout_toRightOf="@+id/txtSubj"
+        android:layout_below="@id/txtSiteName"
         />
 
 

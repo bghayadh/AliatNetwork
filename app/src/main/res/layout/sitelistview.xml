@@ -37,13 +37,29 @@
         android:layout_marginStart="5dp"
         />
 
+    <ImageButton
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:background="@drawable/ic_baseline_today_24"
+        android:layout_below="@+id/btnnew"
+        android:id="@+id/btnImaDateSite"
+        />
+    <TextView
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:id="@+id/txtInfoSaveSite"
+        android:textSize="20dp"
+        android:textColor="@color/yellow"
+        android:layout_below="@+id/btnnew"
+        android:layout_toRightOf="@+id/btnImaDateSite"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/sitesRecView"
         android:layout_width="match_parent"
         android:layout_height="565dp"
         android:scrollbarSize="12dp"
         android:scrollbars="vertical"
-        android:layout_below="@+id/btnprevious"
+        android:layout_below="@+id/txtInfoSaveSite"
         tools:layout_editor_absoluteX="191dp" />
 
     <!-- display Main Page button -->
@@ -58,5 +74,6 @@
         android:textStyle="bold"
         android:textSize="15dp"
         android:layout_alignParentRight="true"
+        android:drawableRight="@mipmap/ic_main_page_round"
         />
 </RelativeLayout>

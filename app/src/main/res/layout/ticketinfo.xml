@@ -19,14 +19,35 @@
 
     <TextView
         android:id="@+id/txtTicketId"
-        android:layout_width="140dp"
+        android:layout_width="100dp"
         android:layout_height="40dp"
-        android:text="TextView"
         android:layout_marginStart="10dp"
         android:layout_toRightOf="@+id/textticketID"
         android:textColor="@color/yellow"
         tools:layout_editor_absoluteX="139dp"
         tools:layout_editor_absoluteY="139dp" />
+
+    <TextView
+        android:id="@+id/textTicketStatus"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:text="Status"
+        android:textColor="@color/white"
+        android:layout_toRightOf="@id/txtTicketId"
+        tools:layout_editor_absoluteX="139dp"
+        tools:layout_editor_absoluteY="139dp" />
+
+    <TextView
+        android:id="@+id/textTicketStatusShow"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:text="Open"
+        android:layout_toRightOf="@+id/textTicketStatus"
+        android:textColor="@color/yellow"
+        tools:layout_editor_absoluteX="139dp"
+        tools:layout_editor_absoluteY="139dp" />
+
 
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"

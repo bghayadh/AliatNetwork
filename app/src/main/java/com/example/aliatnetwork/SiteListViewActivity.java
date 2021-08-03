@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,6 +57,7 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.function.BinaryOperator;
 
 import oracle.jdbc.proxy.annotation.Post;
@@ -62,13 +65,22 @@ import oracle.jdbc.proxy.annotation.Post;
 public class SiteListViewActivity extends AppCompatActivity {
 
     // SiteListViewActivity for the layout sitelistview
+    final Calendar cldr = Calendar.getInstance();
+    int day = cldr.get(Calendar.DAY_OF_MONTH);
+    int month = cldr.get(Calendar.MONTH);
+    int year = cldr.get(Calendar.YEAR);
     private RecyclerView sitesRecView;
     private int arraysize=0;
     private int varraysize=0;
     private int pagination=0;
     public Connection connsite;
+    public ImageButton imgBtnDate;
+    public TextView txtDate;
     public ArrayList<Sitelistview> sites,sitedb;
     private Button btnprevious,btnnext,btnnew,btnmain;
+    private DatePickerDialog pickerDialog;
+
+
 
 
     @Override
@@ -79,6 +91,9 @@ public class SiteListViewActivity extends AppCompatActivity {
         btnnext = findViewById (R.id.btnnext);
         btnnew= findViewById (R.id.btnnew);
         btnmain=findViewById (R.id.BtnMain);
+        imgBtnDate=findViewById(R.id.btnImaDateSite);
+        txtDate=findViewById(R.id.txtInfoSaveSite);
+
 
         // get sites data by default
         GetSitesData(1,10);
@@ -111,6 +126,36 @@ public class SiteListViewActivity extends AppCompatActivity {
                 startActivity(intent);
             }
 
+        });
+
+        imgBtnDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pickerDialog = new DatePickerDialog (SiteListViewActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                String varmonth;
+
+                                //reset recycler
+                                sites.clear ();
+                                varraysize=0;
+                                pagination=0;
+                                sitesRecView.setAdapter(null);
+                                sitesRecView.refreshDrawableState ();
+                                ///////
+
+                                //fil date in texdate as yyy-mm0-dd
+                                String varyear=year + "-" + (monthOfYear + 1) + "-"+dayOfMonth;
+                                txtDate.setText(varyear);
+                                //editTextDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+
+                                // get data by defaukt based on editTextDate
+                                GetSitesData(1,10);
+                            }
+                        }, year, month, day);
+                pickerDialog.show();
+            }
         });
 
         //button previuos
@@ -183,8 +228,21 @@ public class SiteListViewActivity extends AppCompatActivity {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        String vardate = txtDate.getText().toString();
+        String sqlStmt;
 
-        String  sqlStmt = "SELECT * FROM (select ROW_NUMBER() OVER (ORDER BY WARE_ID) row_num,WARE_ID,SITE_ID, WARE_NAME,ADDRESS, LATITUDE,LONGITUDE from WAREHOUSE where SITE='1' order by SITE_ID) T WHERE row_num >= '" + vfrom +"' AND row_num <='" + vto +"'";
+        if (vardate.isEmpty()){
+            sqlStmt = "SELECT * FROM (select ROW_NUMBER() OVER (ORDER BY WARE_ID) row_num,WARE_ID,SITE_ID,WARE_NAME,ADDRESS, LATITUDE,LONGITUDE from WAREHOUSE where SITE='1' order by SITE_ID) T WHERE row_num >= '" + vfrom +"' AND row_num <='" + vto +"'";
+        }
+        else if (vardate.length()>0)
+        {
+            sqlStmt = "select * from(select ROW_NUMBER() OVER (ORDER BY WARE_ID) row_num,WARE_ID,SITE_ID,WARE_NAME,ADDRESS, LATITUDE,LONGITUDE from WAREHOUSE where SITE='1' and TO_DATE(TO_CHAR(CREATION_DATE, 'YYYY-MM-DD'),'YYYY-MM-DD') =TO_DATE('" + vardate + "', 'YYYY-MM-DD') ) T WHERE row_num >= '" + vfrom + "' AND row_num <='" + vto + "'";
+
+        }
+        else{
+            sqlStmt = "SELECT * FROM (select ROW_NUMBER() OVER (ORDER BY WARE_ID) row_num,TICKET_ID,SITE_ID,SITE_NAME,DESCRIPTION,SUBJECT,STATUS from TROUBLE_TICKETS where TO_CHAR(CREATION_DATE, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') order by CREATION_DATE DESC) T WHERE row_num >= '" + vfrom + "' AND row_num <='" + vto + "'";
+        }
+
 
         ResultSet rs1 = null;
         try {

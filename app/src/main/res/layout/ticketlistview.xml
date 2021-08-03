@@ -5,44 +5,60 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0A5EA8"
+    android:id="@+id/container"
     >
 
     <Button
         android:id="@+id/btnprevious"
-        android:layout_width="133dp"
-        android:layout_height="50dp"
-        android:text="PREVIOUS"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
         android:layout_marginStart="1dp"
         android:backgroundTint="@color/red"
+        android:text="Preview"
         />
 
     <Button
         android:id="@+id/btnnext"
-        android:layout_width="133dp"
-        android:layout_height="50dp"
-        android:text="NEXT"
-        android:backgroundTint="@color/red"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
         android:layout_toRightOf="@+id/btnprevious"
         android:layout_marginStart="5dp"
+        android:backgroundTint="@color/red"
+        android:text="Next"
         />
 
     <Button
         android:id="@+id/btnnew"
-        android:layout_width="133dp"
-        android:layout_height="50dp"
-        android:text="NEW"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
         android:layout_marginRight="5dp"
-        android:backgroundTint="@color/red"
         android:layout_toRightOf="@+id/btnnext"
         android:layout_marginStart="5dp"
+        android:backgroundTint="@color/red"
+        android:text="New"
         />
+    <ImageButton
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:background="@drawable/ic_baseline_today_24"
+        android:layout_below="@+id/btnnew"
+        android:id="@+id/btnImaDate"
+        />
+    <TextView
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:id="@+id/txtInfoSave"
+        android:textSize="20dp"
+        android:textColor="@color/yellow"
+        android:layout_below="@+id/btnnew"
+        android:layout_toRightOf="@+id/btnImaDate"/>
 
     <!-- display Main Page button -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/TicketsRecView"
         android:layout_width="match_parent"
         android:layout_height="565dp"
-        android:layout_below="@+id/btnprevious"
+        android:layout_below="@+id/txtInfoSave"
         android:layout_marginTop="5dp"
         android:scrollbarSize="12dp"
         android:scrollbars="vertical"
@@ -53,13 +69,15 @@
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:layout_below="@id/TicketsRecView"
-        android:backgroundTint="@color/red"
         android:textColor="@color/white"
+        android:backgroundTint="@color/red"
         android:text="Main Page"
         android:textStyle="bold"
         android:textSize="15dp"
         android:layout_alignParentRight="true"
+        android:drawableRight="@mipmap/ic_main_page_round"
         />
+
 
 
 </RelativeLayout>

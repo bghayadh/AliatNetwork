@@ -19,13 +19,19 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener;
 
 public class TicketInfoActivity extends AppCompatActivity {
 
-    TextView txtTicketId;
+    TextView txtTicketId,txtStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.ticketinfo);
         txtTicketId=findViewById (R.id.txtTicketId);
+        txtStatus = findViewById(R.id.textTicketStatusShow);
+
+
+
+
+        System.out.println("ppppppppppppppppppppppppppppppp "+txtStatus);
 
 
         TabLayout tabLayout=findViewById(R.id.tabBarTicket);
@@ -104,6 +110,13 @@ public class TicketInfoActivity extends AppCompatActivity {
         txtTicketId.setText (str);
         System.out.println("alooooooooooo"+str);
 
+        Intent intentStatus = getIntent();
+        String strStatus = intentStatus.getStringExtra("Status");
+        txtStatus.setText(strStatus);
+
+        System.out.println("hiiiiiiiiiiiiiiiiiiiiiiiiiii   "+strStatus);
+
+        getStatusFragment(strStatus);
 
     }
     // to read data coming from fragment
@@ -111,8 +124,20 @@ public class TicketInfoActivity extends AppCompatActivity {
     {
         try {
             txtTicketId.setText (test);
+
         } catch(Exception e) {
             e.printStackTrace();
         }
     }
+
+    public void getStatusFragment(String pos){
+        try {
+            txtStatus.setText(pos);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+
 }
