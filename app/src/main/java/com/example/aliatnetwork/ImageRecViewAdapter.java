@@ -54,7 +54,7 @@ public class ImageRecViewAdapter extends RecyclerView.Adapter<ImageRecViewAdapte
     String user =null;// "beid";
     String pass = null;//"10th@Loop";
     private Connection conn;
-    private ImageView imageIs;
+
 
 
     FTPClient ftpClient = new FTPClient();
@@ -78,6 +78,10 @@ public class ImageRecViewAdapter extends RecyclerView.Adapter<ImageRecViewAdapte
         holder.imgIcon.setImageResource(images.get(position).getImageIcon());
         holder.imgpath.setText(images.get(position).getImagePath());
         holder.imgdelete.setImageResource(images.get(position).getDelete());
+
+
+
+
 
         holder.imgdelete.setOnClickListener(new View.OnClickListener() {
             @Override

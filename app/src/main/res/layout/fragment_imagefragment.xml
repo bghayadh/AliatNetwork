@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0A5EA8"
+    android:id="@+id/infoTicketFragment"
+    tools:context="com.example.aliatnetwork.TicketInfoActivity"
+
+    >
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -19,10 +28,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/imageRecView"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_width="390dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
         android:layout_height="250dp"
+        android:layout_below="@+id/txtwareid"
         android:orientation="horizontal"
         android:scrollbars="vertical"
         android:layout_marginBottom="20dp"
@@ -31,32 +40,27 @@
 
 
     <ImageSwitcher
-        android:layout_width="400dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="300dp"
-        android:layout_marginBottom="27dp"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@+id/imageRecView"
         android:id="@+id/imagesIs"/>
 
     <Button
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="Select Photos"
-        android:layout_marginStart="1dp"
         android:textStyle="bold"
         android:layout_below="@+id/imagesIs"
         android:backgroundTint="@color/red"
         android:id="@+id/btnpickimages"/>
 
     <Button
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="Upload Photos"
         android:textStyle="bold"
-        android:layout_marginStart="5dp"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/btnpickimages"
-        android:layout_marginRight="1dp"
-        android:layout_below="@+id/imagesIs"
+        android:layout_below="@+id/btnpickimages"
         android:backgroundTint="@color/red"
         android:id="@+id/btnftpimages"/>
 
@@ -67,7 +71,7 @@
         android:text="Previous"
         android:layout_marginStart="1dp"
         android:textStyle="bold"
-        android:layout_below="@+id/btnpickimages"
+        android:layout_below="@+id/btnftpimages"
         android:backgroundTint="@color/red"
         />
 
@@ -95,4 +99,5 @@
         android:layout_toRightOf="@+id/nextBtn"
         android:backgroundTint="@color/red"
         />
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

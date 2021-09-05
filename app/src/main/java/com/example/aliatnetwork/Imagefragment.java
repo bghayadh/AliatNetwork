@@ -52,86 +52,40 @@ import java.io.IOException;
 
 import static com.example.aliatnetwork.R.layout.fragment_imagefragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Imagefragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class Imagefragment extends  Fragment  {
+
+public class Imagefragment extends  Fragment {
     private String globalwareid;
     private ImageSwitcher imagesIs;
     private ArrayList<Uri> imagesUris;
-    private static final int PICK_IMAGES_CODE=0;
+    private static final int PICK_IMAGES_CODE = 0;
     private String[] imagesource;
     private TextView txtimgpath;
     private ImageButton imgbtn;
     private TextView txtwareid;
-    int position =0;
+    int position = 0;
     String server = "ftp.ipage.com";
     int port = 21;
     String user = "beid";
     String pass = "10th@Loop";
     FTPClient ftpClient = new FTPClient();
     private RecyclerView imagerecView;
-    private ArrayList<ImageListView> images,imagesdb;
+    private ArrayList<ImageListView> images, imagesdb;
     public Connection conn;
-    private View rootView;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public Imagefragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Imagefragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Imagefragment newInstance(String param1, String param2) {
-        Imagefragment fragment = new Imagefragment ( );
-        Bundle args = new Bundle ( );
-        args.putString (ARG_PARAM1, param1);
-        args.putString (ARG_PARAM2, param2);
-        fragment.setArguments (args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate (savedInstanceState);
-        if (getArguments ( ) != null) {
-            mParam1 = getArguments ( ).getString (ARG_PARAM1);
-            mParam2 = getArguments ( ).getString (ARG_PARAM2);
-        }
-
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         //return inflater.inflate (fragment_imagefragment, container, false);
-        View V = inflater.inflate (fragment_imagefragment, container, false);
+        View V = inflater.inflate(fragment_imagefragment, container, false);
         Button previousBtn = (Button) V.findViewById(R.id.previousBtn);
         Button btnmain = (Button) V.findViewById(R.id.btnmain);
         Button nextBtn = (Button) V.findViewById(R.id.nextBtn);
         Button btnpickimages = (Button) V.findViewById(R.id.btnpickimages);
         Button btnftpimages = (Button) V.findViewById(R.id.btnftpimages);
         imagesIs = (ImageSwitcher) V.findViewById(R.id.imagesIs);
-        imagesUris=new ArrayList<>();
+        imagesUris = new ArrayList<>();
         imagerecView = V.findViewById(R.id.imageRecView);
         images = new ArrayList<>();
         imagesdb = new ArrayList<>();
@@ -150,7 +104,6 @@ public class Imagefragment extends  Fragment  {
         //System.out.println ("here is the received data : "+((SiteInfoActivity)getActivity()).settofragment().toString());
 
 
-
         //read passes value of ware_id from recylserview
         Intent intent = getActivity().getIntent();
         String str = intent.getStringExtra("message_key");
@@ -158,56 +111,19 @@ public class Imagefragment extends  Fragment  {
 
 
 
+
+
+
+
+
+
+
+
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //connect to database
-        connecttoDB();
-        Statement stmt1 = null;
-        int i=0;
-        try {
-            stmt1 = conn.createStatement();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        String  sqlStmt = "Select IMAGE_PATH FROM WAREHOUSE_IMAGE WHERE WARE_ID='"+globalwareid+"'";
-
-        ResultSet rs1 = null;
-        try {
-            rs1 = stmt1.executeQuery(sqlStmt);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        while (true) {
-            try {
-                if (!rs1.next()) break;
-                imagesdb.add(new ImageListView (R.drawable.imgdelete_foreground,R.drawable.imgbtn_foreground,rs1.getString("IMAGE_PATH")));
-            }
-            catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-        }
-
-        try {
-            rs1.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        try {
-            stmt1.close();
-            conn.close ();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        for(i=0;i<imagesdb.size();i++) {
-            images.add(new ImageListView(R.drawable.imgdelete_foreground,R.drawable.imgbtn_foreground, imagesdb.get(i).getImagePath()));
-        }
-        ///fill the recyclerview with imagespath
-        ImageRecViewAdapter imageRecViewAdapter = new ImageRecViewAdapter(getContext(),images);
-        imagerecView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        imagerecView.setAdapter(imageRecViewAdapter);
-
+        GetImage();
+        //////////
     ////////////////////////////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////////////////////////////////////////////////////////
@@ -543,6 +459,61 @@ public class Imagefragment extends  Fragment  {
             System.out.println("error is: " +e.toString());
             Toast.makeText (getActivity (),"" +e.toString(),Toast.LENGTH_SHORT).show ();
         }
+    }
+
+    public void GetImage(){
+        connecttoDB();
+        Statement stmt1 = null;
+        int i = 0;
+        try {
+            stmt1 = conn.createStatement();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        String sqlStmt = "Select IMAGE_PATH FROM WAREHOUSE_IMAGE WHERE WARE_ID='" + globalwareid + "'";
+
+        ResultSet rs1 = null;
+        try {
+            rs1 = stmt1.executeQuery(sqlStmt);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        while (true) {
+            try {
+                if (!rs1.next()) break;
+                imagesdb.add(new ImageListView(R.drawable.imgdelete_foreground, R.drawable.imgbtn_foreground, rs1.getString("IMAGE_PATH")));
+
+                System.out.println("image" +rs1.getString("IMAGE_PATH"));
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+
+        try {
+            rs1.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        try {
+            stmt1.close();
+            conn.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        for (i = 0; i < imagesdb.size(); i++) {
+            images.add(new ImageListView(R.drawable.imgdelete_foreground, R.drawable.imgbtn_foreground, imagesdb.get(i).getImagePath()));
+        }
+
+
+        System.out.println(";;;;;;;;;;;;;;"+images.size());
+
+        ///fill the recyclerview with imagespath
+        ImageRecViewAdapter imageRecViewAdapter = new ImageRecViewAdapter(getContext(),images);
+        imagerecView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        imagerecView.setAdapter(imageRecViewAdapter);
+
     }
 
 

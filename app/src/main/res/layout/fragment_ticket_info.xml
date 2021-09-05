@@ -47,7 +47,7 @@
 
 
             <AutoCompleteTextView
-                android:id="@+id/editTextSitID"
+                android:id="@+id/textSitID"
                 android:layout_width="300dp"
                 android:layout_height="50dp"
                 android:ems="10"
@@ -337,7 +337,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/btnsave"
                 android:layout_alignParentBottom="true"
-                android:background="@drawable/ic_delete_foreground"
+                android:background="@drawable/ic_baseline_delete_forever_24"
 
 
                 />

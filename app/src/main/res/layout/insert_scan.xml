@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <TextView
+        android:id="@+id/txtItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dp"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="Item Name"
+        android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/item_Name"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:layout_toRightOf="@+id/txtItemName"
+        android:hint="Item Name"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/txtItemCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_Name"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="Item Code"
+        android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/item_Code"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="61dp"
+        android:layout_marginLeft="61dp"
+        android:layout_toRightOf="@+id/txtItemCode"
+        android:layout_below="@+id/item_Name"
+        android:hint="Item Code"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:id="@+id/txtItemModel"
+        android:textColor="@color/black"
+        android:text="Item Model"
+        android:layout_below="@+id/txtItemCode"/>
+
+
+    <EditText
+        android:id="@+id/item_Model"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_Code"
+        android:layout_marginStart="53dp"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/txtItemModel"
+        android:hint="Item Model"
+        />
+    <TextView
+        android:layout_marginTop="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginStart="10dp"
+        android:id="@+id/txtItemPartNumber"
+        android:textColor="@color/black"
+        android:text="Item Part Number"
+        android:layout_below="@+id/txtItemModel"/>
+
+
+    <EditText
+        android:id="@+id/item_PartNumber"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_Model"
+        android:layout_marginStart="10dp"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/txtItemPartNumber"
+        android:hint="Item Part Number"
+        />
+    <TextView
+        android:layout_marginTop="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:id="@+id/txtSerialNumber"
+        android:textColor="@color/black"
+        android:layout_marginStart="10dp"
+        android:text="Serial Number"
+        android:layout_below="@+id/txtItemPartNumber"/>
+
+
+    <EditText
+        android:id="@+id/serial_Number"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_PartNumber"
+        android:layout_marginStart="34dp"
+        android:layout_toRightOf="@+id/txtSerialNumber"
+        android:hint="Serial Number"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_marginTop="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:id="@+id/txtBarcodeNumber"
+        android:textColor="@color/black"
+        android:layout_marginStart="10dp"
+        android:text="Barcode Number"
+        android:layout_below="@+id/txtSerialNumber"/>
+
+
+    <EditText
+        android:id="@+id/barcode_Number"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/serial_Number"
+        android:layout_marginStart="17dp"
+        android:layout_toRightOf="@+id/txtBarcodeNumber"
+        android:hint="Barcode Number"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_marginTop="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:id="@+id/txtQuantity"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/black"
+        android:text="Quantity"
+        android:layout_below="@+id/txtBarcodeNumber"/>
+
+
+    <EditText
+        android:id="@+id/qty"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/barcode_Number"
+        android:layout_marginStart="74dp"
+        android:layout_toRightOf="@+id/txtQuantity"
+        android:hint="Quantity"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Insert"
+        android:layout_below="@+id/qty"
+        android:layout_marginTop="40dp"
+        android:id="@+id/btnInsertDialog"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:layout_below="@+id/qty"
+        android:layout_toRightOf="@+id/btnInsertDialog"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:id="@+id/btnCancel"/>
+
+
+</RelativeLayout>
