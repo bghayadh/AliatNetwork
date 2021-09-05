@@ -1,34 +1,27 @@
 package com.example.aliatnetwork;
 
-import android.os.StrictMode;
+import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Filter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SiteIdAdapter  extends ArrayAdapter<SiteId> {
-    private List<SiteId> SiteIdFull;
-    public Connection connsite;
+public class SearchSiteIdAdapter extends ArrayAdapter<SiteId> {
 
-    public SiteIdAdapter(@NonNull FragmentActivity TicketInfoFragment, @NonNull List<SiteId> siteIDList) {
-        super(TicketInfoFragment, 0, siteIDList);
+    private List<SiteId> SiteIdFull;
+
+    public SearchSiteIdAdapter(@NonNull Context TicketListViewActivity, @NonNull List<SiteId> siteIDList) {
+        super(TicketListViewActivity, 0, siteIDList);
 
         SiteIdFull = new ArrayList<>(siteIDList);
     }
@@ -71,7 +64,6 @@ public class SiteIdAdapter  extends ArrayAdapter<SiteId> {
             List<SiteId> suggestions = new ArrayList<>();
 
             if (constraint == null || constraint.length() == 0) {
-
                 suggestions.addAll(SiteIdFull);
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
@@ -101,6 +93,4 @@ public class SiteIdAdapter  extends ArrayAdapter<SiteId> {
             return ((SiteId) resultValue).getSITE_ID();
         }
     };
-
 }
-

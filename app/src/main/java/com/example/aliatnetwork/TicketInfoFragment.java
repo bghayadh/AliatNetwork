@@ -534,11 +534,6 @@ public class TicketInfoFragment extends Fragment {
                     throwables.printStackTrace ( );
                 }
 
-                Intent intentStatus = new Intent(getActivity(),TicketInfoActivity.class);
-                intentStatus.putExtra("Status",globalStatus);
-                startActivity(intentStatus);
-
-
 
                 Intent intent = new Intent(getActivity(),TicketListViewActivity.class);
                 startActivity(intent);

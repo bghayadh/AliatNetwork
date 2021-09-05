@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -37,21 +38,32 @@
         android:layout_marginStart="5dp"
         />
 
+
+
     <ImageButton
-        android:layout_width="70dp"
-        android:layout_height="30dp"
-        android:background="@drawable/ic_baseline_today_24"
-        android:layout_below="@+id/btnnew"
-        android:id="@+id/btnImaDateSite"
-        />
-    <TextView
-        android:layout_width="140dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnnext"
+        android:background="@drawable/ic_baseline_search_24"
+        android:id="@+id/searchSite"/>
+
+    <AutoCompleteTextView
+        android:id="@+id/textSitID"
+        android:layout_width="300dp"
         android:layout_height="40dp"
-        android:id="@+id/txtInfoSaveSite"
-        android:textSize="20dp"
+        android:ems="10"
         android:textColor="@color/yellow"
-        android:layout_below="@+id/btnnew"
-        android:layout_toRightOf="@+id/btnImaDateSite"/>
+        android:layout_marginStart="5dp"
+        android:clickable="true"
+        android:completionThreshold="1"
+        android:hint="Search Site ID or Name"
+        android:backgroundTint="@color/white"
+        android:textColorHint="@color/yellowheader"
+        android:layout_toRightOf="@+id/searchSite"
+        android:layout_below="@+id/btnnext"
+        />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/sitesRecView"
@@ -59,7 +71,7 @@
         android:layout_height="565dp"
         android:scrollbarSize="12dp"
         android:scrollbars="vertical"
-        android:layout_below="@+id/txtInfoSaveSite"
+        android:layout_below="@+id/textSitID"
         tools:layout_editor_absoluteX="191dp" />
 
     <!-- display Main Page button -->

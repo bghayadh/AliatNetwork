@@ -28,12 +28,6 @@ public class TicketInfoActivity extends AppCompatActivity {
         txtTicketId=findViewById (R.id.txtTicketId);
         txtStatus = findViewById(R.id.textTicketStatusShow);
 
-
-
-
-        System.out.println("ppppppppppppppppppppppppppppppp "+txtStatus);
-
-
         TabLayout tabLayout=findViewById(R.id.tabBarTicket);
         TabItem tabChats=findViewById(R.id.tabInfoTicket);
         TabItem tabStatus=findViewById(R.id.tabAct);

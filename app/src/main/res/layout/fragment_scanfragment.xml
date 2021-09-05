@@ -1,152 +1,315 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#0A5EA8"
     tools:context=".Scanfragment">
-
-    
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <RelativeLayout
+    <TextView
+        android:id="@+id/txtScan"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="Scan"
+        android:textColor="@color/yellow" />
+
+    <AutoCompleteTextView
+        android:id="@+id/editTextScan"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="96dp"
+        android:layout_toRightOf="@+id/txtScan"
+        android:hint="Scan Item"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/txtscan"
-        android:layout_marginStart="7dp"
-        android:textColor="@color/yellow"
-        android:textStyle="bold"
-        android:textSize="16dp"
-        android:text="Enter Your Barcode">
+        android:id="@+id/pagination"
+        android:textSize="30sp"
+        android:layout_toRightOf="@+id/editTextScan"
+        android:textColor="@color/yellow"/>
 
-    </TextView>
-
-<!-- Edit Text for scanning-->
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Enter your scan here"
-        android:layout_toRightOf="@+id/txtscan"
-        android:id="@+id/editscan"
-        android:layout_marginLeft="10dp"
-        android:nextFocusRight="@id/txtscan"
-        android:layout_marginStart="5dp"
-        android:maxLines="1"
+        android:id="@+id/scan_id"
+        android:layout_below="@id/txtScan"
+        android:layout_toRightOf="@+id/itemName"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/txtItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dp"
+        android:layout_below="@+id/txtScan"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="Item Name"
+        android:textColor="@color/yellow" />
+
+    <EditText
+        android:id="@+id/itemName"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:layout_toRightOf="@+id/txtItemName"
+        android:layout_below="@id/editTextScan"
+        android:hint="Item Name"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/txtItemCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/itemName"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="Item Code"
+        android:textColor="@color/yellow" />
+
+    <EditText
+        android:id="@+id/itemCode"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="61dp"
+        android:layout_marginLeft="61dp"
+        android:layout_toRightOf="@+id/txtItemCode"
+        android:layout_below="@+id/itemName"
+        android:hint="Item Code"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:id="@+id/txtItemModel"
+        android:textColor="@color/yellow"
+        android:text="Item Model"
+        android:layout_below="@+id/txtItemCode"/>
+
+
+    <EditText
+        android:id="@+id/itemModel"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/itemCode"
+        android:layout_marginStart="53dp"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/txtItemModel"
+        android:hint="Item Model"
+        android:textColor="@color/white"
         />
-        <Button
-            android:id="@+id/BtnAdd"
-            android:layout_width="130dp"
-            android:layout_height="50dp"
-            android:backgroundTint="@color/red"
-            android:layout_toRightOf="@+id/editscan"
-            android:textColor="@color/white"
-            android:text="Add"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:layout_alignParentRight="true"
-
-            />
+    <TextView
+        android:layout_marginTop="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginStart="10dp"
+        android:id="@+id/txtItemPartNumber"
+        android:textColor="@color/yellow"
+        android:text="Item Part Number"
+        android:layout_below="@+id/txtItemModel"/>
 
 
-    </RelativeLayout>
-</RelativeLayout>
+    <EditText
+        android:id="@+id/itemPartNumber"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/itemModel"
+        android:layout_marginStart="10dp"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/txtItemPartNumber"
+        android:hint="Item Part Number"
+        android:textColor="@color/white"
+        />
+    <TextView
+        android:layout_marginTop="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:id="@+id/txtSerialNumber"
+        android:textColor="@color/yellow"
+        android:layout_marginStart="10dp"
+        android:text="Serial Number"
+        android:layout_below="@+id/txtItemPartNumber"/>
 
-    <TableLayout
+
+    <EditText
+        android:id="@+id/serialNumber"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/itemPartNumber"
+        android:layout_marginStart="34dp"
+        android:layout_toRightOf="@+id/txtSerialNumber"
+        android:hint="Serial Number"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_marginTop="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:id="@+id/txtBarcodeNumber"
+        android:textColor="@color/yellow"
+        android:layout_marginStart="10dp"
+        android:text="Barcode Number"
+        android:layout_below="@+id/txtSerialNumber"/>
+
+
+    <EditText
+        android:id="@+id/barcodeNumber"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/serialNumber"
+        android:layout_marginStart="17dp"
+        android:layout_toRightOf="@+id/txtBarcodeNumber"
+        android:hint="Barcode Number"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_marginTop="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:id="@+id/txtQuantity"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/yellow"
+        android:text="Quantity"
+        android:layout_below="@+id/txtBarcodeNumber"/>
+
+
+    <EditText
+        android:id="@+id/quatity"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/barcodeNumber"
+        android:layout_marginStart="74dp"
+        android:layout_toRightOf="@+id/txtQuantity"
+        android:hint="Quantity"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"/>
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tableid"
-        android:layout_marginTop="47dp"
-        android:stretchColumns="1,2,3,4"
-        android:background="@drawable/cast_skip_ad_label_border"
-        >
-
-        <TableRow>
-            <TextView
-                android:text="Item Code"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                android:padding="10dp"
-                android:layout_column="1"
-                android:textColor="@color/yellowheader"
-                />
-            <TextView
-                android:text="Bar Code"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                android:padding="10dp"
-                android:layout_column="1"
-                android:textColor="@color/yellowheader"
-               />
-            <TextView
-                android:text="Serial Number"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                android:padding="10dp"
-                android:layout_column="1"
-                android:textColor="@color/yellowheader"
-                />
-            <TextView
-                android:text="Quantity"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                android:padding="10dp"
-                android:layout_column="1"
-                android:textColor="@color/yellowheader"
-                />
+        android:layout_marginTop="10dp"
+        android:text="Scan"
+        android:id="@+id/btnScan"
+        android:layout_below="@+id/quatity"
+        android:backgroundTint="@color/red"/>
 
 
-        </TableRow>
-
-    </TableLayout>
-
-
-    <RelativeLayout
+    <Button
+        android:layout_marginTop="10dp"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/red"
+        android:textSize="10dp"
+        android:text="Insert Befor"
+        android:id="@+id/btnInsertBefor"
+        android:layout_below="@+id/btnScan"/>
+    <Button
+        android:layout_marginTop="10dp"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        android:backgroundTint="@color/red"
+        android:textSize="10dp"
+        android:text="Insert"
+        android:id="@+id/btnInsert"
+        android:layout_toRightOf="@+id/btnInsertBefor"
+        android:layout_below="@+id/btnScan"/>
+    <Button
+        android:layout_marginTop="10dp"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/red"
+        android:layout_marginStart="5dp"
+        android:textSize="10dp"
+        android:text="Insert After"
+        android:id="@+id/btnInsertAfter"
+        android:layout_toRightOf="@+id/btnInsert"
+        android:layout_below="@+id/btnScan"/>
+    <Button
+        android:layout_marginTop="10dp"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/red"
+        android:layout_marginStart="5dp"
+        android:textSize="10dp"
+        android:text="Last"
+        android:id="@+id/btnLast"
+        android:layout_toRightOf="@+id/btnInsertAfter"
+        android:layout_below="@+id/btnScan"/>
+    <Button
+        android:layout_marginTop="10dp"
+        android:layout_width="205dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/red"
+        android:textSize="10dp"
+        android:text="Previews"
+        android:id="@+id/btnPrevious"
+        android:layout_below="@+id/btnInsertBefor"/>
+    <Button
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="50dp"
+        android:backgroundTint="@color/red"
+        android:layout_marginStart="8dp"
+        android:textSize="10dp"
+        android:text="Next"
+        android:id="@+id/btnNext"
+        android:layout_toRightOf="@+id/btnPrevious"
+        android:layout_below="@+id/btnInsertBefor"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:layout_marginTop="116dp"
-            android:layout_marginStart="5dp"
-            android:id="@+id/scanrecview"
-            android:foregroundGravity="right"
-            android:scrollbars="vertical"/>
-
-    <!-- display Main Page button -->
-        <RelativeLayout
-            android:layout_marginLeft="100dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/scanrecview"
-            android:layout_marginTop="0dp"
-            android:gravity="center">
-
-            <ImageButton
-                android:id="@+id/btnSaveScan"
-                android:layout_width="100dp"
-                android:layout_height="60dp"
-                android:layout_alignParentBottom="true"
-                android:text="Save"
-                android:background="@drawable/ic_save_item_foreground"/>
-
-
-            <ImageButton
-                android:id="@+id/btnMainScan"
-                android:layout_width="100dp"
-                android:layout_height="60dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="5dp"
-                android:layout_toRightOf="@+id/btnSaveScan"
-                android:background="@drawable/ic_main_page_foreground"
-                android:text="Main Page"
-                android:textStyle="bold" />
-        </RelativeLayout>
+    <Button
+        android:layout_marginTop="10dp"
+        android:layout_width="205dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/red"
+        android:textSize="10dp"
+        android:text="Save"
+        android:id="@+id/BtnSave"
+        android:layout_below="@+id/btnPrevious"/>
+    <Button
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/red"
+        android:layout_marginStart="8dp"
+        android:textSize="10dp"
+        android:text="Delete"
+        android:id="@+id/BtnDelete"
+        android:layout_toRightOf="@+id/BtnSave"
+        android:layout_below="@+id/btnNext"/>
 
 
-    </RelativeLayout>
-</FrameLayout>
+
+
+</RelativeLayout>

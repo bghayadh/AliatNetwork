@@ -18,7 +18,7 @@ import java.util.List;
 
 import oracle.jdbc.proxy.annotation.Post;
 
-public class TicketRecViewAdapter extends RecyclerView.Adapter<TicketRecViewAdapter.ViewHolder> {
+public class    TicketRecViewAdapter extends RecyclerView.Adapter<TicketRecViewAdapter.ViewHolder> {
 
     private ArrayList<TicketListView> tickets =new ArrayList<>();
     private Context context;
@@ -30,9 +30,9 @@ public class TicketRecViewAdapter extends RecyclerView.Adapter<TicketRecViewAdap
     @NonNull
     @Override
     public TicketRecViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.ticket_list_item,parent,false);
-        TicketRecViewAdapter.ViewHolder holder =new TicketRecViewAdapter.ViewHolder (view);
-        return holder;
+            View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.ticket_list_item,parent,false);
+            TicketRecViewAdapter.ViewHolder holder =new TicketRecViewAdapter.ViewHolder (view);
+            return holder;
     }
 
     @Override

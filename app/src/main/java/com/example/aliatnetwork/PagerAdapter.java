@@ -18,6 +18,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
             case 0: return new Infofragment();
             case 1: return new Imagefragment();
             case 2: return new Scanfragment();
+            case 3: return new FragmentScanList();
             default:  return null;
         }
 

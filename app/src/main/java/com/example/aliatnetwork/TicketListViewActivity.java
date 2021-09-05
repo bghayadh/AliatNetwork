@@ -82,7 +82,7 @@ public class TicketListViewActivity extends AppCompatActivity {
     private Button btnprevious, btnnext, btnnew,btnmain;
     private DatePickerDialog pickerDialog;
     public TextView editInfoSave;
-    public ImageButton btnImaDate;
+    public Button btnImaDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

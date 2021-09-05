@@ -41,8 +41,7 @@ public class SiteRecViewAdapter extends RecyclerView.Adapter<SiteRecViewAdapter.
         holder.txtsiteid.setText(sites.get(position).getSITEID ());
         holder.txtwarename.setText(sites.get(position).getWARENAME ());
         holder.txtwareaddr.setText(sites.get(position).getWADDRESS ());
-        holder.txtwarelat.setText(sites.get(position).getWARELAT ());
-        holder.txtwarelng.setText(sites.get (position).getWARELNG ());
+
 
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +74,7 @@ public class SiteRecViewAdapter extends RecyclerView.Adapter<SiteRecViewAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private RelativeLayout parent;
-        private TextView txtwareid,txtsiteid,txtwarename,txtwareaddr,txtwarelat,txtwarelng;
+        private TextView txtwareid,txtsiteid,txtwarename,txtwareaddr;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -83,8 +82,7 @@ public class SiteRecViewAdapter extends RecyclerView.Adapter<SiteRecViewAdapter.
             txtsiteid=itemView.findViewById(R.id.txtsiteid);
             txtwarename=itemView.findViewById(R.id.txtwarename);
             txtwareaddr=itemView.findViewById(R.id.txtwareaddr);
-            txtwarelat=itemView.findViewById(R.id.txtwarelat);
-            txtwarelng=itemView.findViewById(R.id.txtwarelng);
+
             parent=itemView.findViewById(R.id.parent);
         }
     }
